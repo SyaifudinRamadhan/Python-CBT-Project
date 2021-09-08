@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Login - CBT Test</title>
+	<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+	<link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/styles.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+</head>
+<body>
+	<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+			<div class="container">
+				<a class="navbar-brand logo" href="#">CBT Web</a>
+				<button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+					<span class="visually-hidden">Toggle navigation</span>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navcol-1">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link active js-scroll-trigger" href="{% url 'home' %}">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link js-scroll-trigger" href="#feature">Features</a>
+						</li>
+						<li class="nav-item js-scroll-trigger">
+							<a class="nav-link" href="#about">About Us</a>
+						</li>
+						<li class="nav-item js-scroll-trigger">
+							<a class="nav-link" href="#contact">Contact Us</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	
+{% block mainContent %}
+	
+{% endblock mainContent %}
+
+<footer class="page-footer dark">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<h5>Get started</h5>
+				<ul>
+					<li>
+						<a href="#">Home</a>
+					</li>
+					<li>
+						<a href="#">Sign up</a></li></ul></div><div class="col-sm-3">
+							<h5>About us</h5>
+							<ul>
+								<li>
+									<a href="#">Company Information</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-sm-3">
+							<h5>Support</h5>
+							<ul>
+								<li>
+									<a href="#">Customer Service</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="footer-copyright">
+					<p>© 2021 Copyright Text</p>
+				</div>
+			</footer>
+	<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+	<script src="static 'assets/js/script.min.js"></script>
+</body>
+</html>

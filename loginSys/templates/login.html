@@ -1,0 +1,28 @@
+{% extends "base_nav_inf.html" %}
+
+{% block mainContent %}
+
+<main class="page login-page">
+		<section class="clean-block clean-form dark">
+			<div class="container">
+				<div class="block-heading">
+					<h2 class="text-info">Log In</h2>
+					<p>Please fill the form below</p>
+				</div>
+				<form method="post">
+					{% csrf_token %}
+					<div class="mb-3">
+						<label class="form-label" for="email">NIS/ NRP/ No.Induk/ Id Number</label>
+						<input class="form-control item" type="text" id="username" name="username" required>
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="password">Password</label>
+						<input class="form-control" type="password" id="password" name="password" required>
+					</div>
+				<button class="btn btn-primary" type="submit" id="login">Log In</button>
+			</form>
+		</div>
+	</section>
+</main>
+	
+{% endblock mainContent %}

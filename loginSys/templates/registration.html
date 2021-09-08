@@ -1,0 +1,48 @@
+{% extends "base_nav_inf.html" %}
+
+{% block mainContent %}
+
+    <main class="page registration-page">
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Registration</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Username</label>
+                        <input class="form-control item" type="text" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control item" type="password" id="password" name="pass" minlength="10" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="fname">Nama depan</label>
+                        <input class="form-control item" type="text" id="fname" name="fname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="lname">Nama belakang</label>
+                        <input class="form-control item" type="text" id="lname" name="lname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="nrp">No. Induk</label>
+                        <input class="form-control item" type="number" id="nrp" name="nrp" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="email">Email</label><input class="form-control item" type="email" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="code">Kode Guru</label>
+                        <p class="text-center" style="font-size:10pt;">Kode guru adalah ID guru yang siswa ikuti. Jika pendaftar menginputkan kode guru, maka akan secara otomatis terdaftar sebagai siswa. Namun jika dikosongi, maka pendaftar akan di set sebagai guru, ketik admin untuk menjadi admin</p>
+                        <input class="form-control item" type="text" name="type" id="code">
+                    </div>
+                    <button class="btn btn-primary" type="submit" style="margin-top: 18px;">Sign Up</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+{% endblock mainContent %}

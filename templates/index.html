@@ -1,0 +1,114 @@
+{% extends "base_nav_inf.html" %}
+{% load static %}
+
+{% block mainContent %}
+
+    <main class="page landing-page">
+        <section id="top" class="clean-block clean-hero" style="background: url(&quot;{% static 'assets/img/tech/computer-lab-borivali-students.jpg' %}&quot;) center / auto;color: rgba(13,110,253,0.64);">
+            <div class="text">
+                <h2>Welcome to CBT Website</h2>
+                <p>CBT Website adalah website untuk melakukan ujian berbasis komputer (Computer Basis Test) yang dapat dilakukan secara daring.</p>
+                 <a class="btn btn-outline-light btn-lg" role="button" data-bss-hover-animate="tada" href="{% url 'login:log_in' %}">Login</a>
+                 <a class="btn btn-outline-light btn-lg ms-2" role="button" data-bss-hover-animate="tada" href="{% url 'login:singup' %}">Sing Up</a>
+            </div>
+        </section>
+
+        <section id="info" class="clean-block clean-info dark">
+            <div class="container">
+                <div id="info" class="block-heading">
+                    <h2 class="text-info">Info</h2>
+                    <p>CBT Website ialah model sistem ujian berbasis komputer dengan tipe web app yang terhubung secara daring. Sehingga guru, dan siswa dapat mengakses web app ini dimanapun.</p>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-6"><img class="img-thumbnail" src="assets/img/scenery/image5.jpg"></div>
+                    <div class="col-md-6">
+                        <h3>Daftar sekarang di web app kami</h3>
+                        <div class="getting-started-info">
+                            <p>Kami menyediakan akses ke full system secara gratis untuk sementara ini. Guru dapat melakukan sing up dengan akses khusus guru. Dan siswa juga bisa mendafftar secara individu tanpa harus didaftarkan oleh guru</p>
+                        </div>
+                            <a class="btn btn-outline-primary btn-lg" role="button" href="{% url 'login:singup' %}">Join Now
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="feature" class="clean-block features">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Features</h2>
+                    <p>Kami menawarkan beberapa fitur unggulan dalam web app kami, dengan diantaranya sebagai berikut.</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-5 feature-box"><i class="icon-star icon"></i>
+                        <h4>Easly on Access 4</h4>
+                        <p>Kemudahan akses bagi guru dan siswa ini ditunjang dengan tampilan system yang sederhana dan mudah dimengerti namun cukup kompleks.</p>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-pencil icon"></i>
+                        <h4>Evaluation</h4>
+                        <p>Web app kami juga menawarkan fitur evaluasi terhadap kemampuan hasil belajar siswa dari hasil ujian. Dan juga mengevaluasi kompetensi guru berdasrkan hasil ujian siswa pula.</p>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-screen-smartphone icon"></i>
+                        <h4>Responsive</h4>
+                        <p>Web app ini memiliki kemapuan responsif untuk diakses melalui mobile maupun dekstop. Sehingga user akan dengan mudah untuk emngaksesnya.</p>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-refresh icon"></i>
+                        <h4>All Browser Compatibility</h4>
+                        <p>System ini kami bangun dengan framework yang cukup baik, sehingga akan memiliki kompatibilitas terhadap berbagai macam browser.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="clean-block slider dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">About App</h2>
+                    <p>Ini adalah beberapa cuplikan tampilan web app kami. Web app ini kami kembangkan dari tugas porject kuliah mata kuliah pemrograman website dengan kami mengambil tema CBT test.</p>
+                </div>
+                <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active"><img class="w-100 d-block" src="{% static 'img/dasboard.jpeg' %}" alt="Slide Image"></div>
+                        <div class="carousel-item"><img class="w-100 d-block" src="{% static 'img/loginview.jpeg' %}" alt="Slide Image"></div>
+                        <div class="carousel-item"><img class="w-100 d-block" src="{% static 'img/registerview.jpeg' %}" alt="Slide Image"></div>
+                    </div>
+                    <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
+                    <ol class="carousel-indicators">
+                        <li data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></li>
+                        <li data-bs-target="#carousel-1" data-bs-slide-to="1"></li>
+                        <li data-bs-target="#carousel-1" data-bs-slide-to="2"></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="clean-block about-us">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Hubungi Kami</h2>
+                    <p>Hubungi kami jika mengalami kendala akses maupun ada bug / cacat dalam system ini.</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/avatars/avatar1.jpg">
+                            <div class="card-body info">
+                                <h4 class="card-title">Farro Axza</h4>
+                                <p class="card-text">087721618968</p>
+                                <div class="icons"><a href="#"><i class="icon-social-google" data-bs-toggle="tooltip" data-bss-tooltip="" title="farro.19051204062@mhs.unesa.ac.id"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/avatars/avatar2.jpg">
+                            <div class="card-body info">
+                                <h4 class="card-title"><strong>Ahmad Syaifudin&nbsp;</strong></h4>
+                                <p class="card-text">088217466532</p>
+                                <div class="icons"><a href="#"><i class="icon-social-google"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </main>
+    
+{% endblock mainContent %}
