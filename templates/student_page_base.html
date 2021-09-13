@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <title>ThreeQuiz | Student</title>
+  </head>
+  <body style="background-color:#fce3c7" onload="timeLoad()">
+   <!-- Mengatur Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light p-3" style="background-color:#ffa94d;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'img/bootstrap-logo.svg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+          ThreeQuiz
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{% url 'index' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'schedule' %}">Daftar Jadwal</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 's_test' %}">Mulai Tes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="{% url 'v_val' %}">Lihat Nilai</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="{% url 'eval' %}">Evaluasi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="{% url 'my_acc' %}">Ubah Akun</a>
+            </li>
+          </ul>
+          <div class="d-flex mt-2 justify-content-end">
+            <a href="{% url 'login:logout' %}" class="nav-link link-dark">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-up-right-square" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.854 8.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707l-4.096 4.096z"/>
+              </svg>
+                 &nbsp;Logout
+            </a>
+          </div>
+        </div>
+        
+      </div>
+    </nav>
+
+    <div class="text-center p-2 bg-warning d-flex justify-content-center">
+      <h6>{{ name }} | &nbsp;</h6>
+      <h6 id="time"> </h6>
+    </div>
+
+    <!-- Content Utama dalam row dan col ini -->
+    <div class="container mt-1">
+      <div class="row">
+        <div class="col">
+          {% block leftcontent %}
+            
+          {% endblock leftcontent %}
+        </div>
+        <div class="col-9 p-3 bg-light">
+          {% block maincontent %}
+            
+          {% endblock maincontent %}
+        </div>
+        <div class="col">
+          {% block rightcontent %}
+            
+          {% endblock rightcontent %}
+        </div>
+      </div>
+
+    <script src="{% static 'script/time.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"⁄⁄></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

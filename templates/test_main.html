@@ -1,0 +1,32 @@
+{% extends "base_test_page.html" %}
+
+{% block leftcontent %}
+  
+          <div class="container mt-5">
+            <h6>Navigasi Soal</h6>
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">3</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled">4</a>
+              </li>
+            </ul>
+
+            <ul class="nav nav-pills mt-3">
+              <li class="nav-item">
+                <a class="nav-link"><button class="btn btn-primary">Prev</button></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"><button class="btn btn-primary">Next</button></a>
+              </li>
+            </ul>
+          </div>
+
+{% endblock leftcontent %}

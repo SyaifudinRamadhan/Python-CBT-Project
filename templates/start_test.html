@@ -1,0 +1,33 @@
+{% extends "student_page_base.html" %}
+
+{% load static %}
+
+{% block maincontent %}
+
+<div class="card mt-5">
+  <div class="card-header bg-danger text-light">
+    Mulai Tes / Ujian
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Halaman Memulai Tes / Ujian</h5>
+    <p class="card-text">Sebelum memulai tes, pahami dengan saksama aturan pengerjaan di bawah ini : <br>
+    	1. ...........<br>
+    	2. ...............<br></p>
+   
+  </div>
+</div>
+
+<form action="/std_test_run" method="post" class="row g-3 mt-5 justify-content-center">
+  {% csrf_token %}
+  <div class="col-auto">
+    <label for="inputPassword2" >Token Tes / Ujian</label>
+  </div>
+  <div class="col-auto">
+    <input type="text" class="form-control" id="inputPassword2" name="token" placeholder="Token">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3" name="start-test">Mulai Tes / Ujian</button>
+  </div>
+</form>
+	
+{% endblock maincontent %}

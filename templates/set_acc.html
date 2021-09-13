@@ -1,0 +1,83 @@
+{% extends "student_page_base.html" %}
+
+{% load static %}
+
+{% block maincontent %}
+
+	<div class="card mt-3">
+	  <div class="card-header bg-info">
+	   Ubah Akun Saya
+	  </div>
+	  <div class="card-body">
+	    <h5 class="card-title">Halaman Pengaturan Akun Saya</h5>
+	    <p class="card-text">Ini adalah halaman untuk mengatur akun siswa di kelas ini.</p>
+	  </div>
+	</div>
+
+	<div >
+	  <div>
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Akun Saya {{ user }}</h5>
+	      </div>
+
+	      <div class="d-flex justify-content-center rounded-circle">
+	      	<img class="rounded-circle" width="250px" height="250px" src="{{ profile }}">
+	      </div>
+	     
+	      <form method="post" action="" enctype="multipart/form-data">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		          <div class="mb-3">
+				    <label for="username" class="form-label">Username</label>
+				    <input type="text" name="username" required class="form-control" id="username" value="{{ sec_user.username }}">
+				  </div>
+				  <div class="mb-3">
+				    <label for="email" class="form-label">Alamat E-Mail</label>
+				    <input type="email" name="email" required class="form-control" id="email" aria-describedby="emailHelp" value="{{ mainUser.email }}">
+				    <div id="emailHelp" class="form-text">Kerahasian data anda kami jamin</div>
+				  </div>
+				  <div class="mb-3">
+				    <label for="noinduk" class="form-label">No Induk / NRP / Id Number</label>
+				    <input type="text" name="noinduk" required class="form-control" id="noinduk" value="{{ mainUser.username }}">
+				  </div>
+				  <div class="mb-3">
+				    <label for="fname" class="form-label">Nama depan</label>
+				    <input type="text" name="fname" required class="form-control" id="fname" value="{{ mainUser.first_name }}">
+				  </div>
+				  <div class="mb-3">
+				    <label for="lname" class="form-label">Nama belakang</label>
+				    <input type="text" name="lname" required class="form-control" id="lname" value="{{ mainUser.last_name }}">
+				  </div>
+				  <div class="mb-3">
+				    <label for="guru_id" class="form-label">Kode Guru</label>
+				    <input type="text" name="guru_id" required class="form-control" id="guru_id" value="{{ std_user.guru_id }}">
+				  </div>
+				  <div class="mb-3">
+				    <label for="pwd0" class="form-label">Password Sebelumnya</label>
+				    <input type="password" name="pwd0" minlength="10" class="form-control" id="pwd0">
+				  </div>
+				  <div class="mb-3">
+				    <label for="pwd" class="form-label">Password Baru</label>
+				    <input type="password" name="pwd" minlength="10" class="form-control" id="pwd">
+				  </div>
+				  {% for note in confirm %}
+				  	<div class="text-center text-danger mb-1">{{ note }}</div>
+				  {% endfor %}
+				    <label for="pwd" class="form-label">Update Foto Profil</label>
+				  <div class="input-group mb-3">
+					  <input type="file" class="form-control" id="inputGroupFile02" name="photo">
+					  <label class="input-group-text" for="inputGroupFile02">Upload</label>
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="submit" name="edit" class="btn btn-primary">Submit</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+	
+	
+{% endblock maincontent %}

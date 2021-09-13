@@ -16,9 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'home'),
+    path('stdn_auth', views.dashboard, name = 'index'),
+    path('schedule_list', views.schedule, name = 'schedule'),
+    path('start_test', views.startTest, name = 's_test'),
+    path('view_result_test', views.viewResTest, name = 'v_val'),
+    path('set_acc', views.setAccount, name = 'my_acc'),
+    path('evaluation_view', views.evaluationView, name = 'eval'),
+    path('std_test_run', views.testMain, name = 'testrun'),
     path('oAuth', include(('loginSys.urls','loginSys'), namespace = 'login')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

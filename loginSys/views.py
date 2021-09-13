@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from . import models
 from . import functions
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -17,21 +18,32 @@ def singUp (request):
 		status = ''
 
 		if kode_guru != '':
-			status = 'siswa'
-		if kode_guru == 'admin':
-			status = 'admin'
+			if kode_guru == 'admin' :
+				status = 'admin'
+			else :
+				status = 'siswa'
 		else :
 			status = 'guru'
 
 		print(status)
 
-		# Input daya ke database user utama
-		usr = User.objects.create_user(no_induk, email, password)
-		usr.first_name = first_name1
-		usr.last_name = last_name1
-		usr.save()
+		try:
+			# Input daya ke database user utama
+			usr = User.objects.create_user(no_induk, email, password)
+			usr.first_name = first_name1
+			usr.last_name = last_name1
+			usr.save()
+		except Exception as e:
+			context = {
+				'error_message':[
+				'Registrasi GAGAL !!!', 
+				e,
+				'No Induk / NRP / NIS sudah terdaftar'
+				],
+			}
+			return render(request, 'registration.html', context)
 		# Extend dari user utma untuk semua user
-		usr_sec = models.user_second(no_induk = no_induk, username = username, status = status)
+		usr_sec = models.user_second(no_induk = no_induk, username = username, status = status, profile = 'default.jpg')
 		usr_sec.save()
 		# Extend user secunder setiap status
 		if status == 'siswa':
@@ -49,7 +61,7 @@ def singUp (request):
 			}
 			return render(request, doc, context)
 		else :
-			return render(request, doc)
+			return redirect(doc)
 
 	return render(request, 'registration.html')
 
@@ -68,6 +80,14 @@ def login(request):
 			}
 			return render(request, doc, context)
 		else :
-			return render(request, doc)
+			return redirect(doc)
 
 	return render(request, 'login.html') 
+
+def log_out(request):
+
+	if request.user != 'AnonymousUser' :
+		logout(request)
+		return redirect('/oAuth')
+	else :
+		return redirect('/oAuth')

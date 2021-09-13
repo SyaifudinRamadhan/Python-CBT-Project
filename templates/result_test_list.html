@@ -1,0 +1,98 @@
+{% extends "student_page_base.html" %}
+
+{% load static %}
+
+{% block maincontent %}
+
+	<div class="card mt-3">
+	  <div class="card-header bg-info">
+	    Daftar Nilai
+	  </div>
+	  <div class="card-body">
+	    <h5 class="card-title">Halaman Daftar Nilai</h5>
+	    <p class="card-text">Ini adalah halaman daftar nilai tes yang siswa lakukan di kelas ini.</p>
+	  </div>
+	</div>
+
+	<nav class="navbar navbar-light bg-light mt-5">
+	  <div class="container-fluid justify-content-end">
+	    <form class="d-flex">
+	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+	      <button class="btn btn-outline-success" type="submit">Search</button>
+	    </form>
+	  </div>
+	</nav>
+
+	<table class="table mt-2 mb-3">
+	  <thead class="table-dark">
+	    <tr>
+	    	<td>Tanggal</td>
+	    	<td>Id Guru</td>
+	    	<td>MaPel</td>
+	    	<td>Nilai</td>
+	    </tr>
+	  </thead>
+	  <tbody>
+	{% if count != 0 %}
+		{% for v in data %}
+			<tr>
+			    <td>{{ v.0 }}</td>
+			    <td>{{ v.2 }}</td>
+			    <td>{{ v.1 }}</td>
+			    <td>{{ v.3 }}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	  		<tr>
+		    	<td></td>
+		    </tr>
+	  </tbody>
+	</table>
+	<div class="text-center">Hasil Ujian Belum Ada</div>
+	{% endif %}
+
+	<div class="d-flex justify-content-center">
+		{% if data.has_other_pages %}
+			<nav aria-label="...">
+			  <ul class="pagination">
+
+			    {% if data.has_previous %}
+			    <li class="page-item ">
+			      <a class="page-link" href="?page={{ data.previous_page_number }}">Prev</a>
+			    </li>
+			    {% else %}
+			    <li class="page-item disabled">
+			      <a class="page-link" href="">Prev</a>
+			    </li>
+			    {% endif %}
+
+			    {% for x in data.paginator.page_range %}
+			    	{% if data.number == x %}
+			    	<li class="page-item active">
+				    	<a class="page-link" href="?page={{ x }}">{{ x }}</a>
+				    </li>
+			    	{% else %}
+			    	<li class="page-item">
+				    	<a class="page-link" href="?page={{ x }}">{{ x }}</a>
+				    </li>
+			    	{% endif %}
+			    {% endfor %}
+			    
+			    {% if data.has_next %}
+			    	<li class="page-item">
+			     		 <a class="page-link" href="?page={{ data.next_page_number }}">Next</a>
+			  		 </li>
+			  	{% else %}
+				  	<li class="page-item disabled">
+				      <a class="page-link" href="">Next</a>
+				    </li>
+			    {% endif %}
+			  </ul>
+			</nav>
+		{% endif %}
+	</div>
+
+	
+{% endblock maincontent %}

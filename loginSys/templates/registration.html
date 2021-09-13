@@ -9,6 +9,9 @@
                     <h2 class="text-info">Registration</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
                 </div>
+                {% for e in error_message %}
+                    <div class="text-center text-danger mb-1">{{ e }}</div>
+                {% endfor %}
                 <form method="post">
                     {% csrf_token %}
                     <div class="mb-3">

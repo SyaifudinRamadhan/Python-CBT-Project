@@ -5,6 +5,7 @@ class user_second(models.Model):
 	no_induk = models.CharField(max_length = 20)
 	username = models.CharField(max_length = 50)
 	status = models.CharField(max_length = 10)
+	profile = models.CharField(max_length = 50, blank=True)
 
 	def _str_(self):
 		return self.username
