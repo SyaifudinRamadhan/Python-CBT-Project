@@ -53,6 +53,8 @@ class quest_data (models.Model):
 class result_test (models.Model):
 	date = models.DateField()
 	result = models.FloatField()
+	state_test = models.CharField(max_length = 10, blank = True)
+	token = models.CharField(max_length = 10, blank = True)
 	# FK
 	id_quest = models.IntegerField()
 	id_students = models.CharField(max_length = 20)

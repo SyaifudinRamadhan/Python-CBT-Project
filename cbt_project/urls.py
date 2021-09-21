@@ -32,6 +32,7 @@ urlpatterns = [
     path('evaluation_view', views.evaluationView, name = 'eval'),
     path('std_test_run', views.testMain, name = 'testrun'),
     path('oAuth', include(('loginSys.urls','loginSys'), namespace = 'login')),
+    path('cek', views.cek),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

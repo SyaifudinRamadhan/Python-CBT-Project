@@ -11,18 +11,18 @@ def answear_view_process (data) :
 		for j in range(1,6) :
 			t = []
 			num = str(j)
-			if str(type(data[i][j_s])) != "<class 'float'>" or str(type(data[i][j_s+1])) != "<class 'float'>" :
-				if str(type(data[i][j_s])) == "<class 'float'>" :
+			if pd.isna(data[i][j_s]) != True or pd.isna(data[i][j_s+1]) != True :
+				if pd.isna(data[i][j_s]) == True :
 					t.append('')
-					t.append(num+'@'+data[i][j_s+1])
+					t.append(num+'^`@`^'+data[i][j_s+1])
 					# print('masuk 1.0')
-				elif str(type(data[i][j_s+1])) == "<class 'float'>" :
-					t.append(num+'@'+data[i][j_s])
+				elif pd.isna(data[i][j_s+1]) == True :
+					t.append(num+'^`@`^'+data[i][j_s])
 					t.append('')
 					# print('masuk 1.1')
 				else:
-					t.append(num+'@'+data[i][j_s])
-					t.append(num+'@'+data[i][j_s+1])
+					t.append(num+'^`@`^'+data[i][j_s])
+					t.append(num+'^`@`^'+data[i][j_s+1])
 					# print('masuk 1.2')
 			else :
 				t.append('')
@@ -52,22 +52,22 @@ def answear_view_process (data) :
 				val_ans.append('')
 			elif tmp[k][0] != '' and tmp[k][1] == '' :
 				# Hasil divid index 0 = value index 1 = text
-				divid_0 = tmp[k][0].split('@')
+				divid_0 = tmp[k][0].split('^`@`^')
 				
 				ans_txt.append(divid_0[1])
 				ans_txt.append('')
 				val_ans.append(divid_0[0])
 			elif tmp[k][0] == '' and tmp[k][1] != '' :
 				# Hasil divid index 0 = value index 1 = text
-				divid_1 = tmp[k][1].split('@')
+				divid_1 = tmp[k][1].split('^`@`^')
 
 				ans_txt.append('')
 				ans_txt.append(divid_1[1])
 				val_ans.append(divid_1[0])
 			elif tmp[k][0] != '' and tmp[k][1] != '' :
 				# Hasil divid index 0 = value index 1 = text
-				divid_0 = tmp[k][0].split('@')
-				divid_1 = tmp[k][1].split('@')
+				divid_0 = tmp[k][0].split('^`@`^')
+				divid_1 = tmp[k][1].split('^`@`^')
 
 				ans_txt.append(divid_0[1])
 				ans_txt.append(divid_1[1])
@@ -161,41 +161,53 @@ def run_test (directory) :
 	error = True
 
 	for i in range(len(full_quest)):
-		if str(type(full_quest[i][5])) == "<class 'float'>" :
+		if pd.isna(full_quest[i][5]) == True :
 			text_quest.append('')
 		else :
-			text_quest.append(full_quest[i][5])
+			text_quest.append(str(full_quest[i][5]))
 
-		if str(type(full_quest[i][1])) == "<class 'float'>" :
+		if pd.isna(full_quest[i][1]) == True or full_quest[i][1] > 2:
 			type_quest.append('')
 			error = False
 		else :
-			type_quest.append(full_quest[i][1])
+			type_quest.append(int(full_quest[i][1]))
 
-		if str(type(full_quest[i][2])) == "<class 'float'>" :
-			max_check.append('')
+		if pd.isna(full_quest[i][2]) == True :
+			if type_quest[i] == 2 :
+				if int(full_quest[i][1]) == 0 :
+					error = False
+			max_check.append(0)
 		else :
-			max_check.append(full_quest[i][2])
+			max_check.append(int(full_quest[i][2]))
 
-		if str(type(full_quest[i][16])) == "<class 'float'>" :
+		if pd.isna(full_quest[i][16]) == True :
 			audio_quest.append('')
 		else :
-			audio_quest.append(full_quest[i][16])
+			audio_quest.append(str(full_quest[i][16]))
 
-		if str(type(full_quest[i][17])) == "<class 'float'>" :
+		if pd.isna(full_quest[i][17]) == True :
 			videos_quest.append('')
 		else :
-			videos_quest.append(full_quest[i][17])
+			videos_quest.append(str(full_quest[i][17]))
 
-		if str(type(full_quest[i][18])) == "<class 'float'>" :
+		if pd.isna(full_quest[i][18]) == True :
 			img_quest.append('')
 		else :
-			img_quest.append(full_quest[i][18])
+			img_quest.append(str(full_quest[i][18]))
 
-		if str(type(full_quest[i][19])) == "<class 'float'>" :
+		# Sudah dikoreksi (21-09-2021)
+		if pd.isna(full_quest[i][19]) == True :
 			keys.append('')
+			error = False
 		else :
-			keys.append(str(full_quest[i][19]))
+			if_checkbox = ''
+			if type_quest[i] == 2 :
+				ans = str(full_quest[i][19]).split('-')
+				keys.append(ans)
+				if len(ans) != max_check[i]:
+					error = False
+			else:
+				keys.append(str(int(full_quest[i][19])))
 
 	context = {
 		'text_quest' : text_quest,
@@ -209,7 +221,33 @@ def run_test (directory) :
 	}
 
 	return context, keys, error
+# Ini sudah benar (koreksi tingal jika type checkbox 20 - 09 2021)
+def correctionAns(objAnswear, objDataQuest) :
+	typeQuest = objDataQuest.getTypeQuest()
+	val_quest = 100/objAnswear.get_len()
+	ans_keys = objDataQuest.getKeys()
+	countVal = 0
+	print(type(typeQuest[0]),' ztipe quest ',objAnswear.get_len(),'\n')
+	for i in range(objAnswear.get_len()):
+		if typeQuest[i] == 1 :
+			print(objAnswear.get_list(i),' ',ans_keys,' ',val_quest,'\n')
+			if objAnswear.get_list(i) == ans_keys[i] :
+				print(countVal,'\n')
+				countVal += val_quest
+		elif typeQuest[i] == 2 :
+			val_quest_multi = val_quest/len(ans_keys[i])
+			# Doubel loop untuk cek jawaban multi jawaban
+			ans_list = objAnswear.get_list(i)
+			for j in range(len(ans_list)):
+				for k in range(len(ans_keys[i])):
+					if str(ans_list[j]) == str(ans_keys[i][k]):
+						print(objAnswear.get_list(i),' ',ans_keys,' ',val_quest_multi,'\n')
+						print(countVal,'\n')
+						countVal += val_quest_multi
 
+	objAnswear.reset()
+	objDataQuest.reset()
+	return countVal
 
 
 

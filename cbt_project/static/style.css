@@ -1,0 +1,29 @@
+.bg-red {
+	background-color: red;
+}
+
+.overflow {
+	overflow-x: auto;
+	overflow-y: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	flex-wrap: unset;
+}
+
+.quest-block {
+	width: 1510px;
+	max-width: unset;
+}
+
+.container-max {
+	max-width: 1820px;
+}
+
+.stdn-side-nav {
+	width: 200px;
+}
+
+.grid {
+	width: 50px;
+	height: 50px;
+}

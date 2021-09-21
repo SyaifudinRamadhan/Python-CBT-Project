@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login as sys_login, logout, authenticate, models as userModel
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from datetime import datetime
 # from adminSide import models as modelsAdmin
 
 # Fungsi ini mengembalikan text berupa nama dikumen yang dituju
@@ -183,7 +184,57 @@ def editStdAcc (request):
 	print(confirm)
 	return confirm
 	
+def set_resTest (request, model_db):
+	date = datetime.now().date()
+	res = 0
+	statuses = 'ongoing'
+	course = '' #ini = id_quest
+	id_teach = ''
+	id_stdn = request.user
+	id_admin = ''
 
+	confirm = ''
+	
+	if request.method == 'POST' :
+		token = request.POST['token']
+		
+		try:
+			schedule = model_db.schedule_data.objects.get(token = token)
+		except Exception as e:
+			print('\n',e,'\n')
+			confirm = 'Error, Token tidak tersedia.'
+
+		if confirm == '' :
+			# print(schedule.state,'\n')
+			if schedule.state == 'active' :
+				course = schedule.id_course
+				id_teach = schedule.id_teacher
+				id_admin = schedule.id_admin
+			else:
+				print('\n','Jadwal tidak aktif')
+		else:
+			print('\n',confirm)
+
+	dataTest = model_db.result_test(date = date, result = res, state_test = statuses, token = token ,id_quest = course, id_students = id_stdn, id_admin = id_admin, id_teacher = id_teach)
+	dataTest.save()
+
+def change_resTest (request, model_db, value):
+	confirm = True
+	try:
+		User_Test = model_db.result_test.objects.get(id_students = request.user, state_test = 'ongoing')
+	except Exception as e:
+		print(e)
+		confirm = False
+
+	if confirm == True :
+		User_Test.result = value
+		User_Test.state_test = 'Finished'
+		User_Test.save()
+		return confirm
+	else :
+		return confirm
+	
+		
 
 
 

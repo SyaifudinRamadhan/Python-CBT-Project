@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cek Broooo</title>
+</head>
+<body>
+
+<form method="get">
+  {% csrf_token %}
+  <button type="submit" name="cek" value="yes" onclick="return confirm('Honkidesu ka ?');">SUBMIT</button>
+</form>
+  
+  <script src="{% static 'script/out_page.js' %}"></script>
+  <script type="text/javascript">
+      window.addEventListener("load", myInit, true); function myInit(){  
+          check_out({{ out_count }});
+      };
+    </script>
+  <script>
+  //     class Example {
+  //         static variabel = 0;
+          
+  //         static method (){
+  //           this.variabel = 0;
+  //           this.variabel = this.variabel + 1;
+  //           console.log(this.variabel);
+  //         }
+  //     }
+      
+  //     Example.method();
+  //     Example.method();
+  //     Example.method();
+  </script>
+
+</body>
+</html>

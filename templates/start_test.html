@@ -17,7 +17,11 @@
   </div>
 </div>
 
-<form action="/std_test_run" method="post" class="row g-3 mt-5 justify-content-center">
+<div class="text-center mt-5">
+  <h3 class="text-danger">{{ inf }}</h3>
+</div>
+
+<form method="post" class="row g-3 mt-5 justify-content-center">
   {% csrf_token %}
   <div class="col-auto">
     <label for="inputPassword2" >Token Tes / Ujian</label>
@@ -29,5 +33,12 @@
     <button type="submit" class="btn btn-primary mb-3" name="start-test">Mulai Tes / Ujian</button>
   </div>
 </form>
+
+    <script type="text/javascript">
+      console.log('Ini halaman mulai test');
+    </script>   
+    <script src="{% static 'script/replace_history.js' %}"></script> 
+   
+    
 	
 {% endblock maincontent %}
