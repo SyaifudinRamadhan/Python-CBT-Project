@@ -18,7 +18,7 @@
 	  <div class="container-fluid justify-content-end">
 	    <form class="d-flex" action="" method="post">
 	    	{% csrf_token %}
-	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+	      <input class="form-control me-2" type="search" placeholder="key: tgl,token,status" aria-label="Search" name="search">
 	      <button class="btn btn-outline-success" type="submit" name="submit">Search</button>
 	    </form>
 	  </div>
@@ -29,10 +29,10 @@
 	    <tr>
 	    	<td>Tanggal</td>
 	    	<td>Jam</td>
-	    	<td>MaPel</td>
 	    	<td>Kelas</td>
-	    	<td>status</td>
 	    	<td>Token</td>
+	    	<td>status</td>
+	    	<td>MaPel</td>
 	    </tr>
 	  </thead>
 	  <tbody>

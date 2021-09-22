@@ -31,7 +31,8 @@ urlpatterns = [
     path('set_acc', views.setAccount, name = 'my_acc'),
     path('evaluation_view', views.evaluationView, name = 'eval'),
     path('std_test_run', views.testMain, name = 'testrun'),
-    path('oAuth', include(('loginSys.urls','loginSys'), namespace = 'login')),
+    path('oAuth/', include(('loginSys.urls','loginSys'), namespace = 'login')),
+    path('panel/', include(('adminSide.urls', 'adminSide'), namespace = 'panel_admin')),
     path('cek', views.cek),
 ]
 

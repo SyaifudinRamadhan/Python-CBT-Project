@@ -34,11 +34,9 @@ def getSchedule (request, key, admin = False, teach = False, students = True):
 		try:
 			if request.method == "POST" :
 				query = request.POST['search']
-				print('\nIsi search ',query,'\n')
-				listData = models.schedule_data.objects.filter(id_admin = key, date_contains = query).order_by('-date')
-			listData = models.schedule_data.objects.filter(id_teacher = keySch[0].guru_id).order_by('-date','-start')
-			print(keySch[0].guru_id)
-			print(listData)
+				listData = models.schedule_data.objects.filter(Q(id_teacher = keySch[0].guru_id), Q(date__contains = query) | Q(state__contains = query) | Q(token__contains = query) | Q(start__contains = query)).order_by('-date')
+			else :
+				listData = models.schedule_data.objects.filter(id_teacher = keySch[0].guru_id).order_by('-date','-start')
 		except Exception as e:
 			print( str(e))
 			listData = ''
@@ -48,17 +46,33 @@ def getSchedule (request, key, admin = False, teach = False, students = True):
 def viewResultTest (request, key, admin = False, teach = False, students = True):
 
 	if admin == True :
-		data = models.result_test.objects.filter(id_admin = key).order_by('-id')
-		print(data)
-		return data
+		if request.method == "POST" and request.POST.get('search') != None :
+			data = models.result_test.objects.filter(id_admin = key).order_by('-id')
+			print(data)
+			return data
+		else:
+			data = models.result_test.objects.filter(id_admin = key).order_by('-id')
+			print(data)
+			return data
 	elif teach == True :
-		data = models.result_test.objects.filter(id_teacher = key).order_by('-id')
-		print(data)
-		return data
+		if request.method == "POST" and request.POST.get('search') != None :
+			data = models.result_test.objects.filter(id_teacher = key).order_by('-id')
+			print(data)
+			return data
+		else:
+			data = models.result_test.objects.filter(id_admin = key).order_by('-id')
+			print(data)
+			return data
 	else :
-		data = models.result_test.objects.filter(id_students = key).order_by('-id')
-		print(data)
-		return data
+		if request.method == "POST" and request.POST.get('search') != None :
+			word = request.POST.get('search')
+			data = models.result_test.objects.filter(Q(id_students = key), Q(date__contains = word)|Q(result__contains = word)|Q(id_teacher__contains = word)).order_by('-id')
+			print(data)
+			return data
+		else:
+			data = models.result_test.objects.filter(id_students = key).order_by('-id')
+			print(data)
+			return data
 
 # def getDataStdn (request):
 # 	mainData = User.objects.filter(username = request.user)

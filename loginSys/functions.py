@@ -10,14 +10,13 @@ from datetime import datetime
 # from adminSide import models as modelsAdmin
 
 # Fungsi ini mengembalikan text berupa nama dikumen yang dituju
-def loginCheck(request):
+def loginCheck(request, state = 'siswa'):
 	userlogged = str(request.user)
 
 	print('\n', 'test in 1','\n')
 
 	if userlogged != 'AnonymousUser': 
 		userSec = models.user_second.objects.filter(no_induk = userlogged)
-		state = userSec[0].status
 		print('\n', 'test in 2','\n')
 		if state != userSec[0].status:
 			print('\n', 'test in 3','\n')
