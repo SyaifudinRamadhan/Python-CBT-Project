@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-    <title>Sidebar template</title>
+    <title>Test Data</title>
 
     <!-- using online links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -20,6 +20,7 @@
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/sidebar-themes.css">
+    <!--todo #4 change icon @SyaifudinRamadhan-->
     <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
 </head>
 
@@ -434,7 +435,6 @@
                 <h1>Daftar Soal</h1>
                 <div class="dropdown-divider"></div>
                 <!-- Upload -->
-                <!--todo @SyaifudinRamadhan-->
                 <section>
                     <div class="card border-success mb-3" style="max-width: 700px;">
                         <div class="card-header bg-success">
@@ -454,10 +454,10 @@
                         </div>
                         <div class="card-footer">
                             Download :
+                            <!--todo #5 provide download source for template test @SyaifudinRamadhan-->
                             <button type="button" class="btn btn-warning"> <i class="fas fa-cloud-download-alt"></i> Direct</button>
                             <button type="button" class="btn btn-warning"> <i class="fas fa-cloud-download-alt"></i> Google Drive</button>
                         </div>
-                    </div>
                 </section>
                 <section>
 
@@ -469,226 +469,226 @@
                                     Daftar Soal
                                 </div>
                                 <div>
+                                    <!--todo #2 Adding function to add quiz @SyaifudinRamadhan-->
                                     <button class="btn btn-info" style="margin-right: 10px;">Tambahkan Soal</button>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-9 align-self-center">
-                                    Show
-                                    <select class="form-select" aria-label="Default select" name="" id="">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-9 align-self-center">
+                                        Show
+                                        <select class="form-select" aria-label="Default select" name="" id="">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                     <option value="all">All</option>
                                 </select> Entries
-                                </div>
-                                <div class="row" style="margin-bottom: 25px;">
-                                    <label for="colFormLabel" class="col-form-label">Search : </label>
-                                    <div class="col-auto">
-                                        <input type="text" class="form-control" id="Search">
+                                    </div>
+                                    <div class="row" style="margin-bottom: 25px;">
+                                        <label for="colFormLabel" class="col-form-label">Search : </label>
+                                        <div class="col-auto">
+                                            <input type="text" class="form-control" id="Search">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Table -->
-                            <div class="row table-responsive-sm">
-                                <table class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No.</th>
-                                            <th scope="col">Kode Sekolah</th>
-                                            <th scope="col">Kode Soal</th>
-                                            <th scope="col">Mata Pelajaran</th>
-                                            <th scope="col">Jumlah Soal</th>
-                                            <th scope="col">Kelas</th>
-                                            <th scope="col">Edit soal</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Print/Hapus</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="align-middle">
-                                            <th scope="row">1</th>
-                                            <td>UNESA</td>
-                                            <td>A121-B</td>
-                                            <td>Matematika</td>
-                                            <td>50(5 opsi)</td>
-                                            <td>TI2019-B</td>
-                                            <td>
-                                                <button class="btn btn-info" type="submit">
+                                <!-- Table -->
+                                <div class="row table-responsive-sm">
+                                    <table class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Kode Sekolah</th>
+                                                <th scope="col">Kode Soal</th>
+                                                <th scope="col">Mata Pelajaran</th>
+                                                <th scope="col">Jumlah Soal</th>
+                                                <th scope="col">Kelas</th>
+                                                <th scope="col">Edit soal</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Print/Hapus</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="align-middle">
+                                                <th scope="row">1</th>
+                                                <td>UNESA</td>
+                                                <td>A121-B</td>
+                                                <td>Matematika</td>
+                                                <td>50(5 opsi)</td>
+                                                <td>TI2019-B</td>
+                                                <td>
+                                                    <button class="btn btn-info" type="submit">
                                                 <i class="fas fa-copy"></i>
                                             </button>
-                                                <button class="btn btn-warning" type="submit">
+                                                    <button class="btn btn-warning" type="submit">
                                                 <i class="fas fa-cloud-upload-alt"></i>
                                             </button>
-                                                <button class="btn btn-primary" type="submit">
+                                                    <button class="btn btn-primary" type="submit">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            </td>
-                                            <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
-                                            <td>
-                                                <button class="btn btn-light" type="submit">
+                                                </td>
+                                                <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
+                                                <td>
+                                                    <button class="btn btn-light" type="submit">
                                                 <i class="fas fa-print"></i>
                                             </button>
-                                                <button class="btn btn-danger" type="submit">
+                                                    <button class="btn btn-danger" type="submit">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th scope="row">2</th>
-                                            <td>UNESA</td>
-                                            <td>A121-B</td>
-                                            <td>Matematika</td>
-                                            <td>50(5 opsi)</td>
-                                            <td>TI2019-B</td>
-                                            <td>
-                                                <button class="btn btn-info" type="submit">
+                                                </td>
+                                            </tr>
+                                            <tr class="align-middle">
+                                                <th scope="row">2</th>
+                                                <td>UNESA</td>
+                                                <td>A121-B</td>
+                                                <td>Matematika</td>
+                                                <td>50(5 opsi)</td>
+                                                <td>TI2019-B</td>
+                                                <td>
+                                                    <button class="btn btn-info" type="submit">
                                                 <i class="fas fa-copy"></i>
                                             </button>
-                                                <button class="btn btn-warning" type="submit">
+                                                    <button class="btn btn-warning" type="submit">
                                                 <i class="fas fa-cloud-upload-alt"></i>
                                             </button>
-                                                <button class="btn btn-primary" type="submit">
+                                                    <button class="btn btn-primary" type="submit">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            </td>
-                                            <td><button type="button" class="btn btn-outline-primary">Aktif</button></td>
-                                            <td>
-                                                <button class="btn btn-light" type="submit">
+                                                </td>
+                                                <td><button type="button" class="btn btn-outline-primary">Aktif</button></td>
+                                                <td>
+                                                    <button class="btn btn-light" type="submit">
                                                 <i class="fas fa-print"></i>
                                             </button>
-                                                <button class="btn btn-danger" type="submit">
+                                                    <button class="btn btn-danger" type="submit">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th scope="row">3</th>
-                                            <td>UNESA</td>
-                                            <td>A121-B</td>
-                                            <td>Matematika</td>
-                                            <td>50(5 opsi)</td>
-                                            <td>TI2019-B</td>
-                                            <td>
-                                                <button class="btn btn-info" type="submit">
+                                                </td>
+                                            </tr>
+                                            <tr class="align-middle">
+                                                <th scope="row">3</th>
+                                                <td>UNESA</td>
+                                                <td>A121-B</td>
+                                                <td>Matematika</td>
+                                                <td>50(5 opsi)</td>
+                                                <td>TI2019-B</td>
+                                                <td>
+                                                    <button class="btn btn-info" type="submit">
                                                 <i class="fas fa-copy"></i>
                                             </button>
-                                                <button class="btn btn-warning" type="submit">
+                                                    <button class="btn btn-warning" type="submit">
                                                 <i class="fas fa-cloud-upload-alt"></i>
                                             </button>
-                                                <button class="btn btn-primary" type="submit">
+                                                    <button class="btn btn-primary" type="submit">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            </td>
-                                            <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
-                                            <td>
-                                                <button class="btn btn-light" type="submit">
+                                                </td>
+                                                <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
+                                                <td>
+                                                    <button class="btn btn-light" type="submit">
                                                 <i class="fas fa-print"></i>
                                             </button>
-                                                <button class="btn btn-danger" type="submit">
+                                                    <button class="btn btn-danger" type="submit">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th scope="row">4</th>
-                                            <td>UNESA</td>
-                                            <td>A121-B</td>
-                                            <td>Matematika</td>
-                                            <td>50(5 opsi)</td>
-                                            <td>TI2019-B</td>
-                                            <td>
-                                                <button class="btn btn-info" type="submit">
+                                                </td>
+                                            </tr>
+                                            <tr class="align-middle">
+                                                <th scope="row">4</th>
+                                                <td>UNESA</td>
+                                                <td>A121-B</td>
+                                                <td>Matematika</td>
+                                                <td>50(5 opsi)</td>
+                                                <td>TI2019-B</td>
+                                                <td>
+                                                    <button class="btn btn-info" type="submit">
                                                 <i class="fas fa-copy"></i>
                                             </button>
-                                                <button class="btn btn-warning" type="submit">
+                                                    <button class="btn btn-warning" type="submit">
                                                 <i class="fas fa-cloud-upload-alt"></i>
                                             </button>
-                                                <button class="btn btn-primary" type="submit">
+                                                    <button class="btn btn-primary" type="submit">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            </td>
-                                            <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
-                                            <td>
-                                                <button class="btn btn-light" type="submit">
+                                                </td>
+                                                <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
+                                                <td>
+                                                    <button class="btn btn-light" type="submit">
                                                 <i class="fas fa-print"></i>
                                             </button>
-                                                <button class="btn btn-danger" type="submit">
+                                                    <button class="btn btn-danger" type="submit">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th scope="row">5</th>
-                                            <td>UNESA</td>
-                                            <td>A121-B</td>
-                                            <td>Matematika</td>
-                                            <td>50(5 opsi)</td>
-                                            <td>TI2019-B</td>
-                                            <td>
-                                                <button class="btn btn-info" type="submit">
+                                                </td>
+                                            </tr>
+                                            <tr class="align-middle">
+                                                <th scope="row">5</th>
+                                                <td>UNESA</td>
+                                                <td>A121-B</td>
+                                                <td>Matematika</td>
+                                                <td>50(5 opsi)</td>
+                                                <td>TI2019-B</td>
+                                                <td>
+                                                    <button class="btn btn-info" type="submit">
                                                 <i class="fas fa-copy"></i>
                                             </button>
-                                                <button class="btn btn-warning" type="submit">
+                                                    <button class="btn btn-warning" type="submit">
                                                 <i class="fas fa-cloud-upload-alt"></i>
                                             </button>
-                                                <button class="btn btn-primary" type="submit">
+                                                    <button class="btn btn-primary" type="submit">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            </td>
-                                            <td><button type="button" class="btn btn-outline-primary">Aktif</button></td>
-                                            <td>
-                                                <button class="btn btn-light" type="submit">
+                                                </td>
+                                                <td><button type="button" class="btn btn-outline-primary">Aktif</button></td>
+                                                <td>
+                                                    <button class="btn btn-light" type="submit">
                                                 <i class="fas fa-print"></i>
                                             </button>
-                                                <button class="btn btn-danger" type="submit">
+                                                    <button class="btn btn-danger" type="submit">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--End Table-->
-                            <div class="row justify-content-between">
-                                <div class="col-auto me-auto align-middle" style="margin-top: 10px;">
-                                    Showing 1 to 5 of 5 entries
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div>
-                                    <div class="col-auto">
-                                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                            <div class="btn-group me-2" role="group" aria-label="First group">
-                                                <!--todo #6 if there's no prev page disable the button @SyaifudinRamadhan-->
-                                                <button type="button" class="btn btn-outline-secondary" disabled>Prev</button>
-                                                <button type="button" class="btn btn-primary">1</button>
-                                                <button type="button" class="btn btn-outline-primary">2</button>
-                                                <button type="button" class="btn btn-outline-primary">3</button>
-                                                <button type="button" class="btn btn-outline-primary">Next</button>
+                                <!--End Table-->
+                                <div class="row justify-content-between">
+                                    <div class="col-auto me-auto align-middle" style="margin-top: 10px;">
+                                        Showing 1 to 5 of 5 entries
+                                    </div>
+                                    <div>
+                                        <div class="col-auto">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group me-2" role="group" aria-label="First group">
+                                                    <!--todo #6 if there's no prev page disable the button @SyaifudinRamadhan-->
+                                                    <button type="button" class="btn btn-outline-secondary" disabled>Prev</button>
+                                                    <button type="button" class="btn btn-primary">1</button>
+                                                    <button type="button" class="btn btn-outline-primary">2</button>
+                                                    <button type="button" class="btn btn-outline-primary">3</button>
+                                                    <button type="button" class="btn btn-outline-primary">Next</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!--Card Footer-->
-                        <div class="card-footer">
-                            <p>Beberapa ujian (untuk kelas dan jurusan berbeda) bisa disetting bersamaan</p>
-                            <p>Apabila satu kelas ada beberapa Tes bersamaan (untuk kelas dan jurusan yang sama). akan mengakibatkan peserta tidak dapat mengikuti ujian</p>
-                            <p>Daftar diatas merupakan paket soal yang sudah diaktifkan oleh guru. Silahkan melakukan pengaturan jadwal ujian</p>
-                        </div>
+                            <!--Card Footer-->
+                            <div class="card-footer">
+                                <p>Beberapa ujian (untuk kelas dan jurusan berbeda) bisa disetting bersamaan</p>
+                                <p>Apabila satu kelas ada beberapa Tes bersamaan (untuk kelas dan jurusan yang sama). akan mengakibatkan peserta tidak dapat mengikuti ujian</p>
+                                <p>Daftar diatas merupakan paket soal yang sudah diaktifkan oleh guru. Silahkan melakukan pengaturan jadwal ujian</p>
+                            </div>
 
-                    </div>
+                        </div>
                 </section>
+                </div>
+                </div>
             </div>
-    </div>
-    </div>
-    </main>
-    <!-- page-content" -->
+        </main>
+        <!-- page-content" -->
     </div>
     <!-- page-wrapper -->
 
