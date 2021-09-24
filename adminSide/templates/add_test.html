@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Sidebar template</title>
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidebar-themes.css">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+</head>
+
+<style>
+    .table td{
+        vertical-align: inherit;
+    }
+    .table th{
+        vertical-align: inherit;
+    }
+</style>
+
+<body>
+    <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
+        <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-content">
+                <!-- sidebar-brand  -->
+                <div class="sidebar-item sidebar-brand">
+                    <a class="sidebar-title" href="#">ThreeQuiz</a>
+                    <li>
+                        <a href="#">
+                            <i id="pin-sidebar" class="fa fa-thumbtack"></i>
+                        </a>
+                    </li>
+                </div>
+                <!-- sidebar-header  -->
+                <div class="sidebar-item sidebar-header d-flex flex-nowrap">
+                    <div class="user-pic">
+                        <img class="img-responsive img-rounded" src="img/user.jpg" alt="User picture">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">Jhon
+                            <strong>Smith</strong>
+                        </span>
+                        <span class="user-role">Administrator</span>
+                        <span class="user-status">
+                            <i class="fa fa-circle"></i>
+                            <span>Online</span>
+                        </span>
+                    </div>
+                </div>
+                <!-- sidebar-menu  -->
+                <div class=" sidebar-item sidebar-menu">
+                    <ul>
+                        <li class="sidebar-dropdown" style="border-top-style: solid;border-top-width: 0px;padding-top: 15px;">
+                            <a href="#">
+                                <i class="fa fa-tachometer-alt"></i>
+                                <span class="menu-text">Dashboard</span>
+                                <span class="badge badge-pill badge-warning">New</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Ringkasan Jumlah Soal</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ringkasan Jumlah User</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ringkasan Jumlah Guru</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ringkasan Jumlah Penjadwalan</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Info Jadwal Terbaru</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ringkasan Jumlah Soal</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="header-menu">
+                            <span>Data</span>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><i class="fas fa-school"></i>
+                                <span class="menu-text">Data Kelas</span>
+                                <span class="badge badge-pill badge-danger">4</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Tambah Kelas</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Import .csv File</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Hapus dan Update Kelas</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Export data ke .csv</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-book-open"></i>
+                                <span class="menu-text">Mata Pelajaran</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Tambah Mata Pelajaran</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Import .csv File</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Hapus dan Update Mata Pelajaran</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Export data ke .csv</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-book-reader"></i>
+                                <span class="menu-text">Penjadwalan</span>
+                                <span class="badge badge-pill badge-success">Pro</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Tambah Peserta</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Hapus dan Update Jadwal</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Export data ke .csv</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-atom"></i>
+                                <span class="menu-text">Data Soal</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="tmbh_soal.html">Tambah Soal</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Import .csv File</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Hapus dan Update Soal</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Export data ke .csv</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-user-graduate"></i>
+                                <span class="menu-text">Data Siswa</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Tambah Peserta</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Import .csv File</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Hapus dan Update Peserta</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Upload dan Update Foto Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Export data ke .csv</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span class="menu-text">Data Guru</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Tambah Guru</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Import .csv File</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Hapus dan Update Guru</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Upload dan Update Foto Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Export data ke .csv</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="header-menu">
+                            <span>Tools</span>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-tasks"></i>
+                                <span class="menu-text">Set Aktivasi</span>
+                                <span class="badge badge-pill badge-primary">Beta</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Set dan Unset Aktivasi Jadwal</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Export data ke .csv</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-users"></i>
+                                <span class="menu-text">Evaluasi</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Lihat Semua Evaluasi</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Hapus Hasil Evalusai</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Export data ke .csv</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-user-cog"></i>
+                                <span class="menu-text">Edit Akun</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Edit Identitas Akun</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Upload dan Update Foto Profil</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- sidebar-menu  -->
+            </div>
+            <!-- sidebar-footer  -->
+            <div class="sidebar-footer">
+                <div class="dropdown">
+
+                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-pill badge-warning notification">3</span>
+                    </a>
+                    <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">
+                        <div class="notifications-header">
+                            <i class="fa fa-bell"></i> Notifications
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <div class="notification-content">
+                                <div class="icon">
+                                    <i class="fas fa-check text-success border border-success"></i>
+                                </div>
+                                <div class="content">
+                                    <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                    <div class="notification-time">
+                                        6 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <div class="notification-content">
+                                <div class="icon">
+                                    <i class="fas fa-exclamation text-info border border-info"></i>
+                                </div>
+                                <div class="content">
+                                    <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                    <div class="notification-time">
+                                        Today
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <div class="notification-content">
+                                <div class="icon">
+                                    <i class="fas fa-exclamation-triangle text-warning border border-warning"></i>
+                                </div>
+                                <div class="content">
+                                    <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                    <div class="notification-time">
+                                        Yesterday
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-center" href="#">View all notifications</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-envelope"></i>
+                        <span class="badge badge-pill badge-success notification">7</span>
+                    </a>
+                    <div class="dropdown-menu messages" aria-labelledby="dropdownMenuMessage">
+                        <div class="messages-header">
+                            <i class="fa fa-envelope"></i> Messages
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <div class="message-content">
+                                <div class="pic">
+                                    <img src="img/user.jpg" alt="">
+                                </div>
+                                <div class="content">
+                                    <div class="message-title">
+                                        <strong> Jhon doe</strong>
+                                    </div>
+                                    <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                </div>
+                            </div>
+
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <div class="message-content">
+                                <div class="pic">
+                                    <img src="img/user.jpg" alt="">
+                                </div>
+                                <div class="content">
+                                    <div class="message-title">
+                                        <strong> Jhon doe</strong>
+                                    </div>
+                                    <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                </div>
+                            </div>
+
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <div class="message-content">
+                                <div class="pic">
+                                    <img src="img/user.jpg" alt="">
+                                </div>
+                                <div class="content">
+                                    <div class="message-title">
+                                        <strong> Jhon doe</strong>
+                                    </div>
+                                    <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-center" href="#">View all messages</a>
+
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cog"></i>
+                        <span class="badge-sonar"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuMessage">
+                        <a class="dropdown-item" href="#">My profile</a>
+                        <a class="dropdown-item" href="#">Help</a>
+                        <a class="dropdown-item" href="#">Setting</a>
+                    </div>
+                </div>
+                <div>
+                    <a href="#">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </div>
+                <div class="pinned-footer">
+                    <a href="#">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- page-content  -->
+        <main class="page-content pt-2">
+            <div id="overlay" class="overlay"></div>
+            <div class="container-fluid p-5">
+                <h1>Daftar Soal</h1>
+                <div class="dropdown-divider"></div>
+                <!-- Upload -->
+                <section><div class="card border-success mb-3" style="max-width: 700px;">
+                    <div class="card-header bg-success">
+                        Template .csv
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center align-items-start">
+                            <div class="col-3 col-sm-3">
+                                <img class="img-fluid" style="min-height: 25px; min-width: 25px; max-height: 100px;" src="https://play-lh.googleusercontent.com/37EzETO6gZyKmCg2kBIFX1e9gkubxZrVa5fHJ6yOaa7VvEShHjKv2RdtwnZt9Sk258s" alt="">
+                            </div>
+                            <div class="col-9 align-self-center">
+                                <p class="text-center align-text-middle">
+                                    Silahkan Download template dibawah untuk membuat soal
+                                </p>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="card-footer">
+                        Download : 
+                        <button type="button" class="btn btn-warning"> <i class="fas fa-cloud-download-alt"></i> Direct</button>
+                        <button type="button" class="btn btn-warning"> <i class="fas fa-cloud-download-alt"></i> Google Drive</button>
+                    </div>
+                </div>
+            </section>
+            <section>
+
+                <!-- 2nd Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row justify-content-between">
+                            <div class="col-md-9 align-self-center">
+                                Daftar Soal
+                            </div>
+                            <div>
+                                <button class="btn btn-info" style="margin-right: 10px;">Tambahkan Soal</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-9 align-self-center">
+                                Show
+                                <select class="form-select" aria-label="Default select" name="" id="">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="all">All</option>
+                                </select>
+                                Entries
+                            </div>
+                            <div class="row" style="margin-bottom: 25px;">
+                                <label for="colFormLabel" class="col-form-label">Search : </label>
+                                <div class="col-auto">
+                                    <input type="text" class="form-control" id="Search">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Table -->
+                        <div class="row table-responsive-sm">
+                            <table class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">Kode Sekolah</th>
+                                        <th scope="col">Kode Soal</th>
+                                        <th scope="col">Mata Pelajaran</th>
+                                        <th scope="col">Jumlah Soal</th>
+                                        <th scope="col">Kelas</th>
+                                        <th scope="col">Edit soal</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Print/Hapus</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr class="align-middle">
+                                        <th scope="row">1</th>
+                                        <td>UNESA</td>
+                                        <td>A121-B</td>
+                                        <td>Matematika</td>
+                                        <td>50(5 opsi)</td>
+                                        <td>TI2019-B</td>
+                                        <td>
+                                            <button class="btn btn-info" type="submit">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                            <button class="btn btn-warning" type="submit">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </button>
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                        <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
+                                        <td>
+                                            <button class="btn btn-light" type="submit">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                            <button class="btn btn-danger" type="submit">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th scope="row">2</th>
+                                        <td>UNESA</td>
+                                        <td>A121-B</td>
+                                        <td>Matematika</td>
+                                        <td>50(5 opsi)</td>
+                                        <td>TI2019-B</td>
+                                        <td>
+                                            <button class="btn btn-info" type="submit">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                            <button class="btn btn-warning" type="submit">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </button>
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                        <td><button type="button" class="btn btn-outline-primary">Aktif</button></td>
+                                        <td>
+                                            <button class="btn btn-light" type="submit">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                            <button class="btn btn-danger" type="submit">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th scope="row">3</th>
+                                        <td>UNESA</td>
+                                        <td>A121-B</td>
+                                        <td>Matematika</td>
+                                        <td>50(5 opsi)</td>
+                                        <td>TI2019-B</td>
+                                        <td>
+                                            <button class="btn btn-info" type="submit">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                            <button class="btn btn-warning" type="submit">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </button>
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                        <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
+                                        <td>
+                                            <button class="btn btn-light" type="submit">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                            <button class="btn btn-danger" type="submit">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th scope="row">4</th>
+                                        <td>UNESA</td>
+                                        <td>A121-B</td>
+                                        <td>Matematika</td>
+                                        <td>50(5 opsi)</td>
+                                        <td>TI2019-B</td>
+                                        <td>
+                                            <button class="btn btn-info" type="submit">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                            <button class="btn btn-warning" type="submit">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </button>
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                        <td><button type="button" class="btn btn-outline-secondary">Non Aktif</button></td>
+                                        <td>
+                                            <button class="btn btn-light" type="submit">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                            <button class="btn btn-danger" type="submit">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th scope="row">5</th>
+                                        <td>UNESA</td>
+                                        <td>A121-B</td>
+                                        <td>Matematika</td>
+                                        <td>50(5 opsi)</td>
+                                        <td>TI2019-B</td>
+                                        <td>
+                                            <button class="btn btn-info" type="submit">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                            <button class="btn btn-warning" type="submit">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </button>
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                        <td><button type="button" class="btn btn-outline-primary">Aktif</button></td>
+                                        <td>
+                                            <button class="btn btn-light" type="submit">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                            <button class="btn btn-danger" type="submit">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--End Table-->
+                        <div class="row justify-content-between">
+                            <div class="col-auto me-auto align-middle" style="margin-top: 10px;">
+                                Showing 1 to 3 of 3 entries
+                            </div>
+                            <div>
+                                <div class="col-auto">
+                                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                        <div class="btn-group me-2" role="group" aria-label="First group">
+                                          <button type="button" class="btn btn-outline-primary">Prev</button>
+                                          <button type="button" class="btn btn-primary">1</button>
+                                          <button type="button" class="btn btn-primary">2</button>
+                                          <button type="button" class="btn btn-primary">3</button>
+                                          <button type="button" class="btn btn-outline-primary">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Card Footer-->
+                    <div class="card-footer">
+                        <p>Beberapa ujian (untuk kelas dan jurusan berbeda) bisa disetting bersamaan</p>
+                        <p>Apabila satu kelas ada beberapa Tes bersamaan (untuk kelas dan jurusan yang sama). akan mengakibatkan peserta tidak dapat mengikuti ujian</p>
+                        <p>Daftar diatas merupakan paket soal yang sudah diaktifkan oleh guru. Silahkan melakukan pengaturan jadwal ujian</p>
+                    </div>
+                    
+                </div>
+            </section>
+    </div>
+    </div>
+    </div>
+    </main>
+    <!-- page-content" -->
+    </div>
+    <!-- page-wrapper -->
+
+    <!-- using online scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+    </script>
+    <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- using local scripts -->
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
