@@ -33,6 +33,7 @@ addEvent(window,"load",function(e) {
             var url = '/std_test_run?out=xyz';
             
             console.log(page);
+            var pss = window.location;
             window.location.href = url;
         }
     });

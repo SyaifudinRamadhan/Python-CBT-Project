@@ -114,26 +114,25 @@
         <div class="col-9 p-3 bg-light quest-block" style="max-width:unset;">
           <!-- ================= Main Content ============== -->
           <!-- Foto soal -->
-         {% if img_quest != '/media/' %}
+         {% if img_quest != '' %}
            <div>
-            <img width="20%" height="20%" src="{{ img_quest }}">
+            <img width="20%" height="20%" src="/media/{{ img_quest }}">
            </div>
          {% endif %}
           <!-- Audio soal -->
-         {% if audio_quest != '/media/' %}
+         {% if audio_quest != '' %}
            <div>
             <audio class="mt-5" style="width: 500px; height:50px" controls>
-                <source src="{{ audio_quest }}" type="audio/ogg">
-                <source src="{{ audio_quest }}" type="audio/mpeg">
+                <source src="/media/{{ audio_quest }}" type="audio/ogg">
+                <source src="/media/{{ audio_quest }}" type="audio/mpeg">
             </audio>
            </div>
          {% endif %}
           <!-- Video soal -->
-         {% if videos_quest != '/media/' %}
+         {% if videos_quest != '' %}
            <div>
             <video width="35%" height="35%" controls>
-              <source src="movie.mp4" type="video/mp4">
-              <source src="movie.ogg" type="video/ogg">
+              <source src="/media/{{ videos_quest }}" type="video/mp4">
               Your browser does not support the video tag.
             </video>
            </div>

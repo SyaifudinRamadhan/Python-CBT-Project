@@ -9,7 +9,7 @@ class class_data (models.Model):
 	id_teacher = models.CharField(max_length = 20)
 	id_admin = models.IntegerField()
 
-	def _str_(self):
+	def __str__(self):
 		return self.class_name
 	
 class course_data (models.Model):
@@ -18,7 +18,7 @@ class course_data (models.Model):
 	id_teacher = models.CharField(max_length = 20)
 	id_admin = models.IntegerField()
 
-	def _str_(self):
+	def __str__(self):
 		return self.course_name
 
 # Mengambil turunan dari PK data guru (sec user), kelas, dan mapel
@@ -35,18 +35,18 @@ class schedule_data (models.Model):
 	id_admin = models.IntegerField()
 	token = models.CharField(max_length = 10)
 
-	def _str_(self):
+	def __str__(self):
 		return self.date
 
 # Mengambil turunan dari PK data mapel, dan guru (sec user)
 class quest_data (models.Model):
-	serial_quest = models.CharField(max_length = 20)
+	serial_quest = models.CharField(max_length = 255)
 	# FK
 	id_teacher = models.CharField(max_length = 20)
 	id_course = models.IntegerField()
 	id_admin = models.IntegerField()
 
-	def _str_(self):
+	def __str__(self):
 		return self.serial_quest
 
 # Mengambil turunan dari PK soal, dan data siswa (sec_user)
@@ -61,5 +61,5 @@ class result_test (models.Model):
 	id_admin = models.IntegerField()
 	id_teacher = models.CharField(max_length = 20)
 
-	def _str_(self):
+	def __str__(self):
 		return self.date

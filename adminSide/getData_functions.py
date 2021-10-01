@@ -3,6 +3,8 @@ from loginSys import models as models_2
 from django.db.models import Q
 import random as rd
 from datetime import datetime as today
+from django.contrib.auth.models import User as main_user
+import pandas as pd
 
 def getSchedule (request, key, admin = False, teach = False, students = True):
 	listData = ''
@@ -83,6 +85,7 @@ def getQuestFile (request) :
 	directory = ''
 	confirm = ''
 	END_Time = ''
+	s_time = [0]
 	list_quest = []
 	if request.method == 'POST' :
 		token = request.POST['token']
@@ -146,3 +149,71 @@ def getDataTch (request):
 
 def getDataAdmin (request):
 	return True
+
+def get_quest_table (request, pss = 'admin'):
+	obj_quest_data = ''
+	listData = []
+	if pss == 'admin':
+		obj_quest_data = models.quest_data.objects.filter(id_admin = models_2.user_second.objects.get(no_induk = request.user).id)
+	elif pss == 'teacher':
+		obj_quest_data = models.quest_data.objects.filter(id_teacher = request.user)
+
+	print(models_2.user_second.objects.get(no_induk = request.user).id,'\n')
+
+	for x in range(len(obj_quest_data)):
+		ID = obj_quest_data[x].id
+		file_quest = obj_quest_data[x].serial_quest
+		name_teacher = models_2.user_second.objects.get(no_induk = obj_quest_data[x].id_teacher).username
+		cour_name = models.course_data.objects.get(id = obj_quest_data[x].id_course).course_name
+		tmp = [ID, file_quest, name_teacher, cour_name]
+		listData.append(tmp)
+
+	return listData
+
+def for_add_quest(request, pss = 'admin'):
+	obj_course = ''
+	obj_tch = ''
+	id_admin = ''
+	out_tch = []
+	out_crs = []
+	if pss == 'admin':
+		# Bagian membentuk filter array
+		key0 = models_2.theachers_user.objects.filter(admin_id = request.user)
+		for x in range(len(key0)):
+			obj_tch = models_2.user_second.objects.get(no_induk = key0[x].no_induk)
+			out_tch.append([obj_tch.no_induk, obj_tch.username])
+			
+		obj_course = models.course_data.objects.filter(id_admin = int(models_2.user_second.objects.get(no_induk = request.user).id))
+		
+		id_admin = models_2.user_second.objects.get(no_induk = request.user).id
+	elif pss == 'teacher':
+		obj_course = models.course_data.objects.filter(id_teacher = request.user)
+		obj_tch = models_2.user_second.objects.filter(no_induk = request.user)
+		for x in range(len(obj_tch)):
+			tmp = [obj_tch[x].no_induk, obj_tch[x].username]
+			out_tch.append(tmp)
+
+		id_admin = models_2.user_second.objects.get(
+			no_induk = models_2.theachers_user.objects.get(
+				no_induk = request.user).admin_id
+			).id
+
+	for x in range(len(obj_course)):
+		tmp = [obj_course[x].id, obj_course[x].course_name]
+		out_crs.append(tmp)
+
+	return out_crs, out_tch, id_admin
+
+def read_xls_online(request):
+	file = request.FILES['xls']
+	xls_list = []
+	try:
+		data_frame = pd.read_excel(file)
+		xls_list = data_frame.values.tolist()
+		del xls_list[0]
+		confirm = ''
+		return confirm, xls_list
+	except Exception as e:
+		print(e)
+		confirm = 'Error file'
+		return confirm, xls_list
