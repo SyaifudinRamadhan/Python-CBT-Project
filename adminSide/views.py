@@ -5,6 +5,7 @@ from .pool_admin_tch import data_quest
 import json as simplejson
 from . import controller as ctrl
 import sys
+import os
 
 memory = data_quest()
 # Create your views here.
@@ -68,7 +69,7 @@ def quest_basic (request):
 	check_logged = fn.loginCheck(request, state = 'admin')
 	if check_logged != 'None':
 		return redirect(check_logged)
-
+	memory.clear_list()
 	# ---------- Write Code (Logic System) Here ---------------
 	view = f_get.get_quest_table(request)
 	slc_crs, slc_tch, id_admin = f_get.for_add_quest(request)
@@ -92,6 +93,40 @@ def quest_basic (request):
 			return redirect('/panel/quest_data')
 		print(err,' - jika error\n')
 
+	if request.method == "POST" and request.POST.get('edit_auto') != None:
+		err, xls_data = f_get.read_xls_online(request)
+		# 1. read file xls online langsung
+		if err == '':
+			# 2. Mengkomparasi file gambar uploadan dengan yang ada di list dari xls
+			data = ctrl.compare_file_in_xls(request, xls_data)
+			# 3. Merubah list menjadi xls
+			file_name = ctrl.create_xls(request, data)
+			# 4. Memasukkan nama file xls ke dalam db yang serialnya '-'
+			err = ctrl.add_quest_tbl_1(request, file_name, serial_quest = request.POST.get('name_data'))
+			os.remove('media/'+str(request.POST.get('name_data')))
+			return redirect('/panel/quest_data')
+		print(err,' - jika error\n')
+
+	if request.GET.get('del') != None:
+		data, file_name = f_get.read_xls_storage(request, request.GET.get('del'))
+		# print(file_name,' --- file_name---\n')
+		if file_name == '':
+			return redirect('/panel/quest_data')
+		else :
+			ctrl.delete_for_quest(request, data, file_name)
+			return redirect('/panel/quest_data')
+
+	if request.GET.get('id') != None:
+		data, file_name = f_get.read_xls_storage(request, request.GET.get('id'))
+		memory.set_data_quest(data, file_name)
+		
+		if memory.get_len_data() != 0 or file_name != '':
+			return redirect('/panel/edit_quest')
+		else:
+			memory.clear_list()
+			return redirect('/panel/quest_data')
+
+
 	context = {
 		'data':view,
 		'slc_tch':slc_tch,
@@ -107,9 +142,59 @@ def quest_edit (request):
 	if check_logged != 'None':
 		return redirect(check_logged)
 
-	# ---------- Write Code (Logic System) Here ---------------
+	if memory.get_len_data() == 0:
+		return redirect('/panel/quest_data')
 
-	return render(request, 'edit_quest.html')
+	print(memory.get_all_data(),'\n')
+	index_params = memory.get_index_params()
+	len_data = memory.get_len_data()
+	view = []
+	if index_params < len_data :
+		print(len_data,'\n')
+		view = memory.get_in_page(index_params)
+
+	# ---------- Write Code (Logic System) Here ---------------
+	if request.method == "POST" and request.POST.get('next') != None:
+		index_params, len_data =  memory.next(request)
+		if index_params < len_data:
+			view = memory.get_in_page(index_params)
+		else:
+			print('Data yang dituju belum ada\n')
+	if request.method == "POST" and request.POST.get('back') != None:
+		index_params, len_data = memory.prev(request)
+		if index_params < len_data:
+			view = memory.get_in_page(index_params)
+		else:
+			print('Data yang dituju belum ada\n')
+
+	if request.method == "POST" and request.POST.get('del') != None:
+		print(index_params,' ',len_data,'\n')
+		if index_params < len_data:
+			memory.del_data_quest(index_params)
+			return redirect('/panel/create_quest')
+		else:
+			print('Data yang dihapus belum ada\n')
+
+	# Untuk menyimpan file baru stelah di edit
+	if request.method == "POST" and request.POST.get('finish') != None:
+		memory.next(request)
+		file = ctrl.create_xls(request, memory.get_all_data())
+		err = ctrl.add_quest_tbl_1(request, file, serial_quest = memory.get_last_file_name())
+		memory.clear_list()
+		print(err,'\n')
+		return redirect('/panel/quest_data')
+
+
+	context = {
+		'index_params':index_params,
+		'numbering':index_params+1,
+		'len_data':len_data,
+		'view':simplejson.dumps(view),
+		'len_view':len(view),
+		'view_n':view,
+	}
+
+	return render(request, 'add_quest.html', context)
 
 def quest_add (request):
 

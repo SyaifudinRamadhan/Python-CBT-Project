@@ -212,8 +212,33 @@ def read_xls_online(request):
 		xls_list = data_frame.values.tolist()
 		del xls_list[0]
 		confirm = ''
+		for x in range(len(xls_list)):
+			for y in range(len(xls_list[0])):
+				if pd.isna(xls_list[x][y]) == True:
+					xls_list[x][y] = ''
 		return confirm, xls_list
 	except Exception as e:
 		print(e)
 		confirm = 'Error file'
 		return confirm, xls_list
+
+def read_xls_storage(request, data_id):
+	id_data = data_id
+	file_name = ''
+	xls_list = []
+	try:
+		file_name = models.quest_data.objects.get(id = id_data).serial_quest
+		data_frame = pd.read_excel('media/'+file_name)
+		xls_list = data_frame.values.tolist()
+		del xls_list[0]
+	except Exception as e:
+		print(e,'\n')
+
+	for x in range(len(xls_list)):
+		for y in range(len(xls_list[0])):
+			if pd.isna(xls_list[x][y]) == True:
+				xls_list[x][y] = ''
+			elif str(type(xls_list[x][y])) == "<class 'float'>" or str(type(xls_list[x][y])) == "<class 'int'>":
+				xls_list[x][y] = str(int(xls_list[x][y]))
+
+	return xls_list, file_name

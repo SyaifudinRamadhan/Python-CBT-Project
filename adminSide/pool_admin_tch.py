@@ -4,10 +4,13 @@ from django.core.files.storage import FileSystemStorage
 class data_quest:
 	listData = []
 	params_index = 0
+	last_file_name = ''
 
 	# Untuk edit data soal
-	def set_data_quest (self, data):
+	def set_data_quest (self, data, file_name):
 		self.listData = data
+		self.params_index = 0
+		self.last_file_name = file_name
 
 	def upload_files(self, files):
 		fs = FileSystemStorage()
@@ -274,6 +277,11 @@ class data_quest:
 
 	def clear_list(self):
 		self.listData.clear()
+		self.params_index = 0
+		self.last_file_name = ''
 
 	def get_len_data(self):
 		return len(self.listData)
+
+	def get_last_file_name(self):
+		return self.last_file_name

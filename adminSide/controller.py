@@ -14,7 +14,8 @@ def getUniquePath(folder, filename):
     return path
 
 def create_xls(request, arr_data):
-	data_frame = pd.DataFrame(arr_data)
+	final = [[''] * 21]+arr_data
+	data_frame = pd.DataFrame(final)
 
 	filename = getUniquePath('media/',str(str(request.user)+'.xls'))
 	# filename = 'media/'+filename
@@ -35,13 +36,13 @@ def add_quest_tbl_0(request):
 		)
 	add.save()
 
-def add_quest_tbl_1(request, filename, pss = 'admin'):
+def add_quest_tbl_1(request, filename, pss = 'admin', serial_quest = '-'):
 	obj = ''
 	if pss == 'admin':
 		try:
 			obj = models.quest_data.objects.get(
 				id_admin = user_sec.user_second.objects.get(no_induk = request.user).id,
-				serial_quest = '-'
+				serial_quest = serial_quest
 				)
 			fileName = filename.split('/')
 			obj.serial_quest = fileName[1]
@@ -85,3 +86,22 @@ def compare_file_in_xls(request, list_data):
 				print(e,'\n')
 
 	return list_data
+
+def delete_for_quest(request, data, file_name):
+	# 1. Menghapus file terlasi dengan XLS file
+	for x in range(len(data)):
+		for y in range(len(data[0])):
+			url = 'media/'+str(data[x][y])
+			try:
+				os.remove(url)
+			except Exception as e:
+				print(e,'\n------ data tidak ada ------\n')
+
+	# 2. Menghapus data di DB
+	for_del = models.quest_data.objects.get(serial_quest = file_name)
+	for_del.delete()
+	# 3. Menghapus XLS file
+	try:
+		os.remove('media/'+file_name)
+	except Exception as e:
+		print(e,'\n---- data tidak ada------\n')

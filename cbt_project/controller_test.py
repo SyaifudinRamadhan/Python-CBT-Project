@@ -201,7 +201,7 @@ def run_test (directory) :
 			error = False
 		else :
 			if_checkbox = ''
-			if type_quest[i] == 2 :
+			if type_quest[i] == 2 or ('-' in full_quest[i][19]) == True:
 				ans = str(full_quest[i][19]).split('-')
 				keys.append(ans)
 				if len(ans) != max_check[i]:
@@ -229,7 +229,7 @@ def correctionAns(objAnswear, objDataQuest) :
 	countVal = 0
 	print(type(typeQuest[0]),' ztipe quest ',objAnswear.get_len(),'\n')
 	for i in range(objAnswear.get_len()):
-		if typeQuest[i] == 1 :
+		if typeQuest[i] == 1 and len(ans_keys[i]) == 1:
 			print(objAnswear.get_list(i),' ',ans_keys,' ',val_quest,'\n')
 			if objAnswear.get_list(i) == ans_keys[i] :
 				print(countVal,'\n')
@@ -244,6 +244,13 @@ def correctionAns(objAnswear, objDataQuest) :
 						print(objAnswear.get_list(i),' ',ans_keys,' ',val_quest_multi,'\n')
 						print(countVal,'\n')
 						countVal += val_quest_multi
+		# Jika admin / guru menginputkan kunci lebih dari satu namun, tipe soal
+		# masih pilgan, maka kunci diambil hanya yang index awal.
+		elif typeQuest[i] == 1 and len(ans_keys[i]) > 1:
+			print(objAnswear.get_list(i),' ',ans_keys,' ',val_quest,'\n')
+			if objAnswear.get_list(i) == ans_keys[i][0] :
+				print(countVal,'\n')
+				countVal += val_quest
 
 	objAnswear.reset()
 	objDataQuest.reset()
