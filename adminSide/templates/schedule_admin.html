@@ -40,6 +40,7 @@
                               Tambah Jadwal
                             </button>
                             <button class="btn btn-info" style="margin-right: 10px;" data-bs-toggle="modal" data-bs-target="#add_scdl_data_2">Import Jadwal (xls file)</button>
+                            <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data Tabel</button>
                         </div>
                     </div>
                 </div>
@@ -298,4 +299,5 @@
     <script src="{% static 'script/paginate.js' %}"></script>
     <script src="{% static 'script/live_search_main.js' %}"></script>
     <script src="{% static 'script/search_test_mng.js' %}"></script>
+    <script src="{% static 'script/export_table_to_xls.js' %}"></script>
 {% endblock maincontent %}

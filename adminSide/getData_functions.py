@@ -38,18 +38,27 @@ def getSchedule (request, key, admin = False, teach = False, students = True):
 			listData.append(tmp)
 	elif students == True :
 		# Evaluasi lagi bagian ini 
-		print('masuk',' ',key)
-		keySch = models_2.students_user.objects.filter(no_induk = key)
-		
+		# Bagian ini -> ambil jadwal harus didasarkan id admin dari guru yang diambil siswa dan kelas yang diambil siswa
+		# print('masuk',' ',key)
+		obj_stdn = models_2.students_user.objects.get(no_induk = key)
+		id_admin = ''
 		try:
-			if request.method == "POST" :
-				query = request.POST['search']
-				listData = models.schedule_data.objects.filter(Q(id_teacher = keySch[0].guru_id), Q(date__contains = query) | Q(state__contains = query) | Q(token__contains = query) | Q(start__contains = query)).order_by('-date')
-			else :
-				listData = models.schedule_data.objects.filter(id_teacher = keySch[0].guru_id).order_by('-date','-start')
+			admin_no_induk = models_2.theachers_user.objects.get(no_induk = obj_stdn.guru_id).admin_id
+			id_admin = models_2.user_second.objects.get(no_induk = admin_no_induk).id
 		except Exception as e:
-			print( str(e))
-			listData = ''
+			print(e)
+
+		if id_admin != '' and obj_stdn.id_class != None:
+		# keySch = models_2.students_user.objects.filter(no_induk = )
+			try:
+				if request.method == "POST" :
+					query = request.POST['search']
+					listData = models.schedule_data.objects.filter(Q(id_admin = id_admin), Q(id_class = obj_stdn.id_class), Q(date__contains = query) | Q(state__contains = query) | Q(token__contains = query) | Q(start__contains = query)).order_by('-date')
+				else :
+					listData = models.schedule_data.objects.filter(id_admin = id_admin, id_class = obj_stdn.id_class).order_by('-date','-start')
+			except Exception as e:
+				print( str(e))
+				listData = []
 	print(len(listData))
 	return listData
 
@@ -270,4 +279,26 @@ def read_xls_storage(request, data_id):
 				xls_list[x][y] = str(int(xls_list[x][y]))
 
 	return xls_list, file_name
+
+# ------------- Function get data untuk view table guru --------------------
+def view_tch_data(request, pss = 'admin'):
+	obj = ''
+	view = []
+	if pss == 'admin':
+		obj = models_2.theachers_user.objects.filter(admin_id = request.user)
+	elif pss == 'teacher':
+		obj = models_2.theachers_user.objects.filter(no_induk = request.user)
+
+	if obj != '':
+		for x in range(len(obj)):
+			v = models_2.user_second.objects.get(no_induk = obj[x].no_induk)
+			v1 = main_user.objects.get(username = obj[x].no_induk)
+			view.append([
+				v.id, v1.id, obj[x].id, v.no_induk, v.username, obj[x].agency, 
+				v1.first_name, v1.last_name
+				])
+	return view
+
+
+
 

@@ -61,6 +61,18 @@
 				    <label for="pwd" class="form-label">Password Baru</label>
 				    <input type="password" name="pwd" minlength="10" class="form-control" id="pwd">
 				  </div>
+				  <div class="mb-3">
+				    <label for="class" class="form-label">Kelas (Jika kosong, wajib diisi di selector dibawah ini. Dan jika selector di bawah ini kosong, maka pastikan guru anda sudah terdaftar admin atau kode guru anda salah)</label>
+				    <input type="text" class="form-control" value="{{ class }}" disabled>
+				  </div>
+				  <div class="mb-3">
+				    <select class="form-select" aria-label="Default select" name="class" id="class">
+                        {% for slc in slc_class %}
+                        	<option value="{{ slc.id }}">{{ slc.class_name }}</option>
+                        {% endfor %}
+                    </select>
+				  </div>
+
 				  {% for note in confirm %}
 				  	<div class="text-center text-danger mb-1">{{ note }}</div>
 				  {% endfor %}
