@@ -69,6 +69,9 @@ def quest_basic (request):
 	check_logged = fn.loginCheck(request, state = 'admin')
 	if check_logged != 'None':
 		return redirect(check_logged)
+	
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	# Membersihkan memory object saat memuat halaman ini
 	memory.clear_list()
 	# ---------- Write Code (Logic System) Here ---------------
 	view = f_get.get_quest_table(request)
@@ -132,6 +135,8 @@ def quest_basic (request):
 		'slc_tch':slc_tch,
 		'slc_crs':slc_crs,
 		'id_admin':id_admin,
+		'main':obj_user_main,
+		'second':obj_user_second,
 	}
 
 	return render(request, 'quest_list.html', context)
@@ -145,6 +150,8 @@ def quest_edit (request):
 	if memory.get_len_data() == 0:
 		return redirect('/panel/quest_data')
 
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	# handilng refresh page agar datanya tidak kosong di formnya
 	print(memory.get_all_data(),'\n')
 	index_params = memory.get_index_params()
 	len_data = memory.get_len_data()
@@ -192,6 +199,8 @@ def quest_edit (request):
 		'view':simplejson.dumps(view),
 		'len_view':len(view),
 		'view_n':view,
+		'main':obj_user_main,
+		'second':obj_user_second,
 	}
 
 	return render(request, 'add_quest.html', context)
@@ -202,6 +211,8 @@ def quest_add (request):
 	if check_logged != 'None':
 		return redirect(check_logged)
 
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	# handilng refresh page agar datanya tidak kosong di formnya
 	index_params = memory.get_index_params()
 	len_data = memory.get_len_data()
 	view = []
@@ -246,6 +257,8 @@ def quest_add (request):
 		'view':simplejson.dumps(view),
 		'len_view':len(view),
 		'view_n':view,
+		'main':obj_user_main,
+		'second':obj_user_second,
 	}
 
 	return render(request, 'add_quest.html', context)
@@ -256,9 +269,48 @@ def schdl_manage (request):
 	if check_logged != 'None':
 		return redirect(check_logged)
 
+	report = ''
 	# ---------- Write Code (Logic System) Here ---------------
+	if request.method == "POST" and request.POST.get('edit') != None:
+		ctrl.edit_schedule_manual(request)
+		return redirect('/panel/schedule_data')
 
-	return render(request, 'schedule_admin.html')
+	if request.method == "POST" and request.POST.get('add_auto') != None:
+		msg, data = f_get.read_xls_online(request)
+		if msg == '':
+			print(data)
+			err = ctrl.add_schedule_auto(request, data)
+			if err == 0:
+				return redirect('/panel/schedule_data')
+			else:
+				report += 'Data gagal ditambahkan, ada kesalahan format data. Gagal input data no : '+str(err)
+		else:
+			report += 'Data gagal ditambahkan semuanya, file excel tidak terbaca'
+
+	if request.method == "POST" and request.POST.get('add_manual') != None:
+		ctrl.add_schedule_manual(request)
+		return redirect('/panel/schedule_data')
+
+	if request.method == "POST" and request.POST.get('delete') != None:
+		ctrl.del_schedule(request)
+		return redirect('/panel/schedule_data')
+
+	slc_crs, slc_tch, id_admin = f_get.for_add_quest(request)
+	slc_class = f_get.get_list_class(request)
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	schedule = f_get.getSchedule(request,'',admin = True, students=False)
+
+	context={
+		'main':obj_user_main,
+		'second':obj_user_second,
+		'schedule':schedule,
+		'slc_tch':slc_tch,
+		'slc_crs':slc_crs,
+		'slc_class':slc_class,
+		'report':report,
+	}
+
+	return render(request, 'schedule_admin.html', context)
 
 def activate (request):
 
@@ -267,8 +319,24 @@ def activate (request):
 		return redirect(check_logged)
 
 	# ---------- Write Code (Logic System) Here ---------------
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	schedule = f_get.getSchedule(request,'',admin = True, students=False)
 
-	return render(request, 'test_manage_page.html')
+	if request.method == "POST" and request.POST.get('activate') != None:
+		ctrl.set_active(request)
+		return redirect('/panel/set_test_active')
+
+	if request.method == "POST" and request.POST.get('deactivate') != None:
+		ctrl.set_deactive(request)
+		return redirect('/panel/set_test_active')
+
+	context={
+		'main':obj_user_main,
+		'second':obj_user_second,
+		'schedule':schedule,
+	}
+
+	return render(request, 'test_manage_page.html', context)
 
 def my_acc (request):
 
@@ -277,8 +345,21 @@ def my_acc (request):
 		return redirect(check_logged)
 
 	# ---------- Write Code (Logic System) Here ---------------
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	confirm = []
+	if request.method == "POST" and request.POST.get('edit') != None:
+		confirm = fn.editStdAcc(request, pss = 'admin')
+		if len(confirm)	== 0:
+			return redirect('/panel/set_my_acc') 	
 
-	return render(request, 'my_acc_admin.html')
+	context={
+		'main':obj_user_main,
+		'second':obj_user_second,
+		'confirm':confirm,
+		'len_confirm':len(confirm),
+	}
+	
+	return render(request, 'my_acc_admin.html', context)
 
 
 

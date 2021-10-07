@@ -1,0 +1,103 @@
+{% extends "base_admin.html" %}
+
+{% load static %}
+
+{% block maincontent %}
+
+<main class="page-content pt-2">
+	<div id="overlay" class="overlay"></div>
+	<div class="container-fluid p-5">
+		<h1>Daftar Soal</h1>
+		<div class="dropdown-divider"></div>
+
+		<div class="card mt-3">
+		  <div class="card-header bg-info">
+		   Ubah Akun Saya
+		  </div>
+		  <div class="card-body">
+		    <h5 class="card-title">Halaman Pengaturan Akun Saya</h5>
+		    <p class="card-text">Ini adalah halaman untuk mengatur akun siswa di kelas ini.</p>
+		  </div>
+		</div>
+
+		{% if len_confirm != 0 %}
+			<div class="card mt-3">
+			  <div class="card-header bg-danger">
+			   Pesan Error
+			  </div>
+			  <div class="card-body">
+			  	{% for v in confirm %}
+			  		<p class="card-text">{{ v }}</p>
+			  	{% endfor %}
+			  </div>
+			</div>
+		{% endif %}
+
+		<div >
+		  <div>
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Akun Saya {{ user }}</h5>
+		      </div>
+
+		      <div class="d-flex justify-content-center rounded-circle">
+		      	<img class="rounded-circle" width="250px" height="250px" src="/media/{{ second.profile }}">
+		      </div>
+		     
+		      <form method="post" action="" enctype="multipart/form-data">
+		      	{% csrf_token %}
+			      <div class="modal-body">
+			          <div class="mb-3">
+					    <label for="username" class="form-label">Username</label>
+					    <input type="text" name="username" required class="form-control" id="username" value="{{ main.username }}">
+					  </div>
+					  <div class="mb-3">
+					    <label for="email" class="form-label">Alamat E-Mail</label>
+					    <input type="email" name="email" required class="form-control" id="email" aria-describedby="emailHelp" value="{{ main.email }}">
+					    <div id="emailHelp" class="form-text">Kerahasian data anda kami jamin</div>
+					  </div>
+					  <!-- input no induk type hidden untuk admin -->
+					    <input type="hidden" name="noinduk" required class="form-control" id="noinduk" value="{{ user }}">
+					  
+					  <div class="mb-3">
+					    <label for="fname" class="form-label">Nama depan</label>
+					    <input type="text" name="fname" required class="form-control" id="fname" value="{{ main.first_name }}">
+					  </div>
+					  <div class="mb-3">
+					    <label for="lname" class="form-label">Nama belakang</label>
+					    <input type="text" name="lname" required class="form-control" id="lname" value="{{ main.last_name }}">
+					  </div>
+					 <hr>
+					 <div class="mb-2">
+					    <label class="text-center form-label">Jika anda ingin menganti password, maka password sbelumnya dan password baru harus diisi. Namun jika tidak, maka kosongi saja keduanya</label>
+					  </div>
+					  <div class="mb-3">
+					    <label for="pwd0" class="form-label">Password Sebelumnya</label>
+					    <input type="password" name="pwd0" minlength="10" class="form-control" id="pwd0">
+					  </div>
+					  <div class="mb-3">
+					    <label for="pwd" class="form-label">Password Baru</label>
+					    <input type="password" name="pwd" minlength="10" class="form-control" id="pwd">
+					  </div>
+					  <hr>
+					  {% for note in confirm %}
+					  	<div class="text-center text-danger mb-1">{{ note }}</div>
+					  {% endfor %}
+					    <label for="pwd" class="form-label">Update Foto Profil</label>
+					  <div class="input-group mb-3">
+						  <input type="file" class="form-control" id="inputGroupFile02" name="photo">
+						  <label class="input-group-text" for="inputGroupFile02">Upload</label>
+					  </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="submit" name="edit" class="btn btn-primary">Submit</button>
+			      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+
+	</div>
+</main>
+	
+{% endblock maincontent %}

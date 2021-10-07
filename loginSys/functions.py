@@ -130,21 +130,30 @@ def passConfirm (request, l_pass, new_pass, confirm):
 		return False
 	# -------------------------------------------------------------
 
-def editStdAcc (request):
-
+# ------ function ini untuk mengedit profil pengguna (umum) ----------
+def editStdAcc (request, pss = 'student'):
+	# Untuk yanga admin, pss bisa diisi kong atau 'admin' 
+	# sebab admin hanya menggunakan main dan user_second saja
 	username = request.POST['username']
+	# no induk untuk guru dan admin wajib hidden
 	no_induk = request.POST['noinduk']
 	email = request.POST['email']
 	fname = request.POST['fname']
 	lname = request.POST['lname']
-	teach_id = request.POST['guru_id']
+	# ini khusus untuk student
+	teach_id = ''
+	# dua ini khusus untuk teacher
+	id_admin = ''
+	agency_0 = ''
+	# ---------------------------
 	l_pass = request.POST['pwd0']
 	new_pass = request.POST['pwd']
 	confirm = []
-	
+
 	editMain = userModel.User.objects.get(username = request.user)
 	editSec = models.user_second.objects.get(no_induk = request.user)
-	editStdn = models.students_user.objects.get(no_induk = request.user)
+	editStdn = ''
+	editTch = ''
 
 	fileInf, nameFile = uploadImg(request, editSec, confirm)
 	# Untuk upload Foto profil
@@ -164,17 +173,31 @@ def editStdAcc (request):
 	# Mengubah data sec_user
 	editSec.no_induk = no_induk
 	editSec.username = username
-	# Profile sudah diupdate di atas
-	# edit stdn user
-	editStdn.no_induk = no_induk
-	editStdn.guru_id = teach_id
+	
+	if pss == 'student':
+		teach_id = request.POST['guru_id']
+		editStdn = models.students_user.objects.get(no_induk = request.user)
+		# Profile sudah diupdate di atas
+		# edit stdn user
+		editStdn.no_induk = no_induk
+		editStdn.guru_id = teach_id
+	elif pss == 'teacher':
+		id_admin = request.POST.get('iad_admin')
+		agency_0 = request.POST.get('agency')
+		editTch = models.theachers_user.objects.get(no_induk = request.user)
+		# no induk wwajib tetap
+		editTch.admin_id = id_admin
+		editTch.agency = agency_0
 
 	try:
 		editMain.save()
 		editSec.save()
-		editStdn.save()
+		if pss == 'student':
+			editStdn.save()
+		elif pss == 'teacher':
+			editTch.save()
 	except Exception as e:
-		confirm.append(e)
+		confirm.append('Gagal menyimpan perubahan')
 
 	if check == True :
 		auth = authenticate(request, username = no_induk, password = new_pass)

@@ -201,7 +201,8 @@ def run_test (directory) :
 			error = False
 		else :
 			if_checkbox = ''
-			if type_quest[i] == 2 or ('-' in full_quest[i][19]) == True:
+			# print('Coba : ','-' in type_quest[i][19],'\n')
+			if type_quest[i] == 2 and ('-' in str(full_quest[i][19])) == True:
 				ans = str(full_quest[i][19]).split('-')
 				keys.append(ans)
 				if len(ans) != max_check[i]:

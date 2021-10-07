@@ -6,30 +6,38 @@ from datetime import datetime as today
 from django.contrib.auth.models import User as main_user
 import pandas as pd
 
+# ------ function get data untuk view list jadwal di table (Umum) ------------
 def getSchedule (request, key, admin = False, teach = False, students = True):
-	listData = ''
+	listData = []
 
-	if admin == True :
+	if admin == True or teach == True:
+		obj = []
 		try:
-			# if request.method == "POST" :
-			# 	query = request.POST['search']
-			# 	listData = models.schedule_data.objects.filter(id_admin = key,
-			# 	 (Q(date_icontains = query) | 
-			# 	 Q(start_icontains = query) | 
-			# 	 Q(state_icontains = query)))
-			listData = models.schedule_data.objects.filter(id_admin = key).order_by('-date','-start')
-			print(listData)
+			if admin == True:
+				id_admin = models_2.user_second.objects.get(no_induk = request.user).id
+				obj = models.schedule_data.objects.filter(id_admin = id_admin).order_by('-date','-start')
+			elif teach == True:
+				obj = models.schedule_data.objects.filter(id_teacher = request.user)
 		except Exception as e:
 			print( str(e))
 			listData = ''
-	elif teach == True :
-		try:
-			listData = models.schedule_data.objects.filter(id_teacher = key).order_by('-date','-start')
-			print(listData)
-		except Exception as e:
-			print( str(e))
-			listData = ''
-	else :
+
+		for x in range(len(obj)):
+			ID = obj[x].id
+			date = str(obj[x].date)
+			start = str(obj[x].start)
+			end = str(obj[x].end)
+			drt = str(obj[x].duration)
+			token = obj[x].token
+			state = obj[x].state
+			# Dari FK ke data real
+			tch = models_2.user_second.objects.get(no_induk = obj[x].id_teacher)
+			class_name = models.class_data.objects.get(id = obj[x].id_class)
+			course = models.course_data.objects.get(id = obj[x].id_course)
+			tmp = [date, start, end, drt, tch, class_name, course, token, state, ID]
+			listData.append(tmp)
+	elif students == True :
+		# Evaluasi lagi bagian ini 
 		print('masuk',' ',key)
 		keySch = models_2.students_user.objects.filter(no_induk = key)
 		
@@ -45,6 +53,7 @@ def getSchedule (request, key, admin = False, teach = False, students = True):
 	print(len(listData))
 	return listData
 
+# ---- function get data untuk view table hasil ujian ----------------
 def viewResultTest (request, key, admin = False, teach = False, students = True):
 
 	if admin == True :
@@ -81,6 +90,7 @@ def viewResultTest (request, key, admin = False, teach = False, students = True)
 # 	print(len(mainData))
 # 	return True
 
+# ---------- function get data file xls dan batas waktu untuk memulai test -----------------
 def getQuestFile (request) :
 	directory = ''
 	confirm = ''
@@ -143,13 +153,17 @@ def getQuestFile (request) :
 
 	return directory, confirm, END_Time, s_time[0]
 
-
+#  ------- belum terdefinisi -------------------------------------
 def getDataTch (request):
 	return True
 
 def getDataAdmin (request):
-	return True
+	obj_main = main_user.objects.get(username = request.user)
+	obj_second = models_2.user_second.objects.get(no_induk = request.user)
 
+	return obj_main, obj_second
+
+# ----- function get data untuk view di dalam tabel ----------------
 def get_quest_table (request, pss = 'admin'):
 	obj_quest_data = ''
 	listData = []
@@ -170,6 +184,7 @@ def get_quest_table (request, pss = 'admin'):
 
 	return listData
 
+# ------- function get data untuk mendapat data di modal add soal dan add jadwal----------------
 def for_add_quest(request, pss = 'admin'):
 	obj_course = ''
 	obj_tch = ''
@@ -204,13 +219,25 @@ def for_add_quest(request, pss = 'admin'):
 
 	return out_crs, out_tch, id_admin
 
+# ------ Function get data list untuk modal pop up for admin() --------------
+def get_list_class(request):
+	view = []
+	data = models.class_data.objects.filter(
+		id_admin = models_2.user_second.objects.get(no_induk = request.user).id
+		)
+	for x in range(len(data)):
+		tmp = [data[x].id, data[x].class_name]
+		view.append(tmp)
+	return view
+
+# ------------- function get data untuk membaca xls online (umum) -----
 def read_xls_online(request):
 	file = request.FILES['xls']
 	xls_list = []
 	try:
 		data_frame = pd.read_excel(file)
 		xls_list = data_frame.values.tolist()
-		del xls_list[0]
+		# del xls_list[0]
 		confirm = ''
 		for x in range(len(xls_list)):
 			for y in range(len(xls_list[0])):
@@ -222,6 +249,7 @@ def read_xls_online(request):
 		confirm = 'Error file'
 		return confirm, xls_list
 
+# ------------ function get data read xls in media (kontrol data membuat soal) -----------
 def read_xls_storage(request, data_id):
 	id_data = data_id
 	file_name = ''
@@ -242,3 +270,4 @@ def read_xls_storage(request, data_id):
 				xls_list[x][y] = str(int(xls_list[x][y]))
 
 	return xls_list, file_name
+

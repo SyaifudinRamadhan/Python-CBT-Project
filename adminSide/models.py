@@ -36,7 +36,7 @@ class schedule_data (models.Model):
 	token = models.CharField(max_length = 10)
 
 	def __str__(self):
-		return self.date
+		return str(self.date)
 
 # Mengambil turunan dari PK data mapel, dan guru (sec user)
 class quest_data (models.Model):
@@ -62,4 +62,4 @@ class result_test (models.Model):
 	id_teacher = models.CharField(max_length = 20)
 
 	def __str__(self):
-		return self.date
+		return str(self.date)
