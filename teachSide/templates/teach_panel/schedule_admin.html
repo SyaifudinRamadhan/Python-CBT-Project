@@ -1,0 +1,194 @@
+{% extends "teach_panel/base_admin.html" %}
+
+{% load static %}
+
+{% block maincontent %}
+	<main class="page-content pt-2">
+        <div id="overlay" class="overlay"></div>
+        <div class="container-fluid p-5">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="row justify-content-between">
+                        <div class="col-md-9 align-self-center">
+                            navigasi Tabel
+                        </div>
+                        <div>
+                            
+                            <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data Tabel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-9 align-self-center">
+                            Show
+                            <select class="form-select" aria-label="Default select" name="" id="num_shown">
+                                <option value="10" onClick="window.location.reload();">10</option>
+                                <option value="20" onClick="window.location.reload();">20</option>
+                                <option value="50" onClick="window.location.reload();">50</option>
+                                <option value="100" onClick="window.location.reload();">100</option>
+                                <option value="all" onClick="window.location.reload();">All</option>
+                            </select>
+                            Entries
+                        </div>
+                        <div class="row" style="margin-bottom: 25px;">
+                            <label for="colFormLabel" class="col-form-label">Search : </label>
+                            <div class="col-auto">
+                                <input type="text" class="form-control me-1" id="Search1" placeholder="Berdasar tanggal ujian">
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" class="form-control me-1" id="Search2" placeholder="Berdasar nama mapel">
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" class="form-control me-1" id="Search3" placeholder="Berdasar jam mulai">
+                            </div>
+                        </div>
+                        {% if report != '' %}
+                            <h6 class="text-danger">*{{ report }}</h6>
+                        {% endif %}
+                   </div>
+            </div>
+        </div>
+
+        <div class="mt-5 row table-responsive-sm">
+            <table id="data" class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
+            	<thead>
+                	<tr>
+                       	<th scope="col">Tanggal</th>
+                        <th scope="col">Jam Mulai</th>
+                        <th scope="col">Jam Akhir</th>
+                        <th scope="col">Durasi</th>
+                        <th scope="col">Guru</th>
+                        <th scope="col">Kelas</th>
+                        <th scope="col">Mapel</th>
+                        <th scope="col">Token</th>
+                        <th scope="col">Status</th>
+                       
+                    </tr>
+                </thead>
+                <tbody id="table_data">
+                   	{% for view in schedule %}
+                   		<tr>
+	                   		<td>{{ view.0 }}</td>
+	                   		<td>{{ view.1 }}</td>
+	                   		<td>{{ view.2 }}</td>
+	                   		<td>{{ view.3 }}</td>
+	                   		<td>{{ view.4 }}</td>
+	                   		<td>{{ view.5 }}</td>
+	                   		<td>{{ view.6 }}</td>
+	                   		<td>{{ view.7 }}</td>
+	                   		<td>{{ view.8 }}</td>
+	                   	
+	                   	</tr>
+                   	{% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-auto me-auto align-middle" style="margin-top: 10px;" id="inf">
+                                
+       		</div>
+	        <div>
+	            <div class="col-auto">
+	                <div class="btn-toolbar" id="pagination">
+	                    <div class="btn-group me-2">
+	                        <!-- Disisi oleh JS pembuatan paginatioan button -->
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+    </main>
+
+<!-- Modal add quest manual-->
+<div class="modal fade" id="add_scdl_data" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_quest_data_2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_quest_data_2">Tambah Jadwal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="date" class="form-label">Tanggal</label>
+          <input type="date" class="form-control" name="date" id="date">
+        </div>
+        <div class="mb-3">
+          <label for="start" class="form-label">Jam Mulai</label>
+          <input type="time" step="1" class="form-control" name="start" id="start">
+        </div>
+        <div class="mb-3">
+          <label for="end" class="form-label">Jam Akhir</label>
+          <input type="time" step="1" class="form-control" name="end" id="end">
+        </div>
+        <div class="mb-3">
+          <label for="drt" class="form-label">Durasi (menit)</label>
+          <input type="number" class="form-control" name="drt" id="drt">
+        </div>
+
+        <div class="mb-3">
+          <label for="crs" class="form-label">Mata Pelajaran</label>
+          <select class="form-select" id="crs" name="course" aria-label="Default select example" required="">
+                {% for lsc in slc_crs %}
+                    <option value="{{ lsc.1 }}">{{ lsc.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+          <label for="cls" class="form-label">Kelas</label>
+          <select class="form-select" id="cls" name="class" aria-label="Default select example" required="">
+                {% for lsc in slc_class %}
+                    <option value="{{ lsc.1 }}">{{ lsc.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" name="add_manual" class="btn btn-primary">Submit</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal add jadwal otomatis-->
+<div class="modal fade" id="add_scdl_data_2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_quest_data_2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_quest_data_2">Tambah Jadwal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Input File XLS</label>
+          <input class="form-control" type="file" name="xls" accept=".xls" id="formFile" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" name="add_auto" class="btn btn-primary">Submit</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'script/paginate.js' %}"></script>
+    <script src="{% static 'script/live_search_main.js' %}"></script>
+    <script src="{% static 'script/search_test_mng.js' %}"></script>
+    <script src="{% static 'script/export_table_to_xls.js' %}"></script>
+{% endblock maincontent %}

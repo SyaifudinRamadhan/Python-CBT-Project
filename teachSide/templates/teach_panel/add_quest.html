@@ -1,0 +1,252 @@
+{% extends "teach_panel/base_admin.html" %}
+{% load static %}
+
+{% block maincontent %}
+
+<main class="page-content pt-2">
+	<div id="overlay" class="overlay"></div>
+    <div class="container-fluid p-5">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    	<section><div class="card border-success mb-3" style="max-width: 1550px;">
+        	<div class="card-header bg-success">
+               Soal ke - {{ numbering }}
+            </div>
+            <div class="card-body">
+               <input type="hidden" name="no" value="0">
+
+               <label class="form-label">Tipe Soal</label>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="type_quest" value="1" id="A1">
+                 <label class="form-check-label" for="A1">
+                   Pilihan Ganda
+                 </label>
+               </div>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="type_quest" value="2" id="A2" checked>
+                 <label class="form-check-label" for="A2">
+                   Multiple Answear
+                 </label>
+               </div>
+
+               <div class="mt-3 mb-3">
+                 <label for="B" class="form-label">Jumlah Opsi (jika type multiple answear)</label>
+                 <input type="number" class="form-control" id="B" name="num_opsi">
+               </div>
+
+               <label class="form-label">Kategori</label>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="cat" value="1" id="C1">
+                 <label class="form-check-label" for="C1">
+                   Mudah
+                 </label>
+               </div>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="cat" value="2" id="C2" checked>
+                 <label class="form-check-label" for="C2">
+                   Sedang
+                 </label>
+               </div>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="cat" value="3" id="C3" checked>
+                 <label class="form-check-label" for="C3">
+                   Susah
+                 </label>
+               </div>
+
+               <label class="mt-3 form-label">Acak Soal ?</label>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="acak" value="A" id="DA">
+                 <label class="form-check-label" for="DA">
+                   Acak
+                 </label>
+               </div>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="acak" value="T" id="DT" checked>
+                 <label class="form-check-label" for="DT">
+                   Tidak
+                 </label>
+               </div>
+
+                <div class="mt-3 mb-3">
+                 <label for="E" class="form-label">Pertanyaan</label>
+                 <textarea type="text" class="form-control" id="E" name="quest"></textarea>
+               </div>
+
+               <div class="mb-1">
+                <img id="file_q_18" width="20%" height="20%" src="">
+               </div>
+
+               <div class="mb-3">
+                 <label for="file_q18" class="form-label">Gambar Soal</label>
+                 <input class="form-control" type="file" accept="image/*" name="img_q" id="file_q18">
+               </div>
+
+               {% if len_view != 0 and view_n.16 != '' %}
+               <div class="mb-1">
+                <audio style="width: 500px; height:50px" controls>
+                    <source id="file_q_16" src="" type="audio/mpeg">
+                </audio>
+               </div>
+               {% endif %}
+
+               <div class="mb-3">
+                 <label for="file_q16" class="form-label">Audio Soal</label>
+                 <input class="form-control" type="file" accept="audio/*" name="aud_q" id="file_q16">
+               </div>
+
+               {% if len_view != 0 and view_n.17 != '' %}
+               <div class="mb-1">
+                <video width="35%" height="35%" controls>
+                  <source id="file_q_17" src="" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+               </div>
+               {% endif %}
+
+               <div class="mb-3">
+                 <label for="file_q17" class="form-label">Video Soal</label>
+                 <input class="form-control" type="file" accept="video/*" name="vid_q" id="file_q17">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans6" class="form-label">Opsi 1</label>
+                 <input class="form-control" type="text" name="op_1" id="ans6">
+               </div>
+
+               <div class="mb-1">
+                <img id="ans_im_7" width="20%" height="20%" src="">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans_im7" class="form-label">Gambar Jawaban 1</label>
+                 <input class="form-control" type="file" accept="image/*" name="img_ans1" id="ans_im7">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans8" class="form-label">Opsi 2</label>
+                 <input class="form-control" type="text" name="op_2" id="ans8">
+               </div>
+
+               <div class="mb-1">
+                <img id="ans_im_9" width="20%" height="20%" src="">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans_im9" class="form-label">Gambar Jawaban 2</label>
+                 <input class="form-control" type="file" accept="image/*" name="img_ans2" id="ans_im9">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans10" class="form-label">Opsi 3</label>
+                 <input class="form-control" type="text" name="op_3" id="ans10">
+               </div>
+
+               <div class="mb-1">
+                <img id="ans_im_11" width="20%" height="20%" src="">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans_im11" class="form-label">Gambar Jawaban 3</label>
+                 <input class="form-control" type="file" accept="image/*" name="img_ans3" id="ans_im11">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans12" class="form-label">Opsi 4</label>
+                 <input class="form-control" type="text" name="op_4" id="ans12">
+               </div>
+
+               <div class="mb-1">
+                <img id="ans_im_13" width="20%" height="20%" src="">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans_im13" class="form-label">Gambar Jawaban 4</label>
+                 <input class="form-control" type="file" accept="image/*" name="img_ans4" id="ans_im13">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans14" class="form-label">Opsi 5</label>
+                 <input class="form-control" type="text" name="op_5" id="ans14">
+               </div>
+
+               <div class="mb-1">
+                <img id="ans_im_15" width="20%" height="20%" src="">
+               </div>
+
+               <div class="mb-3">
+                 <label for="ans_im15" class="form-label">Gambar Jawaban 5</label>
+                 <input class="form-control" type="file" accept="image/*" name="img_ans5" id="ans_im15">
+               </div>
+
+               <div class="mb-3">
+                 <label for="img_ans5" class="form-label">Kunci Jawaban</label>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="key1" id="S1">
+                    <label class="form-check-label" for="S1">
+                      Opsi 1
+                    </label>
+                 </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="2" name="key2" id="S2">
+                    <label class="form-check-label" for="S2">
+                      Opsi 2
+                    </label>
+                 </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="3" name="key3" id="S3">
+                    <label class="form-check-label" for="S3">
+                      Opsi 3
+                    </label>
+                 </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="4" name="key4" id="S4">
+                    <label class="form-check-label" for="S4">
+                      Opsi 4
+                    </label>
+                 </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="5" name="key5" id="S5">
+                    <label class="form-check-label" for="S5">
+                      Opsi 5
+                    </label>
+                 </div>
+               </div>
+
+               <div class="mb-3">
+                 <label for="img_ans5" class="form-label">Acak Jawaban ?</label>
+                 <div class="form-check">
+                    <input class="form-check-input" type="radio" name="acak_ans" value="Y" id="TY" checked>
+                    <label class="form-check-label" for="TY">
+                      Acak
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="acak_ans" value="T" id="TT">
+                    <label class="form-check-label" for="TT">
+                      Tidak
+                    </label>
+                  </div>
+               </div>
+               
+               <div class="card-footer">
+                  Operasi : 
+               	  <button type="submit" class="btn btn-primary" name="back"> Prev </button>
+                  <button type="submit" class="btn btn-primary" name="next"> Next </button>
+                  <button type="submit" class="btn btn-danger" name="del"> Hapus </button>
+                  <button type="submit" class="btn btn-danger" name="finish"> Simpan (Final) </button>
+              </div>
+         	</div>
+      	</section>
+        </form>
+    </div>
+</main>
+
+<script type="text/javascript">
+      window.addEventListener("load", myInit, true); function myInit(){  
+          checked_n_fill({{ index_params }}, {{ len_data }}, {{ view|safe }})
+      };
+    </script>
+<script src="{% static 'script/quest_control.js' %}"></script>
+	
+{% endblock maincontent %}

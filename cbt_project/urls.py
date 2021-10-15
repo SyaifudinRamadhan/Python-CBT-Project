@@ -33,6 +33,7 @@ urlpatterns = [
     path('std_test_run', views.testMain, name = 'testrun'),
     path('oAuth/', include(('loginSys.urls','loginSys'), namespace = 'login')),
     path('panel/', include(('adminSide.urls', 'adminSide'), namespace = 'panel_admin')),
+    path('panel_sec/', include(('teachSide.urls', 'teachSide'), namespace = 'panel_teacher')),
     path('cek', views.cek),
 ]
 

@@ -2,7 +2,7 @@
 function search(id, index_td, table_id){
 	// Jalankan live get aearch keyword 
 	var keyword  = document.getElementById(id).value;
-
+	// console.log(index_td);
 	var filter, table, tr, td, i, txtValue;
 		  // input = document.getElementById("myInput");
 	filter = keyword.toUpperCase();

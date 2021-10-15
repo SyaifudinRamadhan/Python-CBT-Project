@@ -55,7 +55,7 @@
                     </div>
                     <div class="user-info">
                         <span class="user-name">
-                            {{ user }}
+                            {{ second.username }}
                         </span>
                         <span class="user-role">Administrator</span>
                         <span class="user-status">
@@ -68,7 +68,7 @@
                 <div class=" sidebar-item sidebar-menu">
                     <ul>
                         <li class="sidebar-dropdown" style="border-top-style: solid;border-top-width: 0px;padding-top: 15px;">
-                            <a href="#">
+                            <a href="/panel/">
                                 <i class="fa fa-tachometer-alt"></i>
                                 <span class="menu-text">Dashboard</span>
                             </a>
@@ -77,45 +77,51 @@
                             <span>Data</span>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#"><i class="fas fa-school"></i>
+                            <a href="{% url 'panel_admin:class_data' %}"><i class="fas fa-school"></i>
                                 <span class="menu-text">Data Kelas</span>
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
+                            <a href="{% url 'panel_admin:course_data' %}">
                                 <i class="fas fa-book-open"></i>
                                 <span class="menu-text">Mata Pelajaran</span>
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
+                            <a href="{% url 'panel_admin:schedule' %}">
                                 <i class="fas fa-book-reader"></i>
                                 <span class="menu-text">Penjadwalan</span>
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
+                            <a href="{% url 'panel_admin:quest_data_list' %}">
                                 <i class="fas fa-atom"></i>
                                 <span class="menu-text">Data Soal</span>
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
+                            <a href="{% url 'panel_admin:stdn_data' %}">
                                 <i class="fas fa-user-graduate"></i>
                                 <span class="menu-text">Data Siswa</span>
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
+                            <a href="{% url 'panel_admin:teacher_data' %}">
                                 <i class="fas fa-chalkboard-teacher"></i>
                                 <span class="menu-text">Data Guru</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="{% url 'panel_admin:view_res' %}">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span class="menu-text">Hasil Test</span>
                             </a>
                         </li>
                         <li class="header-menu">
                             <span>Tools</span>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
+                            <a href="{% url 'panel_admin:schedule_set' %}">
                                 <i class="fas fa-tasks"></i>
                                 <span class="menu-text">Set Aktivasi</span>
                             </a>
@@ -127,7 +133,7 @@
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
+                            <a href="{% url 'panel_admin:my_acc_admin' %}">
                                 <i class="fas fa-user-cog"></i>
                                 <span class="menu-text">Edit Akun</span>
                             </a>
@@ -138,17 +144,8 @@
             </div>
             <!-- sidebar-footer  -->
             <div class="sidebar-footer">
-                <div class="dropdown">
-                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-cog"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuMessage">
-                        <a class="dropdown-item" href="#">My profile</a>
-                        <a class="dropdown-item" href="#">Help</a>
-                    </div>
-                </div>
                 <div>
-                    <a href="#">
+                    <a href="{% url 'login:logout' %}">
                         <i class="fa fa-power-off"></i>
                     </a>
                 </div>

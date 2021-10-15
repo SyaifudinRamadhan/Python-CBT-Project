@@ -54,7 +54,7 @@
                         <div class="col-md-9 align-self-center">
                             Show
                             <select class="form-select" aria-label="Default select" name="" id="num_shown">
-                                <option value="4" onClick="window.location.reload();">4</option>
+                                <option value="10" onClick="window.location.reload();">10</option>
                                 <option value="20" onClick="window.location.reload();">20</option>
                                 <option value="50" onClick="window.location.reload();">50</option>
                                 <option value="100" onClick="window.location.reload();">100</option>
@@ -83,6 +83,7 @@
                                     <th scope="col">File Soal</th>
                                     <th scope="col">Mata Pelajaran</th>
                                     <th scope="col">Pengajar</th>
+                                    <th scope="col">Kelas</th>
                                     <th scope="col">Edit soal</th>
                                     <th scope="col">Unduh/Hapus</th>
                                 </tr>
@@ -94,6 +95,7 @@
                                     <td>{{ view.1 }}</td>
                                     <td>{{ view.3 }}</td>
                                     <td>{{ view.2 }}</td>
+                                    <td>{{ view.4 }}</td>
                                     <td>
                                         <button class="btn btn-warning"data-bs-toggle="modal" data-bs-target="#edit_quest_data{{ view.0 }}">
                                             <i class="fas fa-cloud-upload-alt"></i>
@@ -187,18 +189,19 @@
       <form method="post">
         {% csrf_token %}
       <div class="modal-body">
-        <div class="mb-3">
-          <label for="tch" class="form-label">Guru</label>
-          <select class="form-select" id="tch" name="tch_id" aria-label="Default select example" required>
-              {% for ls in slc_tch %}
-                  <option value="{{ ls.0 }}">{{ ls.1 }}</option>
-              {% endfor %}
-            </select>
-        </div>
+        
         <div class="mb-3">
           <label for="mapel" class="form-label">Mapel</label>
           <select class="form-select" id="mapel" name="mapel" aria-label="Default select example" required="">
                 {% for lsc in slc_crs %}
+                    <option value="{{ lsc.0 }}">{{ lsc.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+          <label for="cls" class="form-label">Kelas</label>
+          <select class="form-select" id="cls" name="id_class" aria-label="Default select example" required="">
+                {% for lsc in slc_cls %}
                     <option value="{{ lsc.0 }}">{{ lsc.1 }}</option>
                 {% endfor %}
             </select>
@@ -225,18 +228,19 @@
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
       <div class="modal-body">
-        <div class="mb-3">
-          <label for="tch" class="form-label">Guru</label>
-          <select class="form-select" id="tch" name="tch_id" aria-label="Default select example" required>
-              {% for ls in slc_tch %}
-                  <option value="{{ ls.0 }}">{{ ls.1 }}}</option>
-              {% endfor %}
-            </select>
-        </div>
+        
         <div class="mb-3">
           <label for="mapel" class="form-label">Mapel</label>
           <select class="form-select" id="mapel" name="mapel" aria-label="Default select example" required="">
                 {% for lsc in slc_crs %}
+                    <option value="{{ lsc.0 }}">{{ lsc.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+          <label for="cls" class="form-label">Kelas</label>
+          <select class="form-select" id="cls" name="id_class" aria-label="Default select example" required="">
+                {% for lsc in slc_cls %}
                     <option value="{{ lsc.0 }}">{{ lsc.1 }}</option>
                 {% endfor %}
             </select>

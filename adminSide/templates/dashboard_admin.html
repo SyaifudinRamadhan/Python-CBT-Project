@@ -44,10 +44,10 @@
              <h5 class="link-light mt-5">Data Soal</h5>
             </div>
           </a>
-          <a href="{% url 'panel_admin:add_quest' %}" class="me-2 mb-2 col-3 d-flex p-3 align-middle nav-link" style="width:220px; height:180px; background-color:#f77c7c;">
+          <a href="{% url 'panel_admin:view_res' %}" class="me-2 mb-2 col-3 d-flex p-3 align-middle nav-link" style="width:220px; height:180px; background-color:#f77c7c;">
             <img class="mt-3" width="100px" height="110px" src="{% static 'img/account_1.png' %}">
             <div class="container">
-             <h5 class="link-light mt-5">Buat Soal</h5>
+             <h5 class="link-light mt-5">Hasil Test</h5>
             </div>
           </a>
           <a href="{% url 'panel_admin:schedule' %}" class="me-2 mb-2 col-3 d-flex p-3 align-middle nav-link" style="width:220px; height:180px; background-color:#e7f77c;">
@@ -62,6 +62,12 @@
              <h5 class="link-dark mt-5">Aktivasi Jadwal</h5>
             </div>
           </a>
+          <a href="" class="me-2 mb-2 col-3 d-flex p-3 align-middle nav-link bg-info" style="width:220px; height:180px;">
+            <img class="mt-3" width="100px" height="110px" src="{% static 'img/account_1.png' %}">
+            <div class="container">
+             <h5 class="link-dark mt-5">Evaluasi</h5>
+            </div>
+          </a>
           <a href="{% url 'panel_admin:my_acc_admin' %}" class="me-2 mb-2 col-3 d-flex p-3 align-middle nav-link" style="width:220px; height:180px; background-color:#4d8bff;">
             <img class="mt-3" width="100px" height="110px" src="{% static 'img/account_1.png' %}">
             <div class="container">
@@ -73,4 +79,6 @@
       </div>
 
     </div>
+
+
 {% endblock maincontent %}

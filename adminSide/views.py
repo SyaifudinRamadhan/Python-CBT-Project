@@ -15,11 +15,23 @@ def index (request):
 	if check_logged != 'None':
 		return redirect(check_logged)
 
+	profile = models_user.user_second.objects.get(no_induk = request.user).profile
+	# slc_crs, slc_tch, id_admin = f_get.for_add_quest(request)
+	# slc_cls = f_get.get_list_class(request)
 	# ---------- Write Code (Logic System) Here ---------------
+
+
+	# if request.method == "POST" and request.POST.get('add') != None:
+	# 	ctrl.add_quest_tbl_0(request)
+	# 	return redirect('/panel/create_quest')
 
 	context = {
 		'status':'Admin',
-		'name': models_user.user_second.objects.get(no_induk = request.user).username
+		# 'slc_crs':slc_crs,
+		# 'slc_cls':slc_cls,
+		# 'id_admin':id_admin,
+		'name': models_user.user_second.objects.get(no_induk = request.user).username,
+		'profile':profile,
 	}
 
 	return render(request, 'dashboard_admin.html', context)
@@ -30,9 +42,59 @@ def class_manage (request):
 	if check_logged != 'None':
 		return redirect(check_logged)
 
+	report = ''
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	out1, slc_tch, out2 = f_get.for_add_quest(request)
 	# ---------- Write Code (Logic System) Here ---------------
 
-	return render(request, 'class_page.html')
+	if request.method =="POST" and request.POST.get('add_manual') != None:
+		err = ctrl.add_class_manual(request)
+		if err == '':
+			return redirect('/panel/class_manage')
+		else:
+			report = err
+
+	if request.method =="POST" and request.POST.get('add_auto') != None:
+		err, data = f_get.read_xls_online(request)
+		if err == '':
+			err = ctrl.add_class_auto(request, data)
+			if err == '':
+				return redirect('/panel/class_manage')
+			else:
+				report = err
+		else:
+			report = err
+
+	if request.method =="POST" and request.POST.get('edit') != None:
+		err = ctrl.edit_class(request)
+		if err == '':
+			return redirect('/panel/class_manage')
+		else:
+			report = err
+
+	if request.method =="POST" and request.POST.get('delete') != None:
+		err = ''
+		try:
+			ctrl.del_class(request)
+		except Exception as e:
+			err = e
+		if err == '':
+			return redirect('/panel/class_manage')
+		else:
+			report = err
+			print('cek error : ',report)
+
+	view = f_get.get_list_class(request)
+
+	context={
+		'main':obj_user_main,
+		'second':obj_user_second,
+		'list':view,
+		'tch_list':slc_tch,
+		'report':report,
+	}
+
+	return render(request, 'class_page.html', context)
 
 def tch_manage (request):
 
@@ -40,9 +102,54 @@ def tch_manage (request):
 	if check_logged != 'None':
 		return redirect(check_logged)
 
+	report = ''
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+
 	# ---------- Write Code (Logic System) Here ---------------
 
-	return render(request, 'teacher_mng_page.html')
+	if request.method == "POST" and request.POST.get('add_manual') != None:
+		msg = fn.add_acc_manual(request)
+		print(len(msg),'cek')
+		if len(msg) == 0:
+			return redirect('/panel/teacher_mng')
+		else:
+			report = msg
+
+	if request.method == "POST" and request.POST.get('add_auto') != None:
+		msg, list_data = f_get.read_xls_online(request)
+		if msg == '':
+			msg, err = fn.add_acc_auto(request, list_data)
+			if err == '':
+				return redirect('/panel/teacher_mng')
+			else :
+				report = err
+		else:
+			report = msg
+
+	if request.method == "POST" and request.POST.get('edit') != None:
+		msg = fn.editStdAcc(request, pss='teacher', use='multi')
+		if len(msg) == 0:
+			return redirect('/panel/teacher_mng')
+		else:
+			report = msg
+
+	if request.method == "POST" and request.POST.get('delete') != None:
+		msg = ctrl.del_tch_stdn(request)
+		if msg == '':
+			return redirect('/panel/teacher_mng')
+		else:
+			report = msg
+
+	view = f_get.view_tch_data(request)
+
+	context={
+		'main':obj_user_main,
+		'second':obj_user_second,
+		'list':view,
+		'report':report,
+	}
+
+	return render(request, 'teacher_mng_page.html', context)
 
 def stdn_manage (request):
 
@@ -50,9 +157,55 @@ def stdn_manage (request):
 	if check_logged != 'None':
 		return redirect(check_logged)
 
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	report = ''
 	# ---------- Write Code (Logic System) Here ---------------
+	if request.method =="POST" and request.POST.get('add_manual') != None:
+		msg = fn.add_acc_manual(request, add_for='student')
+		if len(msg) == 0:
+			return redirect('/panel/stdn_manage')
+		else :
+			report = msg
 
-	return render(request, 'stdn_mng_page.html')
+	if request.method == "POST" and request.POST.get('edit') != None:
+		msg = fn.editStdAcc(request, use='multi')
+		if len(msg) == 0:
+			return redirect('/panel/stdn_manage')
+		else:
+			report = msg
+
+	if request.method == "POST" and request.POST.get('add_auto') != None:
+		msg, data_list = f_get.read_xls_online(request)
+		if msg == '':
+			msg, err = fn.add_acc_auto(request, data_list, add_for='student')
+			if err == '':
+				return redirect('/panel/stdn_manage')
+			else:
+				report = err
+		else:
+			report = msg
+
+	if request.method == "POST" and request.POST.get('delete') != None:
+		msg = ctrl.del_tch_stdn(request, del_for='student')
+		if msg == '':
+			return redirect('/panel/stdn_manage')
+		else:
+			report = msg
+
+	view = f_get.view_stdn_data(request)
+	tch_list = f_get.view_tch_data(request)
+	class_list = f_get.get_list_class(request)
+ 	# print(view)
+	context={
+		'main':obj_user_main,
+		'second':obj_user_second,
+		'list':view,
+		'tch_list':tch_list,
+		'class_list':class_list,
+		'report':report,
+	}
+
+	return render(request, 'stdn_mng_page.html', context)
 
 def course_manage (request):
 
@@ -60,9 +213,59 @@ def course_manage (request):
 	if check_logged != 'None':
 		return redirect(check_logged)
 
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	report = ''
 	# ---------- Write Code (Logic System) Here ---------------
 
-	return render(request, 'course_page.html')
+	if request.method == "POST" and request.POST.get('add_manual') != None:
+		err = ctrl.add_crs_manual(request)
+		if err == '':
+			return redirect('/panel/course_mng')
+		else:
+			report = err
+
+	if request.method == "POST" and request.POST.get('add_auto') != None:
+		msg, data = f_get.read_xls_online(request)
+		if msg == '':
+			msg = ctrl.add_crs_auto(request, data)
+			if msg == '':
+				return redirect('/panel/course_mng')
+			else:
+				report = msg
+		else:
+			report = msg
+
+	if request.method == "POST" and request.POST.get('edit') != None:
+		msg = ctrl.edit_crs(request)
+		if msg == '':
+			return redirect('/panel/course_mng')
+		else:
+			report = msg
+
+	if request.method == "POST" and request.POST.get('delete') != None:
+		err = ''
+		try:
+			ctrl.del_course(request)
+		except Exception as e:
+			print(e)
+
+		if err == '':
+			return redirect('/panel/course_mng')
+		else:
+			report = err
+
+	view, tch_list, tmp2 = f_get.for_add_quest(request)
+
+	context={
+			'main':obj_user_main,
+			'second':obj_user_second,
+			'list':view,
+			'tch_list':tch_list,
+			# 'class_list':class_list,
+			'report':report,
+		}
+
+	return render(request, 'course_page.html', context)
 
 def quest_basic (request):
 
@@ -76,6 +279,7 @@ def quest_basic (request):
 	# ---------- Write Code (Logic System) Here ---------------
 	view = f_get.get_quest_table(request)
 	slc_crs, slc_tch, id_admin = f_get.for_add_quest(request)
+	slc_cls = f_get.get_list_class(request)
 	
 	if request.method == "POST" and request.POST.get('add') != None:
 		ctrl.add_quest_tbl_0(request)
@@ -84,6 +288,7 @@ def quest_basic (request):
 	if request.method == "POST" and request.POST.get('add_auto') != None:
 		# 1. read file xls online langsung
 		err, xls_data = f_get.read_xls_online(request)
+		del xls_data[0]
 		if err == '':
 			# 2. membuat data di db terkait datasoal ini
 			ctrl.add_quest_tbl_0(request)
@@ -98,6 +303,7 @@ def quest_basic (request):
 
 	if request.method == "POST" and request.POST.get('edit_auto') != None:
 		err, xls_data = f_get.read_xls_online(request)
+		del xls_data[0]
 		# 1. read file xls online langsung
 		if err == '':
 			# 2. Mengkomparasi file gambar uploadan dengan yang ada di list dari xls
@@ -134,6 +340,7 @@ def quest_basic (request):
 		'data':view,
 		'slc_tch':slc_tch,
 		'slc_crs':slc_crs,
+		'slc_cls':slc_cls,
 		'id_admin':id_admin,
 		'main':obj_user_main,
 		'second':obj_user_second,
@@ -304,7 +511,7 @@ def schdl_manage (request):
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'schedule':schedule,
-		'slc_tch':slc_tch,
+		# 'slc_tch':slc_tch,
 		'slc_crs':slc_crs,
 		'slc_class':slc_class,
 		'report':report,
@@ -361,9 +568,32 @@ def my_acc (request):
 	
 	return render(request, 'my_acc_admin.html', context)
 
+def result_test_view(request):
+	check_logged = fn.loginCheck(request, state = 'admin')
+	if check_logged != 'None':
+		return redirect(check_logged)
+	msg = ''
+	# ---------- Write Code (Logic System) Here ---------------
+	if request.method =="POST" and request.POST.get('delete') != None:
+		try:
+			ctrl.del_result_test(request)
+			return redirect('/panel/view_res_test')
+		except Exception as e:
+			msg = 'Data gagal dihapus'
 
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	view = f_get.viewResultTest (request, '-', admin = True, students = False)
 
-
+	context={
+		'main':obj_user_main,
+		'second':obj_user_second,
+		'msg':msg,
+		# 'confirm':confirm,
+		# 'len_confirm':len(confirm),
+		'list_res': view,
+	}
+	
+	return render(request, 'view_res_test.html', context)
 
 
 

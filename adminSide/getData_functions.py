@@ -64,35 +64,68 @@ def getSchedule (request, key, admin = False, teach = False, students = True):
 
 # ---- function get data untuk view table hasil ujian ----------------
 def viewResultTest (request, key, admin = False, teach = False, students = True):
-
+	data = ''
 	if admin == True :
+		key = models_2.user_second.objects.get(no_induk = request.user).id
 		if request.method == "POST" and request.POST.get('search') != None :
 			data = models.result_test.objects.filter(id_admin = key).order_by('-id')
-			print(data)
-			return data
 		else:
 			data = models.result_test.objects.filter(id_admin = key).order_by('-id')
-			print(data)
-			return data
 	elif teach == True :
 		if request.method == "POST" and request.POST.get('search') != None :
 			data = models.result_test.objects.filter(id_teacher = key).order_by('-id')
-			print(data)
-			return data
 		else:
-			data = models.result_test.objects.filter(id_admin = key).order_by('-id')
-			print(data)
-			return data
+			data = models.result_test.objects.filter(id_teacher = key).order_by('-id')
 	else :
 		if request.method == "POST" and request.POST.get('search') != None :
 			word = request.POST.get('search')
 			data = models.result_test.objects.filter(Q(id_students = key), Q(date__contains = word)|Q(result__contains = word)|Q(id_teacher__contains = word)).order_by('-id')
-			print(data)
-			return data
 		else:
 			data = models.result_test.objects.filter(id_students = key).order_by('-id')
-			print(data)
-			return data
+			
+	if data != '':
+			
+			view = []
+			obj = data
+			# date, result, state_test, token, mapel, guru, no induk guru, siswa, no induk siswa
+			for x in range(len(obj)):
+				tmp = []
+				tmp.append(str(obj[x].date))
+				tmp.append(obj[x].id_students)
+				try:
+					tmp.append(models_2.user_second.objects.get(no_induk = obj[x].id_students).username)
+				except Exception as e:
+					tmp.append('Dihapus')
+				tmp.append(obj[x].id_teacher)
+				try:
+					tmp.append(models_2.user_second.objects.get(no_induk = obj[x].id_teacher).username)
+				except Exception as e:
+					tmp.append('Dihapus')
+				# Mendapatkan nama mapel
+				try:
+					tmp.append(models.course_data.objects.get(
+						id = models.quest_data.objects.get(id = obj[x].id_quest).id
+						))
+				except Exception as e:
+					tmp.append('Dihapus')
+				tmp.append(obj[x].state_test)
+				tmp.append(obj[x].token)
+				tmp.append(obj[x].result)
+				tmp.append(obj[x].id)
+				try:
+					tmp.append(models.class_data.objects.get(
+						id = models.quest_data.objects.get(
+							id = obj[x].id_quest
+							).id_class
+						).class_name)
+				except Exception as e:
+					tmp.append('Dihapus')
+
+				view.append(tmp)
+
+			return view
+	else:
+			return ''
 
 # def getDataStdn (request):
 # 	mainData = User.objects.filter(username = request.user)
@@ -120,6 +153,7 @@ def getQuestFile (request) :
 			if schedule.state == 'active' :
 				course = schedule.id_course
 				id_teach = schedule.id_teacher
+				id_class = schedule.id_class
 				s_time = str(today.now().time()).split('.')
 
 				time_now = str(today.now().time()).split('.')
@@ -138,14 +172,14 @@ def getQuestFile (request) :
 						
 
 				print(course)
-				quest = models.quest_data.objects.filter(id_course = course, id_teacher = id_teach)
+				quest = models.quest_data.objects.filter(id_course = course, id_teacher = id_teach, id_class = id_class)
 				# print(quest.serial_quest)
 				
 				if len(quest) != 0 :
 					for i in range(len(quest)) :
 						list_quest.append(quest[i].serial_quest)
 				else :
-					confirm = 'Error, Mapel tidak tersedia.'
+					confirm = 'Error, Mapel / Soal tidak tersedia.'
 
 			elif schedule.state == 'deactive' :
 				confirm = 'Error, Token tidak aktif.'
@@ -188,12 +222,13 @@ def get_quest_table (request, pss = 'admin'):
 		file_quest = obj_quest_data[x].serial_quest
 		name_teacher = models_2.user_second.objects.get(no_induk = obj_quest_data[x].id_teacher).username
 		cour_name = models.course_data.objects.get(id = obj_quest_data[x].id_course).course_name
-		tmp = [ID, file_quest, name_teacher, cour_name]
+		class_name = models.class_data.objects.get(id = obj_quest_data[x].id_class).class_name
+		tmp = [ID, file_quest, name_teacher, cour_name, class_name]
 		listData.append(tmp)
 
 	return listData
 
-# ------- function get data untuk mendapat data di modal add soal dan add jadwal----------------
+# ------- function get data untuk mendapat data di modal add soal dan add jadwal serta data view kelas dan guru----------------
 def for_add_quest(request, pss = 'admin'):
 	obj_course = ''
 	obj_tch = ''
@@ -217,25 +252,45 @@ def for_add_quest(request, pss = 'admin'):
 			tmp = [obj_tch[x].no_induk, obj_tch[x].username]
 			out_tch.append(tmp)
 
-		id_admin = models_2.user_second.objects.get(
+		try:
+			id_admin = models_2.user_second.objects.get(
 			no_induk = models_2.theachers_user.objects.get(
 				no_induk = request.user).admin_id
 			).id
+		except Exception as e:
+			print(e)
 
 	for x in range(len(obj_course)):
-		tmp = [obj_course[x].id, obj_course[x].course_name]
+		tch_name = models_2.user_second.objects.get(no_induk = obj_course[x].id_teacher)
+		tmp = [obj_course[x].id, obj_course[x].course_name, tch_name, obj_course[x].id_teacher]
 		out_crs.append(tmp)
 
 	return out_crs, out_tch, id_admin
 
-# ------ Function get data list untuk modal pop up for admin() --------------
-def get_list_class(request):
+# ------ Function get data list untuk umum admin dan teacher --------------
+def get_list_class(request, pss = 'admin', for_ = 'view'):
 	view = []
-	data = models.class_data.objects.filter(
-		id_admin = models_2.user_second.objects.get(no_induk = request.user).id
-		)
+	data = ''
+	if pss == 'admin':
+		data = models.class_data.objects.filter(
+			id_admin = models_2.user_second.objects.get(no_induk = request.user).id
+			)
+	elif pss == 'teacher':
+		if for_ == 'view':
+			data = models.class_data.objects.filter(id_teacher = request.user)
+		elif for_ == 'select':
+			try:
+				data = models.class_data.objects.filter(
+					id_admin = models_2.user_second.objects.get(
+						no_induk = models_2.theachers_user.objects.get(
+							no_induk = request.user).admin_id
+						).id
+					)
+			except Exception as e:
+				print(e)
 	for x in range(len(data)):
-		tmp = [data[x].id, data[x].class_name]
+		tch_name = models_2.user_second.objects.get(no_induk = data[x].id_teacher).username
+		tmp = [data[x].id, data[x].class_name, tch_name, data[x].id_teacher]
 		view.append(tmp)
 	return view
 
@@ -284,6 +339,7 @@ def read_xls_storage(request, data_id):
 def view_tch_data(request, pss = 'admin'):
 	obj = ''
 	view = []
+
 	if pss == 'admin':
 		obj = models_2.theachers_user.objects.filter(admin_id = request.user)
 	elif pss == 'teacher':
@@ -295,10 +351,56 @@ def view_tch_data(request, pss = 'admin'):
 			v1 = main_user.objects.get(username = obj[x].no_induk)
 			view.append([
 				v.id, v1.id, obj[x].id, v.no_induk, v.username, obj[x].agency, 
-				v1.first_name, v1.last_name
+				v1.first_name, v1.last_name, v1.email, v.profile
+				])
+	return view
+
+# ----------- Function untuk view data table sisswa (admin - teacher) -----------------
+def view_stdn_data(request, pss = 'admin'):
+	obj = ''
+	view = []
+
+	if pss == 'admin':
+		arr_key = []
+		obj_key = models_2.theachers_user.objects.filter(admin_id = request.user)
+		for x in range(len(obj_key)):
+			arr_key.append(obj_key[x].no_induk)
+
+		obj = models_2.students_user.objects.filter(guru_id__in = arr_key)
+	elif pss == 'teacher':
+		obj = models_2.students_user.objects.filter(guru_id = request.user)
+
+	if obj != '':
+		print(len(obj))
+		for x in range(len(obj)):
+			v = models_2.user_second.objects.get(no_induk = obj[x].no_induk)
+			v1 = main_user.objects.get(username = obj[x].no_induk)
+			tch = ''
+			Class = ''
+			try:
+				tch = models_2.user_second.objects.get(no_induk =  obj[x].guru_id).username
+			except Exception as e:
+				print(e)
+				tch = 'Belum di set'
+			
+			try:
+				Class = models.class_data.objects.get(id = obj[x].id_class).class_name
+			except Exception as e:
+				print(e)
+				Class = 'Belum di Set'
+			view.append([
+				v.id, v1.id, obj[x].id, v.no_induk, v.username, obj[x].guru_id, tch, obj[x].id_class, Class,
+				v1.first_name, v1.last_name, v1.email, v.profile
 				])
 	return view
 
 
+# def view_class_data(request, pss = 'admin'):
+# 	obj = ''
+# 	view = []
 
+# 	if pss == 'admin':
+# 		obj = models.class_data.objects.filter(id_admin)
+# 	elif pss =='teacher':
+# 		pass
 

@@ -138,18 +138,10 @@
           <input type="number" class="form-control" name="drt" id="drt" value="{{ view.3 }}">
         </div>
 
-
-        <div class="mb-3">
-          <label for="tch" class="form-label">Guru</label>
-          <select class="form-select" id="tch" name="tch" aria-label="Default select example" required="">
-                {% for lsc in slc_tch %}
-                    <option value="{{ lsc.1 }}">{{ lsc.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
         <div class="mb-3">
           <label for="crs" class="form-label">Mata Pelajaran</label>
-          <select class="form-select" id="crs" name="course" aria-label="Default select example" required="">
+          <select class="form-select" id="crs" name="course" aria-label="Default select example" required>
+              <option value="{{ view.6 }}">{{ view.6 }}</option>
                 {% for lsc in slc_crs %}
                     <option value="{{ lsc.1 }}">{{ lsc.1 }}</option>
                 {% endfor %}
@@ -158,6 +150,7 @@
         <div class="mb-3">
           <label for="cls" class="form-label">Kelas</label>
           <select class="form-select" id="cls" name="class" aria-label="Default select example" required="">
+                <option value="{{ view.5 }}">{{ view.5 }}</option>
                 {% for lsc in slc_class %}
                     <option value="{{ lsc.1 }}">{{ lsc.1 }}</option>
                 {% endfor %}
@@ -233,15 +226,6 @@
           <input type="number" class="form-control" name="drt" id="drt">
         </div>
 
-
-        <div class="mb-3">
-          <label for="tch" class="form-label">Guru</label>
-          <select class="form-select" id="tch" name="tch" aria-label="Default select example" required="">
-                {% for lsc in slc_tch %}
-                    <option value="{{ lsc.1 }}">{{ lsc.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
         <div class="mb-3">
           <label for="crs" class="form-label">Mata Pelajaran</label>
           <select class="form-select" id="crs" name="course" aria-label="Default select example" required="">
