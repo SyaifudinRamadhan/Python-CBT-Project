@@ -32,8 +32,8 @@ def getSchedule (request, key, admin = False, teach = False, students = True):
 			state = obj[x].state
 			# Dari FK ke data real
 			tch = models_2.user_second.objects.get(no_induk = obj[x].id_teacher)
-			class_name = models.class_data.objects.get(id = obj[x].id_class)
-			course = models.course_data.objects.get(id = obj[x].id_course)
+			class_name = models.class_data.objects.get(id = obj[x].id_class).class_name
+			course = models.course_data.objects.get(id = obj[x].id_course).course_name
 			tmp = [date, start, end, drt, tch, class_name, course, token, state, ID]
 			listData.append(tmp)
 	elif students == True :
@@ -104,9 +104,10 @@ def viewResultTest (request, key, admin = False, teach = False, students = True)
 				# Mendapatkan nama mapel
 				try:
 					tmp.append(models.course_data.objects.get(
-						id = models.quest_data.objects.get(id = obj[x].id_quest).id
-						))
+						id = obj[x].id_quest
+						).course_name)
 				except Exception as e:
+					print(e)
 					tmp.append('Dihapus')
 				tmp.append(obj[x].state_test)
 				tmp.append(obj[x].token)
@@ -114,8 +115,8 @@ def viewResultTest (request, key, admin = False, teach = False, students = True)
 				tmp.append(obj[x].id)
 				try:
 					tmp.append(models.class_data.objects.get(
-						id = models.quest_data.objects.get(
-							id = obj[x].id_quest
+						id = models_2.students_user.objects.get(
+							no_induk = obj[x].id_students
 							).id_class
 						).class_name)
 				except Exception as e:

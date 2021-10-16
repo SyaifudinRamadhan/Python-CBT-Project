@@ -28,7 +28,7 @@ def create_xls(request, arr_data):
 	final = [[''] * 21]+arr_data
 	data_frame = pd.DataFrame(final)
 
-	filename = getUniquePath('media/',str(str(request.user)+'.xls'))
+	filename = getUniquePath('media/',str(str(str(request.user))+'.xls'))
 	# filename = 'media/'+filename
 	# writer = pd.ExcelWriter(filename, engine='xlsxwriter')
 	data_frame.to_excel(filename, sheet_name='Quest', index=False)
@@ -79,6 +79,7 @@ def compare_file_in_xls(request, list_data):
 def change_tch_id_stdn_on_id(ID, by = 'teacher'):
 	count = ''
 	if by == 'teacher':
+		print('Checkpoint 1')
 		count = user_sec.students_user.objects.filter(guru_id = ID)
 	elif by == 'class':
 		count = user_sec.students_user.objects.filter(id_class = ID)
@@ -87,9 +88,9 @@ def change_tch_id_stdn_on_id(ID, by = 'teacher'):
 		obj = user_sec.students_user.objects.get(id = count[x].id)
 		if by == 'teacher':
 			obj.guru_id = '-'
-			obj.id_class = ''
+			obj.id_class = None
 		elif by == 'class':
-			obj.id_class = ''
+			obj.id_class = None
 		obj.save()
 
 # ------------ Kontrol untuk menambah soal (admin) ---------------
@@ -114,7 +115,7 @@ def add_quest_tbl_1(request, filename, pss = 'admin', serial_quest = '-'):
 	if pss == 'admin':
 		try:
 			obj = models.quest_data.objects.get(
-				id_admin = user_sec.user_second.objects.get(no_induk = request.user).id,
+				id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id,
 				serial_quest = serial_quest
 				)
 			fileName = filename.split('/')
@@ -128,7 +129,7 @@ def add_quest_tbl_1(request, filename, pss = 'admin', serial_quest = '-'):
 		
 	elif pss == 'teacher':
 		try:
-			obj = models.quest_data.objects.get(id_teacher = request.user, serial_quest = '-')
+			obj = models.quest_data.objects.get(id_teacher = str(request.user), serial_quest = serial_quest)
 			obj.serial_quest = filename.split('/')[1]
 			obj.save()
 			return ''
@@ -263,7 +264,7 @@ def add_schedule_auto(request, data):
 					token += random.choice(string.ascii_letters)
 				try:
 					id_class = models.class_data.objects.get(class_name = str(data[x][y])).id
-					id_admin = user_sec.user_second.objects.get(no_induk = request.user).id
+					id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id
 				except Exception as e:
 					confirm = e
 
@@ -312,7 +313,7 @@ def add_schedule_manual(request):
 	id_class = models.class_data.objects.get(class_name = str(request.POST.get('class'))).id
 	tmp.append(id_class)
 	# Mendapatkan ID admin
-	id_admin = user_sec.user_second.objects.get(no_induk = request.user).id
+	id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id
 	tmp.append(id_admin)
 	# mendapatkan token auto dan statud
 	tmp.append(token)
@@ -347,7 +348,7 @@ def edit_schedule_manual(request):
 	id_class = models.class_data.objects.get(class_name = str(request.POST.get('class'))).id
 	tmp.append(id_class)
 	# Mendapatkan ID admin
-	id_admin = user_sec.user_second.objects.get(no_induk = request.user).id
+	id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id
 	tmp.append(id_admin)
 	# mendapatkan token auto dan statud
 	tmp.append(token)
@@ -397,7 +398,7 @@ def add_class_manual(request, pss = 'admin'):
 		if len(check) != 0:
 			err = 'Nama kelas sudah ada'
 	elif pss == 'teacher':
-		id_tch = request.user
+		id_tch = str(request.user)
 		try:
 			id_admin = user_sec.user_second.objects.get(
 				no_induk = user_sec.theachers_user.objects.get(
@@ -431,23 +432,23 @@ def add_class_auto(request, data, pss = 'admin'):
 		id_admin = ''
 		id_tch = ''
 		if pss == 'admin':
-			id_admin = user_sec.user_second.objects.get(no_induk = request.user).id
+			id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id
 			try:
 				id_tch = user_sec.user_second.objects.get(
 					username = data[x][2], status='guru').no_induk
-				check = models.class_data.objects.filter(class_name = name, id_admin = id_admin)
+				check = models.class_data.objects.filter(class_name = class_name, id_admin = id_admin)
 				if len(check) != 0:
 					err = 'Nama kelas sudah ada'
 			except Exception as e:
 				err += str(x+1)+' '
 		elif pss == 'teacher':
-			id_tch = request.user
+			id_tch = str(request.user)
 			try:
 				id_admin = user_sec.user_second.objects.get(
 					no_induk = user_sec.theachers_user.objects.get(
 						no_induk = id_tch).admin_id).id
 
-				check = models.class_data.objects.filter(class_name = name, id_admin = id_admin)
+				check = models.class_data.objects.filter(class_name = class_name, id_admin = id_admin)
 				if len(check) != 0:
 					err += 'Nama kelas sudah ada'
 
@@ -480,7 +481,7 @@ def edit_class(request, pss='admin'):
 		if len(check) != 0:
 			err = 'Nama kelas sudah ada'
 	elif pss == 'teacher':
-		id_tch = str(request.user)
+		id_tch = str(str(request.user))
 		try:
 			id_admin = user_sec.user_second.objects.get(
 				no_induk = user_sec.theachers_user.objects.get(
@@ -532,12 +533,12 @@ def add_crs_manual(request, pss='admin'):
 
 	if pss == 'admin':
 		id_tch = request.POST.get('id_tch')
-		id_admin = user_sec.user_second.objects.get(no_induk = request.user).id
+		id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id
 		check = models.class_data.objects.filter(class_name = name, id_admin = id_admin)
 		if len(check) != 0:
-			err = 'Nama kelas sudah ada'
+			err = 'Nama mapel sudah ada'
 	elif pss == 'teacher':
-		id_tch = request.user
+		id_tch = str(request.user)
 		try:
 			id_admin = user_sec.user_second.objects.get(
 				no_induk = user_sec.theachers_user.objects.get(
@@ -573,19 +574,19 @@ def add_crs_auto(request, data, pss = 'admin'):
 		id_admin = ''
 
 		if pss == 'admin':
-			id_admin = user_sec.user_second.objects.get(no_induk = request.user).id
+			id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id
 			try:
 				id_tch = user_sec.user_second.objects.get(username = data[x][2]).no_induk
 				check = models.class_data.objects.filter(class_name = name, id_admin = id_admin)
 				if len(check) != 0:
-					err = 'Nama kelas sudah ada'
+					err = 'Nama mapel sudah ada'
 			except Exception as e:
 				print(e)
 				err += str(x+1)+' '
 		elif pss == 'teacher':
-			id_tch = request.user
+			id_tch = str(str(request.user))
 			try:
-				id_admin = user_sec.user_second.objects,get(
+				id_admin = user_sec.user_second.objects.get(
 					no_induk = user_sec.theachers_user.objects.get(
 						no_induk = id_tch
 						).admin_id
@@ -618,15 +619,15 @@ def edit_crs(request, pss='admin'):
 	name = request.POST.get('name')
 	id_tch = ''
 	id_admin = ''
-
+	print(name)
 	if pss == 'admin':
 		id_tch = request.POST.get('id_tch')
-		id_admin = user_sec.user_second.objects.get(no_induk = request.user).id
+		id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id
 		check = models.class_data.objects.filter(class_name = name, id_admin = id_admin)
 		if len(check) != 0:
-			err = 'Nama kelas sudah ada'
+			err = 'Nama mapel sudah ada'
 	elif pss == 'teacher':
-		id_tch = request.user
+		id_tch = str(request.user)
 		try:
 			id_admin = user_sec.user_second.objects.get(
 				no_induk = user_sec.theachers_user.objects.get(

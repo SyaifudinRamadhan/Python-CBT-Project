@@ -196,7 +196,7 @@ def stdn_manage (request):
 
 	view = f_get.view_stdn_data(request, pss='teacher')
 	tch_list = f_get.view_tch_data(request, pss='teacher')
-	class_list = f_get.get_list_class(request, pss='teacher')
+	class_list = f_get.get_list_class(request, pss='teacher', for_='select')
  	# print(view)
 	context={
 		'main':obj_user_main,

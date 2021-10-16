@@ -375,8 +375,11 @@ def add_acc_auto(request, data_list, add_for = 'teacher', pss='admin'):
 					tch_id = models.user_second.objects.get(username = tmp[6])
 					if pss == 'teacher':
 						tch_id = models.user_second.objects.get(no_induk = request.user)
-					class_id = models_2.class_data.objects.get(class_name = tmp[7], id_teacher = tch_id.no_induk)
-					
+					class_id = models_2.class_data.objects.get(class_name = tmp[7], 
+						id_admin = models.user_second.objects.get(
+							no_induk = models.theachers_user.objects.get(
+								no_induk = tch_id.no_induk).admin_id).id)
+					print(models.theachers_user.objects.get(no_induk = tch_id.no_induk).admin_id)
 					main_adding(
 						tmp[0], tmp[5], tmp[2], tmp[3], 
 						tmp[4], tmp[1], status, msg, tch_id=tch_id.no_induk, 
