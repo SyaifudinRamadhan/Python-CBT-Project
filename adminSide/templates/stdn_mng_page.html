@@ -3,227 +3,240 @@
 {% load static %}
 
 {% block maincontent %}
-    <main class="page-content pt-2">
-        <div id="overlay" class="overlay"></div>
-        <div class="container-fluid p-5">
-            <h1 class="mb-3">Manage Data Siswa</h1>
-            <div class="card border-success mb-3" style="max-width: 700px;">
-                <div class="card-header bg-success">
-                    Template.xls
-                </div>
-                <div class="card-body">
-                    <div class="row justify-content-center align-items-start">
-                        <div class="col-3 col-sm-3">
-                            <img class="img-fluid" style="min-height: 25px; min-width: 25px; max-height: 100px;" src="https://play-lh.googleusercontent.com/37EzETO6gZyKmCg2kBIFX1e9gkubxZrVa5fHJ6yOaa7VvEShHjKv2RdtwnZt9Sk258s" alt="">
-                        </div>
-                        <div class="col-9 align-self-center">
-                            <p class="text-center align-text-middle">
-                                Silahkan Download template dibawah untuk membuat soal
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    Download : 
-                    <a href="/media/template_jadwal.xls" type="button" class="btn btn-warning"> <i class="fas fa-cloud-download-alt"></i> Unduh</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="row justify-content-between">
-                        <div class="col-md-9 align-self-center">
-                            navigasi Tabel
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_stdn_data">
-                              Tambah Siswa
-                            </button>
-                            <button class="btn btn-info" style="margin-right: 10px;" data-bs-toggle="modal" data-bs-target="#add_stdn_data_2">Import Siswa (xls file)</button>
-                            <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data Tabel</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-9 align-self-center">
-                            Show
-                            <select class="form-select" aria-label="Default select" name="" id="num_shown">
-                                <option value="10" onClick="window.location.reload();">10</option>
-                                <option value="20" onClick="window.location.reload();">20</option>
-                                <option value="50" onClick="window.location.reload();">50</option>
-                                <option value="100" onClick="window.location.reload();">100</option>
-                                <option value="all" onClick="window.location.reload();">All</option>
-                            </select>
-                            Entries
-                        </div>
-                        <div class="row" style="margin-bottom: 25px;">
-                            <label for="colFormLabel" class="col-form-label">Search : </label>
-                            <div class="col-auto">
-                                <input type="text" class="form-control me-1" id="Search1" placeholder="Berdasar no induk">
-                            </div>
-                            <div class="col-auto">
-                                <input type="text" class="form-control me-1" id="Search2" placeholder="Berdasar username">
-                            </div>
-                            <div class="col-auto">
-                                <input type="text" class="form-control me-1" id="Search3" placeholder="Berdasar kelas">
-                            </div>
-                        </div>
-                        {% if report|length != 0 %}
-                            <h6 class="text-danger">*{{ report }}</h6>
-                        {% endif %}
-                   </div>
-            </div>
-        </div>
-
-        <div class="mt-5 row table-responsive-sm">
-            <table id="data" class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
-                <thead>
-                    <tr>
-                        <th scope="col">No Induk</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Password</th>
-                        <th scope="col">Nama Depan</th>
-                        <th scope="col">Nama Belakang</th>
-                        <th scope="col">E-Mail</th>
-                        <th scope="col">Guru Wali</th>
-                        <th scope="col">Kelas</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="table_data">
-                    {% for view in list %}
-                        <tr>
-                            <td>{{ view.3 }}</td>
-                            <td>{{ view.4 }}</td>
-                            <td>************</td>
-                            <td>{{ view.9 }}</td>
-                            <td>{{ view.10 }}</td>
-                            <td>{{ view.11 }}</td>
-                            <td>{{ view.6 }}</td>
-                            <td>{{ view.8 }}</td>
-                            <td>
-                                <button type="submit" class="btn btn-warning" name="edit" data-bs-toggle="modal" data-bs-target="#edit_stdn{{ view.0 }}">Edit</button>
-                            
-                                <!-- Modal edit jadwal -->
-
-<div class="modal fade" id="edit_stdn{{ view.0 }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_tch_data_2" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="add_quest_data_2">Edit Siswa</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<main class="page-content pt-2">
+  <div id="overlay" class="overlay"></div>
+  <div class="container-fluid p-5">
+    <h1 class="mb-3">Manage Data Siswa</h1>
+    <div class="card border-success mb-3" style="max-width: 700px;">
+      <div class="card-header bg-success">
+        Template.xls
       </div>
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-      <div class="modal-body">
-        <img src="/media/{{ view.12 }}" width="50%" height="50%" class="rounded-circle">
-        <input type="hidden" name="id_admin" value="{{ user }}">
-        <input type="hidden" name="id" value="{{ view.1 }}">
-        <input type="hidden" name="id2" value="{{ view.0 }}">
-        <input type="hidden" name="id3" value="{{ view.2 }}">
-        <div class="mb-3">
-          <label for="nrp" class="form-label">No Induk</label>
-          <input type="text" class="form-control" name="noinduk" id="nrp" value="{{ view.3 }}">
+      <div class="card-body">
+        <div class="row justify-content-center align-items-start">
+          <div class="col-3 col-sm-3">
+            <img class="img-fluid" style="min-height: 25px; min-width: 25px; max-height: 100px;"
+              src="https://play-lh.googleusercontent.com/37EzETO6gZyKmCg2kBIFX1e9gkubxZrVa5fHJ6yOaa7VvEShHjKv2RdtwnZt9Sk258s"
+              alt="">
+          </div>
+          <div class="col-9 align-self-center">
+            <p class="text-center align-text-middle">
+              Silahkan Download template dibawah untuk membuat soal
+            </p>
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="name" class="form-label">Username</label>
-          <input type="text"  class="form-control" name="username" id="name" value="{{ view.4 }}">
-        </div>
-        <hr>
-        <div class="mb-3">
-          <label for="pass" class="form-label">Kedua kolom password wajib diisi jika ingin mengubah data gurunya</label>
-        </div>
-        <div class="mb-3">
-          <label for="pass" class="form-label">Password Lama</label>
-          <input type="password"  class="form-control" name="pwd0" id="pass">
-        </div>
-        <div class="mb-3">
-          <label for="pass1" class="form-label">Password Baru</label>
-          <input type="password"  class="form-control" name="pwd" id="pass1">
-        </div>
-        <hr>
-        <div class="mb-3">
-          <label for="fname" class="form-label">Nama Depan</label>
-          <input type="text"  class="form-control" name="fname" id="fname" value="{{ view.9 }}">
-        </div>
-        <div class="mb-3">
-          <label for="lname" class="form-label">Nama Belakang</label>
-          <input type="text" class="form-control" name="lname" id="lname" value="{{ view.10 }}">
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">E-Mail</label>
-          <input type="email"  class="form-control" name="email" id="email" value="{{ view.11 }}">
-        </div>
-        <div class="mb-3">
-          <label for="cls" class="form-label">Kelas</label>
-          <select class="form-select" id="cls" name="class" aria-label="Default select example" required="">
-            <option value="{{ view.7 }}" selected>{{ view.8 }}</option>
-                {% for lsc in class_list %}
-                    <option value="{{ lsc.0 }}">{{ lsc.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="mb-3">
-          <label for="tch" class="form-label">Guru Wali</label>
-          <select class="form-select" id="tch" name="guru_id" aria-label="Default select example" required="">
-            <option value="{{ view.5 }}" selected>{{ view.6 }}</option>
-                {% for lsc in tch_list %}
-                    <option value="{{ lsc.3 }}">{{ lsc.4 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="mb-3">
-          <label for="pp" class="form-label">Foto Profile</label>
-          <input type="file"  class="form-control" name="photo" id="pp">
-        </div>
-
-        
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" name="edit" class="btn btn-primary">Submit</button>
+      <div class="card-footer">
+        Download :
+        <a href="/media/template_jadwal.xls" type="button" class="btn btn-warning"> <i
+            class="fas fa-cloud-download-alt"></i> Unduh</a>
       </div>
-      </form>
     </div>
-  </div>
-</div>
-                                <!-- ++++++++++++++++++ -->
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="id" value="{{ view.1 }}">
-                            <input type="hidden" name="id2" value="{{ view.0 }}">
-                            <input type="hidden" name="id3" value="{{ view.2 }}">
-                                    <button type="submit" class="btn btn-danger" name="delete" onclick="return confirm('Yakin ingin menghhapusnya');">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
 
-        </div>
-
+    <div class="card">
+      <div class="card-header">
         <div class="row justify-content-between">
-            <div class="col-auto me-auto align-middle" style="margin-top: 10px;" id="inf">
-                                
-            </div>
-            <div>
-                <div class="col-auto">
-                    <div class="btn-toolbar" id="pagination">
-                        <div class="btn-group me-2">
-                            <!-- Disisi oleh JS pembuatan paginatioan button -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="col align-self-center">
+            navigasi Tabel
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_stdn_data">
+              Tambah Siswa
+            </button>
+            <button class="btn btn-info" style="margin-right: 10px;" data-bs-toggle="modal"
+              data-bs-target="#add_stdn_data_2">Import Siswa (xls file)</button>
+            <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data
+              Tabel</button>
+          </div>
         </div>
+      </div>
 
-    </main>
+      <div class="card-body">
+        <div class="row">
+          <div class="col align-self-center">
+            Show
+            <select class="form-select" aria-label="Default select" name="" id="num_shown">
+              <option value="10" onClick="window.location.reload();">10</option>
+              <option value="20" onClick="window.location.reload();">20</option>
+              <option value="50" onClick="window.location.reload();">50</option>
+              <option value="100" onClick="window.location.reload();">100</option>
+              <option value="all" onClick="window.location.reload();">All</option>
+            </select>
+            Entries
+          </div>
+          <div class="row">
+            <label for="colFormLabel" class="col-form-label">Search : </label>
+            <div class="col-auto">
+              <input type="text" class="form-control me-1" id="Search1" placeholder="Berdasar no induk">
+            </div>
+            <div class="col-auto">
+              <input type="text" class="form-control me-1" id="Search2" placeholder="Berdasar username">
+            </div>
+            <div class="col-auto">
+              <input type="text" class="form-control me-1" id="Search3" placeholder="Berdasar kelas">
+            </div>
+          </div>
+          {% if report|length != 0 %}
+          <h6 class="text-danger">*{{ report }}</h6>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 row table-responsive-sm">
+      <table id="data"
+        class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
+        <thead>
+          <tr>
+            <th scope="col">No Induk</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Nama Depan</th>
+            <th scope="col">Nama Belakang</th>
+            <th scope="col">E-Mail</th>
+            <th scope="col">Guru Wali</th>
+            <th scope="col">Kelas</th>
+            <th scope="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="table_data">
+          {% for view in list %}
+          <tr>
+            <td>{{ view.3 }}</td>
+            <td>{{ view.4 }}</td>
+            <td>************</td>
+            <td>{{ view.9 }}</td>
+            <td>{{ view.10 }}</td>
+            <td>{{ view.11 }}</td>
+            <td>{{ view.6 }}</td>
+            <td>{{ view.8 }}</td>
+            <td>
+              <button type="submit" class="btn btn-warning" name="edit" data-bs-toggle="modal"
+                data-bs-target="#edit_stdn{{ view.0 }}">Edit</button>
+
+              <!-- Modal edit jadwal -->
+
+              <div class="modal fade" id="edit_stdn{{ view.0 }}" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="add_tch_data_2" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="add_quest_data_2">Edit Siswa</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="modal-body">
+                        <img src="/media/{{ view.12 }}" width="50%" height="50%" class="rounded-circle">
+                        <input type="hidden" name="id_admin" value="{{ user }}">
+                        <input type="hidden" name="id" value="{{ view.1 }}">
+                        <input type="hidden" name="id2" value="{{ view.0 }}">
+                        <input type="hidden" name="id3" value="{{ view.2 }}">
+                        <div class="mb-3">
+                          <label for="nrp" class="form-label">No Induk</label>
+                          <input type="text" class="form-control" name="noinduk" id="nrp" value="{{ view.3 }}">
+                        </div>
+                        <div class="mb-3">
+                          <label for="name" class="form-label">Username</label>
+                          <input type="text" class="form-control" name="username" id="name" value="{{ view.4 }}">
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                          <label for="pass" class="form-label">Kedua kolom password wajib diisi jika ingin mengubah data
+                            gurunya</label>
+                        </div>
+                        <div class="mb-3">
+                          <label for="pass" class="form-label">Password Lama</label>
+                          <input type="password" class="form-control" name="pwd0" id="pass">
+                        </div>
+                        <div class="mb-3">
+                          <label for="pass1" class="form-label">Password Baru</label>
+                          <input type="password" class="form-control" name="pwd" id="pass1">
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                          <label for="fname" class="form-label">Nama Depan</label>
+                          <input type="text" class="form-control" name="fname" id="fname" value="{{ view.9 }}">
+                        </div>
+                        <div class="mb-3">
+                          <label for="lname" class="form-label">Nama Belakang</label>
+                          <input type="text" class="form-control" name="lname" id="lname" value="{{ view.10 }}">
+                        </div>
+                        <div class="mb-3">
+                          <label for="email" class="form-label">E-Mail</label>
+                          <input type="email" class="form-control" name="email" id="email" value="{{ view.11 }}">
+                        </div>
+                        <div class="mb-3">
+                          <label for="cls" class="form-label">Kelas</label>
+                          <select class="form-select" id="cls" name="class" aria-label="Default select example"
+                            required="">
+                            <option value="{{ view.7 }}" selected>{{ view.8 }}</option>
+                            {% for lsc in class_list %}
+                            <option value="{{ lsc.0 }}">{{ lsc.1 }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="tch" class="form-label">Guru Wali</label>
+                          <select class="form-select" id="tch" name="guru_id" aria-label="Default select example"
+                            required="">
+                            <option value="{{ view.5 }}" selected>{{ view.6 }}</option>
+                            {% for lsc in tch_list %}
+                            <option value="{{ lsc.3 }}">{{ lsc.4 }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="pp" class="form-label">Foto Profile</label>
+                          <input type="file" class="form-control" name="photo" id="pp">
+                        </div>
+
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="edit" class="btn btn-primary">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- ++++++++++++++++++ -->
+              <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ view.1 }}">
+                <input type="hidden" name="id2" value="{{ view.0 }}">
+                <input type="hidden" name="id3" value="{{ view.2 }}">
+                <button type="submit" class="btn btn-danger" name="delete"
+                  onclick="return confirm('Yakin ingin menghhapusnya');">Hapus</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="row justify-content-between">
+      <div class="col-auto me-auto align-middle" style="margin-top: 10px;" id="inf">
+
+      </div>
+      <div>
+        <div class="col-auto">
+          <div class="btn-toolbar" id="pagination">
+            <div class="btn-group me-2">
+              <!-- Disisi oleh JS pembuatan paginatioan button -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</main>
 
 <!-- Modal add quest manual-->
-<div class="modal fade" id="add_stdn_data" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_tch_data_2" aria-hidden="true">
+<div class="modal fade" id="add_stdn_data" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="add_tch_data_2" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -232,60 +245,61 @@
       </div>
       <form method="post">
         {% csrf_token %}
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="nrp" class="form-label">No Induk</label>
-          <input type="text" class="form-control" name="nrp" id="nrp" required>
-        </div>
-        <div class="mb-3">
-          <label for="name" class="form-label">Username</label>
-          <input type="text"  class="form-control" name="name" id="name" required>
-        </div>
-        <div class="mb-3">
-          <label for="pass" class="form-label">Password</label>
-          <input type="password"  class="form-control" name="pass" id="pass" required>
-        </div>
-        <div class="mb-3">
-          <label for="fname" class="form-label">Nama Depan</label>
-          <input type="text"  class="form-control" name="fname" id="fname" required>
-        </div>
-        <div class="mb-3">
-          <label for="lname" class="form-label">Nama Belakang</label>
-          <input type="text" class="form-control" name="lname" id="lname" required>
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">E-Mail</label>
-          <input type="email"  class="form-control" name="email" id="email" required>
-        </div>
-        <div class="mb-3">
-          <label for="cls" class="form-label">Kelas</label>
-          <select class="form-select" id="cls" name="class" aria-label="Default select example" required>
-                {% for lsc in class_list %}
-                    <option value="{{ lsc.0 }}">{{ lsc.1 }}</option>
-                {% endfor %}
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nrp" class="form-label">No Induk</label>
+            <input type="text" class="form-control" name="nrp" id="nrp" required>
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Username</label>
+            <input type="text" class="form-control" name="name" id="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="pass" class="form-label">Password</label>
+            <input type="password" class="form-control" name="pass" id="pass" required>
+          </div>
+          <div class="mb-3">
+            <label for="fname" class="form-label">Nama Depan</label>
+            <input type="text" class="form-control" name="fname" id="fname" required>
+          </div>
+          <div class="mb-3">
+            <label for="lname" class="form-label">Nama Belakang</label>
+            <input type="text" class="form-control" name="lname" id="lname" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">E-Mail</label>
+            <input type="email" class="form-control" name="email" id="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="cls" class="form-label">Kelas</label>
+            <select class="form-select" id="cls" name="class" aria-label="Default select example" required>
+              {% for lsc in class_list %}
+              <option value="{{ lsc.0 }}">{{ lsc.1 }}</option>
+              {% endfor %}
             </select>
-        </div>
-        <div class="mb-3">
-          <label for="tch" class="form-label">Guru Wali</label>
-          <select class="form-select" id="tch" name="guru_id" aria-label="Default select example" required>
-                {% for lsc in tch_list %}
-                    <option value="{{ lsc.3 }}">{{ lsc.4 }}</option>
-                {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label for="tch" class="form-label">Guru Wali</label>
+            <select class="form-select" id="tch" name="guru_id" aria-label="Default select example" required>
+              {% for lsc in tch_list %}
+              <option value="{{ lsc.3 }}">{{ lsc.4 }}</option>
+              {% endfor %}
             </select>
-        </div>
+          </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" name="add_manual" class="btn btn-primary">Tambah</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" name="add_manual" class="btn btn-primary">Tambah</button>
+        </div>
       </form>
     </div>
   </div>
 </div>
 
 <!-- Modal add jadwal otomatis-->
-<div class="modal fade" id="add_stdn_data_2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_quest_data_2" aria-hidden="true">
+<div class="modal fade" id="add_stdn_data_2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="add_quest_data_2" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -294,24 +308,26 @@
       </div>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="formFile" class="form-label">Input File XLS</label>
-          <input class="form-control" type="file" name="xls" accept=".xls" id="formFile" required>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Input File XLS</label>
+            <input class="form-control" type="file" name="xls" accept=".xls" id="formFile" required>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" name="add_auto" class="btn btn-primary">Submit</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" name="add_auto" class="btn btn-primary">Submit</button>
+        </div>
       </form>
     </div>
   </div>
 </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{% static 'script/paginate.js' %}"></script>
-    <script src="{% static 'script/live_search_main.js' %}"></script>
-    <script src="{% static 'script/live_search_stdn.js' %}"></script>
-    <script src="{% static 'script/export_table_to_xls.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+  integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'script/paginate.js' %}"></script>
+<script src="{% static 'script/live_search_main.js' %}"></script>
+<script src="{% static 'script/live_search_stdn.js' %}"></script>
+<script src="{% static 'script/export_table_to_xls.js' %}"></script>
 {% endblock maincontent %}
