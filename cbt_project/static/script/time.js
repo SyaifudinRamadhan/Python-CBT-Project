@@ -4,7 +4,7 @@ function timeLoad(){
 	let m = today.getMinutes();
 	let s = today.getSeconds();
 
-	document.getElementById("time").innerHTML = today;
+	document.getElementById("time").outerHTML = today;
 	setTimeout(timeLoad, 1000);
 }
 

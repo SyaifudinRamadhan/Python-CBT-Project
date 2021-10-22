@@ -1,0 +1,49 @@
+<div class="navbar tNav">
+    <div class="container-fluid putih">
+
+        <div class="row align-items-start">
+            <div class="col-auto my-2">
+                <div class="kotak " style="background-color: white; border-color: brown;">
+                    <img src="/media/{{ profile }}" width="100px" height="100px" class="py-1">
+                </div>
+            </div>
+            <div class="col-auto mx-1 my-3">
+                <div class="row">
+                    <div class="col-auto pe-0">
+                        Selamat datang
+                    </div>
+                    {% if status == "Admin" %}
+                    <div class="col-auto mx-2 px-2" style="background-color: red;">
+                        <img src="https://img.icons8.com/fluency/16/000000/microsoft-admin.png" />
+                        Admin
+                    </div>
+                    {% elif status == "Teacher" %}
+                    <div class="col-auto mx-2 px-2" style="background-color: green;">
+                        <img src="https://img.icons8.com/fluency/16/000000/student-male.png" />
+                        Teacher
+                    </div>
+                    {% elif status == "siswa" %}
+                    <div class="col-auto mx-2 px-2" style="background-color: blue;">
+                        <img src="https://img.icons8.com/office/16/000000/user.png" />
+                        User
+                    </div>
+                    {% else %}
+                    {{ status }}
+                    {% endif %}
+                </div>
+                <h2>{{ name }} </h2>
+                <div>
+                    <i class="far fa-clock"></i>
+                    <div id="time"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex">
+            <a href="{% url 'login:logout' %}" class="nav-link link-dark">
+                <i style="vertical-align: middle;" class="fas fa-power-off fa-4x"></i>
+                &nbsp;Logout
+            </a>
+        </div>
+    </div>
+</div>

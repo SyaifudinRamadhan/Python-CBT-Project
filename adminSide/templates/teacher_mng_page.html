@@ -1,13 +1,12 @@
-{% extends "base_admin.html" %}
+{% extends "base_admin" %}
 
 {% load static %}
 
-{% block maincontent %}
-<main class="page-content pt-2">
-  <div id="overlay" class="overlay"></div>
-  <div class="container-fluid p-5">
-    <h1 class="mb-3">Manage Data Guru</h1>
-    <div class="card border-success mb-3" style="max-width: 700px;">
+{% block title %}
+<h1 class="mb-3">Manage Data Guru</h1>
+{% endblock title %}
+
+    {% block card %}
       <div class="card-header bg-success">
         Template.xls
       </div>
@@ -30,42 +29,20 @@
         <a href="/media/template_jadwal.xls" type="button" class="btn btn-warning"> <i
             class="fas fa-cloud-download-alt"></i> Unduh</a>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="row justify-content-between">
-          <div class="col-auto align-self-center">
-            Navigasi Tabel
-          </div>
-          <div class="col-auto">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_tch_data">
-              Tambah Guru
-            </button>
-            <button class="btn btn-info" data-bs-toggle="modal"
-              data-bs-target="#add_tch_data_2">Import Guru (xls file)</button>
-            <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data
-              Tabel</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <div class="row mb-3 justify-content-between">
-          <div class="col-auto align-self-center">
-            Show
-            <select class="" aria-label="Default select" name="" id="num_shown">
-              <option value="10" onClick="window.location.reload();">10</option>
-              <option value="20" onClick="window.location.reload();">20</option>
-              <option value="50" onClick="window.location.reload();">50</option>
-              <option value="100" onClick="window.location.reload();">100</option>
-              <option value="all" onClick="window.location.reload();">All</option>
-            </select>
-            Entries
-          </div>
-          <div class="col-auto">
-            <div class="row">
-              <label for="colFormLabel" class="col-form-label col-auto">Search : </label>
+     {% endblock card %}
+     
+     
+     {% block topButton %}
+     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_tch_data">
+       Tambah Guru
+      </button>
+      <button class="btn btn-info" data-bs-toggle="modal"
+      data-bs-target="#add_tch_data_2">Import Guru (xls file)</button>
+      <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data
+        Tabel</button>
+      {% endblock topButton %}
+        
+        {% block search %}
               <div class="col-auto">
                 <input type="text" class="form-control me-1" id="Search1" placeholder="Berdasar no induk">
               </div>
@@ -75,17 +52,14 @@
               <div class="col-auto">
                 <input type="text" class="form-control me-1" id="Search3" placeholder="Berdasar username">
               </div>
-            </div>
-          </div>
+        {% endblock search %}
 
           {% if report|length != 0 %}
           <h6 class="text-danger">*{{ report }}</h6>
           {% endif %}
-        </div>
 
-        <div class="mt-1 row table-responsive-sm mx-2">
-          <table id="data"
-            class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
+
+        {% block table %}
             <thead>
               <tr>
                 <th scope="col">No Induk</th>
@@ -203,10 +177,9 @@
               </tr>
               {% endfor %}
             </tbody>
-          </table>
+            {% endblock table %}
 
-        </div>
-
+        {% block maincontent %}
 
         <div class="row justify-content-between">
           <div class="col-auto my-auto" id="inf">
