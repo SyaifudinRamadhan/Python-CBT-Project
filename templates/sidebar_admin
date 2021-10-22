@@ -2,7 +2,7 @@
     <div class="sidebar-content">
         <!-- sidebar-brand  -->
         <div class="sidebar-item sidebar-brand">
-            <a class="sidebar-title" href="#">ThreeQuiz</a>
+            <a class="sidebar-title" href="/panel/">ThreeQuiz</a>
             <li>
                 <a href="#">
                     <i id="pin-sidebar" class="fa fa-thumbtack"></i>

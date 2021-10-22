@@ -67,8 +67,9 @@
                 <td>{{ view.1 }}</td>
                 <td>{{ view.2 }}</td>
                 <td>
-                  <button type="submit" class="btn btn-warning" name="edit" data-bs-toggle="modal"
-                    data-bs-target="#edit_class{{ view.0 }}">Edit</button>
+                  <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-warning col-auto" name="edit" data-bs-toggle="modal"
+                    data-bs-target="#edit_class{{ view.0 }}"><i class="fas fa-edit"></i></button>
 
                   <!-- Modal edit jadwal -->
 
@@ -111,12 +112,13 @@
                     </div>
                   </div>
                   <!-- ++++++++++++++++++ -->
-                  <form method="post">
+                  <form method="post" class="col-auto mx-1 px-0">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ view.0 }}">
                     <button type="submit" class="btn btn-danger" name="delete"
-                      onclick="return confirm('Yakin ingin menghhapusnya');">Hapus</button>
+                      onclick="return confirm('Yakin ingin menghapusnya');"><i class="fas fa-trash-alt"></i></button>
                   </form>
+                  </div>
                 </td>
               </tr>
               {% endfor %}

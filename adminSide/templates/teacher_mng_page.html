@@ -168,7 +168,7 @@
                       <input type="hidden" name="id2" value="{{ view.0 }}">
                       <input type="hidden" name="id3" value="{{ view.2 }}">
                       <button type="submit" class="btn btn-danger" name="delete"
-                        onclick="return confirm('Yakin ingin menghhapusnya');">
+                        onclick="return confirm('Yakin ingin menghapusnya');">
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </form>
@@ -180,24 +180,6 @@
             {% endblock table %}
 
         {% block maincontent %}
-
-        <div class="row justify-content-between">
-          <div class="col-auto my-auto" id="inf">
-          </div>
-          <div class="col-auto">
-            <div class="col-auto">
-              <div class="btn-toolbar" id="pagination">
-                <div class="btn-group me-2">
-                  <!-- Disisi oleh JS pembuatan paginatioan button -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-</main>
 
 <!-- Modal add quest manual-->
 <div class="modal fade" id="add_tch_data" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

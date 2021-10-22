@@ -35,7 +35,7 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_scdl_data">
                 Tambah Jadwal
             </button>
-            <button class="btn btn-info" style="margin-right: 10px;" data-bs-toggle="modal"
+            <button class="btn btn-info" data-bs-toggle="modal"
             data-bs-target="#add_scdl_data_2">Import Jadwal (xls file)</button>
             <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data
               Tabel</button>
@@ -87,8 +87,9 @@
             <td>{{ view.7 }}</td>
             <td>{{ view.8 }}</td>
             <td>
-              <button type="submit" class="btn btn-warning" name="edit" data-bs-toggle="modal"
-                data-bs-target="#edit_scdl_data{{ view.9 }}">Edit</button>
+              <div class="row justify-content-center">
+              <button type="submit" class="btn btn-warning col-auto" name="edit" data-bs-toggle="modal"
+                data-bs-target="#edit_scdl_data{{ view.9 }}"><i class="fas fa-edit"></i></button>
 
               <!-- Modal edit jadwal -->
 
@@ -153,11 +154,12 @@
                 </div>
               </div>
               <!-- ++++++++++++++++++ -->
-              <form method="post">
+              <form method="post" class="col-auto mx-1 px-0">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="{{ view.9 }}">
-                <button type="submit" class="btn btn-danger" name="delete">Hapus</button>
+                <button type="submit" class="btn btn-danger" name="delete"><i class="fas fa-trash-alt"></i></button>
               </form>
+              </div>
             </td>
           </tr>
           {% endfor %}

@@ -36,7 +36,7 @@
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_stdn_data">
        Tambah Siswa
       </button>
-      <button class="btn btn-info" style="margin-right: 10px;" data-bs-toggle="modal"
+      <button class="btn btn-info" data-bs-toggle="modal"
       data-bs-target="#add_stdn_data_2">Import Siswa (xls file)</button>
       <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data
         Tabel</button>
@@ -85,8 +85,11 @@
             <td>{{ view.6 }}</td>
             <td>{{ view.8 }}</td>
             <td>
-              <button type="submit" class="btn btn-warning" name="edit" data-bs-toggle="modal"
-                data-bs-target="#edit_stdn{{ view.0 }}">Edit</button>
+              <div class="row justify-content-center">
+              <button type="submit" class="btn btn-warning col-auto mx-1" name="edit" data-bs-toggle="modal"
+                data-bs-target="#edit_stdn{{ view.0 }}">
+                <i class="fas fa-edit"></i>
+              </button>
 
               <!-- Modal edit jadwal -->
 
@@ -176,37 +179,25 @@
                 </div>
               </div>
               <!-- ++++++++++++++++++ -->
-              <form method="post">
+              <form method="post" class="col-auto mx-1 px-0">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="{{ view.1 }}">
                 <input type="hidden" name="id2" value="{{ view.0 }}">
                 <input type="hidden" name="id3" value="{{ view.2 }}">
                 <button type="submit" class="btn btn-danger" name="delete"
-                  onclick="return confirm('Yakin ingin menghhapusnya');">Hapus</button>
+                  onclick="return confirm('Yakin ingin menghapusnya');">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
               </form>
+              </div>
             </td>
           </tr>
           {% endfor %}
         </tbody>
         {% endblock table %}
 
-        {% block maincontent %}
-    <div class="row justify-content-between">
-      <div class="col-auto me-auto align-middle" style="margin-top: 10px;" id="inf">
 
-      </div>
-      <div>
-        <div class="col-auto">
-          <div class="btn-toolbar" id="pagination">
-            <div class="btn-group me-2">
-              <!-- Disisi oleh JS pembuatan paginatioan button -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-</main>
+      {% block maincontent %}
 
 <!-- Modal add quest manual-->
 <div class="modal fade" id="add_stdn_data" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
