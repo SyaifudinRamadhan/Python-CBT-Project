@@ -72,7 +72,7 @@
   <div class="container-fluid d-flex justify-content-end px-5">
     <div class="align-bottom mt-4">
       <button class="btn btn-success">Help ?</button>
-      <button class="btn btn-warning">Laporkan Bug</button>
+      <button class="btn btn-warning mx-2">Laporkan Bug</button>
     </div>
   </div>
 

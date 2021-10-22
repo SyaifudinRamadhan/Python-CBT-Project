@@ -43,7 +43,11 @@
 <body>
     <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
     
-    {% include "base_sidebar" %}
+    {% if status == "Admin" %}
+        {% include "sidebar_admin" %}
+    {% elif status == "Teacher" %}
+        {% include "sidebar_teacher" %}
+    {% endif %}
     
     <!-- page-content  -->
     {% block maincontent %}
