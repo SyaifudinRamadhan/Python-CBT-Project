@@ -1,13 +1,12 @@
-{% extends "teach_panel/base_admin" %}
+{% extends "base_admin" %}
 
 {% load static %}
 
-{% block maincontent %}
-    <main class="page-content pt-2">
-        <div id="overlay" class="overlay"></div>
-        <div class="container-fluid p-5">
-            <h1 class="mb-3">Manage Data Kelas</h1>
-            <div class="card border-success mb-3" style="max-width: 700px;">
+{% block title %}
+<h1 class="mb-3">Manage Data Kelas</h1>
+{% endblock title %}
+
+{% block card %}
                 <div class="card-header bg-success">
                     Template.xls
                 </div>
@@ -27,56 +26,29 @@
                     Download : 
                     <a href="/media/template_jadwal.xls" type="button" class="btn btn-warning"> <i class="fas fa-cloud-download-alt"></i> Unduh</a>
                 </div>
-            </div>
+{% endblock card %}
 
-            <div class="card">
-                <div class="card-header">
-                    <div class="row justify-content-between">
-                        <div class="col-md-9 align-self-center">
-                            Navigasi Tabel
-                        </div>
-                        <div>
+{% block topButton %}
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_class_data">
                               Tambah Kelas
                             </button>
-                            <button class="btn btn-info" style="margin-right: 10px;" data-bs-toggle="modal" data-bs-target="#add_class_data_2">Import Data Kelas (xls file)</button>
-                            <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data Tabel</button>
-                        </div>
-                    </div>
-                </div>
+                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add_class_data_2">Import Data Kelas (xls file)</button>
+                            <button class="btn btn-success" onclick="exportTableToExcel('data')">Unduh Data Tabel</button>
+{% endblock topButton %}
 
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-9 align-self-center">
-                            Show
-                            <select class="form-select" aria-label="Default select" name="" id="num_shown">
-                                <option value="10" onClick="window.location.reload();">10</option>
-                                <option value="20" onClick="window.location.reload();">20</option>
-                                <option value="50" onClick="window.location.reload();">50</option>
-                                <option value="100" onClick="window.location.reload();">100</option>
-                                <option value="all" onClick="window.location.reload();">All</option>
-                            </select>
-                            Entries
-                        </div>
-                        <div class="row" style="margin-bottom: 25px;">
-                            <label for="colFormLabel" class="col-form-label">Search : </label>
+{% block search %}
                             <div class="col-auto">
                                 <input type="text" class="form-control me-1" id="Search1" placeholder="Berdasar nama kelas">
                             </div>
                             <div class="col-auto">
                                 <input type="text" class="form-control me-1" id="Search2" placeholder="Berdasar nama guru">
                             </div>
-                            
-                        </div>
+{% endblock search %}
                         {% if report|length != 0 %}
                             Gagal menambahkan data ke : <h6 class="text-danger">*{{ report }}</h6>
                         {% endif %}
-                   </div>
-            </div>
-        </div>
 
-        <div class="mt-5 row table-responsive-sm">
-            <table id="data" class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
+{% block table %}
                 <thead>
                     <tr>
                         <th scope="col">Kelas</th>
@@ -140,26 +112,9 @@
                         </tr>
                     {% endfor %}
                 </tbody>
-            </table>
-
-        </div>
-
-        <div class="row justify-content-between">
-            <div class="col-auto me-auto align-middle" style="margin-top: 10px;" id="inf">
-                                
-            </div>
-            <div>
-                <div class="col-auto">
-                    <div class="btn-toolbar" id="pagination">
-                        <div class="btn-group me-2">
-                            <!-- Disisi oleh JS pembuatan paginatioan button -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
+                {% endblock table %}
+                
+                {% block maincontent%}
 
 <!-- Modal add quest manual-->
 <div class="modal fade" id="add_class_data" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_tch_data_2" aria-hidden="true">
@@ -227,4 +182,5 @@
     <script src="{% static 'script/live_search_main.js' %}"></script>
     <script src="{% static 'script/live_search_class.js' %}"></script>
     <script src="{% static 'script/export_table_to_xls.js' %}"></script>
-{% endblock maincontent %}
+    
+    {% endblock maincontent %}
