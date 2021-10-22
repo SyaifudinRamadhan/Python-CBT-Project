@@ -1,13 +1,12 @@
-{% extends "base_admin.html" %}
+{% extends "base_admin" %}
 
 {% load static %}
 
-{% block maincontent %}
-<main class="page-content pt-2">
-  <div id="overlay" class="overlay"></div>
-  <div class="container-fluid p-5">
-    <h1 class="mb-3">Manage Data Mapel</h1>
-    <div class="card border-success mb-3" style="max-width: 700px;">
+{% block title %}
+<h1 class="mb-3">Manage Data Mapel</h1>
+{% endblock title %}
+
+    {% block card %}
       <div class="card-header bg-success">
         Template.xls
       </div>
@@ -30,59 +29,34 @@
         <a href="/media/template_jadwal.xls" type="button" class="btn btn-warning"> <i
             class="fas fa-cloud-download-alt"></i> Unduh</a>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="row justify-content-between">
-          <div class="col align-self-center">
-            Navigasi Tabel
+     {% endblock card %}
+     
+     
+     {% block topButton %}
+     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_crs_data">
+       Tambah Mapel
+      </button>
+      <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add_crs_data_2">Import Data Mapel (xls
+        file)</button>
+        <button class="btn btn-success" onclick="exportTableToExcel('data')">Unduh Data
+          Tabel</button>
+          {% endblock topButton %}
+          
+          {% block search %}
+          <div class="col-auto" id="search">
+            <input type="text" class="form-control" id="Search1" placeholder="Berdasar nama mapel">
           </div>
           <div class="col-auto">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_crs_data">
-              Tambah Mapel
-            </button>
-            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add_crs_data_2">Import Data Mapel (xls
-              file)</button>
-            <button class="btn btn-success" onclick="exportTableToExcel('data')">Unduh Data
-              Tabel</button>
+            <input type="text" class="form-control" id="Search2" placeholder="Berdasar nama guru">
           </div>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <div class="row mb-3 justify-content-between">
-          <div class="col-auto align-self-center">
-            Show
-            <select aria-label="Default select" name="" id="num_shown">
-              <option value="10" onClick="window.location.reload();">10</option>
-              <option value="20" onClick="window.location.reload();">20</option>
-              <option value="50" onClick="window.location.reload();">50</option>
-              <option value="100" onClick="window.location.reload();">100</option>
-              <option value="all" onClick="window.location.reload();">All</option>
-            </select>
-            Entries
-          </div>
-          <div class="col-auto">
-            <div class="row">
-              <label for="search" class="col-form-label col-auto">Search : </label>
-              <div class="col-auto" id="search">
-                <input type="text" class="form-control" id="Search1" placeholder="Berdasar nama mapel">
-              </div>
-              <div class="col-auto">
-                <input type="text" class="form-control" id="Search2" placeholder="Berdasar nama guru">
-              </div>
-            </div>
-
-          </div>
+          {% endblock search %}
+          
           {% if report|length != 0 %}
           Gagal menambahkan data ke : <h6 class="text-danger">*{{ report }}</h6>
           {% endif %}
-        </div>
+          
 
-        <div class="mt-1 row table-responsive-sm mx-2">
-          <table id="data"
-            class="table table-bordered table-striped table-hover justify-content-center align-middle text-center">
+          {% block table %}
             <thead>
               <tr>
                 <th scope="col">Mapel</th>
@@ -157,27 +131,9 @@
               </tr>
               {% endfor %}
             </tbody>
-          </table>
+            {% endblock table %}
 
-        </div>
-
-        <div class="row justify-content-between">
-          <div class="col-auto my-auto" id="inf">
-          </div>
-          <div class="col-auto">
-            <div class="col-auto">
-              <div class="btn-toolbar" id="pagination">
-                <div class="btn-group me-2">
-                  <!-- Disisi oleh JS pembuatan paginatioan button -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-</main>
+          {% block maincontent %}
 
 <!-- Modal add quest manual-->
 <div class="modal fade" id="add_crs_data" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
