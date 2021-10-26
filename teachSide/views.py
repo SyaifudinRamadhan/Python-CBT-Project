@@ -464,6 +464,7 @@ def quest_add (request):
 
 
 	context = {
+		'status':'Teacher',
 		'index_params':index_params,
 		'numbering':index_params+1,
 		'len_data':len_data,
