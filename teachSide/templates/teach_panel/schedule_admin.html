@@ -2,11 +2,26 @@
 
 {% load static %}
 
-	<main class="page-content pt-2">
-        <div id="overlay" class="overlay"></div>
-        <div class="container-fluid p-5">
+{% block title %}
+<h1 class="mb-3">Daftar Penjadwalan</h1>
+{% endblock title %}
 
-          {% block topButton %}
+{% block card %}
+          <div class="card-header bg-success">
+              Petunjuk
+          </div>
+          <div class="card-body">
+              <div class="row justify-content-center align-items-start">
+                  <div class="col-9 align-self-center">
+                      <p class="text-center align-text-middle">
+                          halaman ini adalah....
+                      </p>
+                  </div>
+              </div>
+          </div>
+          {% endblock card %}
+
+                            {% block topButton %}
                             
                             <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data Tabel</button>
                             {% endblock topButton %}
