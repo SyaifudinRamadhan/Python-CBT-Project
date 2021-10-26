@@ -89,6 +89,7 @@ def class_manage (request):
 	view = f_get.get_list_class(request, pss='teacher')
 
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'list':view,
@@ -199,6 +200,7 @@ def stdn_manage (request):
 	class_list = f_get.get_list_class(request, pss='teacher', for_='select')
  	# print(view)
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'list':view,
@@ -259,6 +261,7 @@ def course_manage (request):
 	view, tch_list, tmp2 = f_get.for_add_quest(request, pss='teacher')
 
 	context={
+			'status':'Teacher',
 			'main':obj_user_main,
 			'second':obj_user_second,
 			'list':view,
@@ -339,6 +342,7 @@ def quest_basic (request):
 
 
 	context = {
+		'status':'Teacher',
 		'data':view,
 		'slc_tch':slc_tch,
 		'slc_crs':slc_crs,
@@ -485,6 +489,7 @@ def schdl_manage (request):
 	schedule = f_get.getSchedule(request,'',teach = True, students=False)
 
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'schedule':schedule,
@@ -539,6 +544,7 @@ def my_acc (request):
 			return redirect('/panel_sec/set_my_acc') 	
 
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'third':spec,
@@ -566,6 +572,7 @@ def result_test_view(request):
 	view = f_get.viewResultTest (request, request.user, teach=True, students=False)
 
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'msg':msg,

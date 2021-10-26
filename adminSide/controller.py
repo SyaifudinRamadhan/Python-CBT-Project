@@ -124,6 +124,12 @@ def add_quest_tbl_1(request, filename, pss = 'admin', serial_quest = '-'):
 			return ''
 		except Exception as e:
 			print(e,'\n')
+			obj = models.quest_data.objects.filter(
+				id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id,
+				serial_quest = serial_quest
+				)
+			for x in range(len(obj)):
+				obj[x].delete()
 			os.remove(filename)
 			return 'Error, data tidak ketemu'
 		
@@ -135,6 +141,9 @@ def add_quest_tbl_1(request, filename, pss = 'admin', serial_quest = '-'):
 			return ''
 		except Exception as e:
 			print(e)
+			obj = models.quest_data.objects.filter(id_teacher = str(request.user), serial_quest = serial_quest)
+			for x in range(len(obj)):
+				obj[x].delete()
 			os.remove(filename)
 			return 'Error, data tidak ketemu'
 
@@ -151,7 +160,7 @@ def delete_for_quest(request, data, file_name):
 				print(e,'\n------ data tidak ada ------\n')
 
 	# 2. Menghapus data di DB
-	for_del = models.quest_data.objects.get(serial_quest = file_name)
+	for_del = models.quest_data.objects.get(serial_quest = file_name, id = request.GET.get('del'))
 	for_del.delete()
 	# 3. Menghapus XLS file
 	try:

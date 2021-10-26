@@ -1,0 +1,119 @@
+<nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+        <!-- sidebar-brand  -->
+        <div class="sidebar-item sidebar-brand">
+            <a class="sidebar-title" href="/panel/">ThreeQuiz</a>
+            <li>
+                <a href="#">
+                    <i id="pin-sidebar" class="fa fa-thumbtack"></i>
+                </a>
+            </li>
+        </div>
+        <!-- sidebar-header  -->
+        <div class="sidebar-item sidebar-header d-flex flex-nowrap">
+            <div class="user-pic">
+                <img class="img-responsive img-rounded" src="/media/{{ second.profile }}" alt="User picture">
+            </div>
+            <div class="user-info">
+                <span class="user-name">
+                    {{ second.username }}
+                </span>
+                <span class="user-role">Administrator</span>
+                <span class="user-status">
+                    <i class="fa fa-circle"></i>
+                    <span>Online</span>
+                </span>
+            </div>
+        </div>
+        <!-- sidebar-menu  -->
+        <div class=" sidebar-item sidebar-menu">
+            <ul>
+                <li class="sidebar" style="border-top-style: solid;border-top-width: 0px;padding-top: 15px;">
+                    <a href="/panel/">
+                        <i class="fa fa-tachometer-alt"></i>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="header-menu">
+                    <span>Data</span>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:class_data' %}"><i class="fas fa-school"></i>
+                        <span class="menu-text">Data Kelas</span>
+                    </a>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:course_data' %}">
+                        <i class="fas fa-book-open"></i>
+                        <span class="menu-text">Mata Pelajaran</span>
+                    </a>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:schedule' %}">
+                        <i class="fas fa-book-reader"></i>
+                        <span class="menu-text">Penjadwalan</span>
+                    </a>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:quest_data_list' %}">
+                        <i class="fas fa-atom"></i>
+                        <span class="menu-text">Data Soal</span>
+                    </a>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:stdn_data' %}">
+                        <i class="fas fa-user-graduate"></i>
+                        <span class="menu-text">Data Siswa</span>
+                    </a>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:teacher_data' %}">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span class="menu-text">Data Guru</span>
+                    </a>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:view_res' %}">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span class="menu-text">Hasil Test</span>
+                    </a>
+                </li>
+                <li class="header-menu">
+                    <span>Tools</span>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:schedule_set' %}">
+                        <i class="fas fa-tasks"></i>
+                        <span class="menu-text">Set Aktivasi</span>
+                    </a>
+                </li>
+                <li class="sidebar">
+                    <a href="#">
+                        <i class="fas fa-users"></i>
+                        <span class="menu-text">Evaluasi</span>
+                    </a>
+                </li>
+                <li class="sidebar">
+                    <a href="{% url 'panel_admin:my_acc_admin' %}">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">Edit Akun</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-footer  -->
+    <div class="sidebar-footer">
+        <div>
+            <a href="{% url 'login:logout' %}">
+                <i class="fa fa-power-off"></i>
+            </a>
+        </div>
+        <div class="pinned-footer">
+            <a href="#">
+                <i class="fas fa-ellipsis-h"></i>
+            </a>
+        </div>
+    </div>
+</nav>
