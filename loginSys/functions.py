@@ -253,7 +253,7 @@ def set_resTest (request, model_db):
 				id_teach = schedule.id_teacher
 				id_admin = schedule.id_admin
 				
-				dataTest = model_db.result_test(date = date, result = res, state_test = statuses, token = token ,id_quest = course, id_students = id_stdn, id_admin = id_admin, id_teacher = id_teach)
+				dataTest = model_db.result_test(date = date, result = res, state_test = statuses, token = token ,id_quest = course, id_students = id_stdn, id_admin = id_admin, id_teacher = id_teach, survey = 'non')
 				dataTest.save()
 			else:
 				print('\n','Jadwal tidak aktif')

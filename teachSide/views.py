@@ -89,6 +89,7 @@ def class_manage (request):
 	view = f_get.get_list_class(request, pss='teacher')
 
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'list':view,
@@ -199,6 +200,7 @@ def stdn_manage (request):
 	class_list = f_get.get_list_class(request, pss='teacher', for_='select')
  	# print(view)
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'list':view,
@@ -259,6 +261,7 @@ def course_manage (request):
 	view, tch_list, tmp2 = f_get.for_add_quest(request, pss='teacher')
 
 	context={
+			'status':'Teacher',
 			'main':obj_user_main,
 			'second':obj_user_second,
 			'list':view,
@@ -339,6 +342,7 @@ def quest_basic (request):
 
 
 	context = {
+		'status':'Teacher',
 		'data':view,
 		'slc_tch':slc_tch,
 		'slc_crs':slc_crs,
@@ -410,6 +414,7 @@ def quest_edit (request):
 		'view_n':view,
 		'main':obj_user_main,
 		'second':obj_user_second,
+		'status':'Teacher',
 	}
 
 	return render(request, 'teach_panel/add_quest.html', context)
@@ -460,6 +465,7 @@ def quest_add (request):
 
 
 	context = {
+		'status':'Teacher',
 		'index_params':index_params,
 		'numbering':index_params+1,
 		'len_data':len_data,
@@ -485,6 +491,7 @@ def schdl_manage (request):
 	schedule = f_get.getSchedule(request,'',teach = True, students=False)
 
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'schedule':schedule,
@@ -539,6 +546,7 @@ def my_acc (request):
 			return redirect('/panel_sec/set_my_acc') 	
 
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'third':spec,
@@ -566,6 +574,7 @@ def result_test_view(request):
 	view = f_get.viewResultTest (request, request.user, teach=True, students=False)
 
 	context={
+		'status':'Teacher',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'msg':msg,
@@ -576,6 +585,23 @@ def result_test_view(request):
 	
 	return render(request, 'teach_panel/view_res_test.html', context)
 
+def evaluation_view(request):
+	check_logged = fn.loginCheck(request, state = 'guru')
+	if check_logged != 'None':
+		return redirect(check_logged)
+	# ------------------- Write Code Here ---------------------
+	view = f_get.view_eval_data(request, view_for = 'teacher')
+
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	
+	context = {
+		'status':'Teacher',
+		'main' : obj_user_main,
+		'second':obj_user_second,
+		'view': view
+	}
+
+	return render(request, 'teach_panel/view_eval.html', context)
 
 
 

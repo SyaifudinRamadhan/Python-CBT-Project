@@ -1,19 +1,19 @@
 $(document).ready(function(){
-        $('#pagination').after('<div id="nav" class="btn-group me-2"></div>');
+        $('#pagination').after('<div id="nav" class="btn-group"></div>');
         var currPage = 0;
         var rowsShown = parseInt($('#num_shown').val());
         var rowsTotal = $('#data tbody tr').length;
         var numPages = rowsTotal/rowsShown;
-        $('#nav').append('<button class="btn btn-outline-primary me-1" rel="-1">Prev</button> ');
+        $('#nav').append('<button class="btn btn-outline-primary" rel="-1">Prev</button> ');
         for(i = 0;i < numPages;i++) {
             var pageNum = i + 1;
-            $('#nav').append('<button class="btn btn-outline-primary me-1" id="pag'+i+'" rel="'+i+'">'+pageNum+'</button> ');
+            $('#nav').append('<button class="btn btn-outline-primary" id="pag'+i+'" rel="'+i+'">'+pageNum+'</button> ');
         }
         $('#nav').append('<button class="btn btn-outline-primary" rel="-2">Next</button> ');
         $('#data tbody tr').hide();
         $('#data tbody tr').slice(0, rowsShown).show();
         $("button[rel="+0+"]").addClass('active');
-        $('#inf').after("Showing "+(rowsShown).toString()+" of "+parseInt(rowsTotal).toString()+" entries")
+        $('#inf').append("Showing "+(rowsTotal).toString()+" of "+parseInt(rowsShown).toString()+" entries")
         $('#nav button').bind('click', function(){
              console.log("Lama : "+currPage);
             if (parseInt($(this).attr('rel')) == (-1)){

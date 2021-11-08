@@ -1,4 +1,4 @@
-{% extends "base_admin.html" %}
+{% extends "base_admin2.html" %}
 {% load static %}
 
 {% block maincontent %}
@@ -8,7 +8,7 @@
     <div class="container-fluid p-5">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-    	<section><div class="card border-success mb-3" style="max-width: 1550px;">
+    	<section><div class="card border-success mx-auto" style="max-width: 1550px;">
         	<div class="card-header bg-success">
                Soal ke - {{ numbering }}
             </div>

@@ -1,4 +1,4 @@
-{% extends "teach_panel/base_admin.html" %}
+{% extends "base_admin2.html" %}
 
 {% load static %}
 
@@ -7,16 +7,14 @@
 <main class="page-content pt-2">
 	<div id="overlay" class="overlay"></div>
 	<div class="container-fluid p-5">
-		<h1>Daftar Soal</h1>
-		<div class="dropdown-divider"></div>
 
-		<div class="card mt-3">
+		<div class="card my-3">
 		  <div class="card-header bg-info">
 		   Ubah Akun Saya
 		  </div>
 		  <div class="card-body">
 		    <h5 class="card-title">Halaman Pengaturan Akun Saya</h5>
-		    <p class="card-text">Ini adalah halaman untuk mengatur akun siswa di kelas ini.</p>
+		    <p class="card-text">Ini adalah halaman untuk mengatur akun guru di sistem ini.</p>
 		  </div>
 		</div>
 
@@ -102,9 +100,12 @@
 					  </div>
 
 					  <label for="pwd" class="form-label">Update Foto Profil</label>
-					  <div class="input-group mb-3">
+					  <!-- <div class="input-group mb-3">
 						  <input type="file" class="form-control" id="inputGroupFile02" name="photo">
 						  <label class="input-group-text" for="inputGroupFile02">Upload</label>
+					  </div> -->
+					  <div class="mb-3">
+						<input accept="image/png, image/jpeg" class="form-control" type="file" id="inputGroupFile02" name="photo">
 					  </div>
 			      </div>
 			      <div class="modal-footer">

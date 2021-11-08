@@ -21,8 +21,8 @@
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
 
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/sidebar-themes.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/sidebar-themes.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}" />
 </head>
 
@@ -37,115 +37,7 @@
 
 <body>
     <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
-        <nav id="sidebar" class="sidebar-wrapper">
-            <div class="sidebar-content">
-                <!-- sidebar-brand  -->
-                <div class="sidebar-item sidebar-brand">
-                    <a class="sidebar-title" href="#">ThreeQuiz</a>
-                    <li>
-                        <a href="#">
-                            <i id="pin-sidebar" class="fa fa-thumbtack"></i>
-                        </a>
-                    </li>
-                </div>
-                <!-- sidebar-header  -->
-                <div class="sidebar-item sidebar-header d-flex flex-nowrap">
-                    <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="/media/{{ second.profile }}" alt="User picture">
-                    </div>
-                    <div class="user-info">
-                        <span class="user-name">
-                            {{ second.username }}
-                        </span>
-                        <span class="user-role">Pengajar</span>
-                        <span class="user-status">
-                            <i class="fa fa-circle"></i>
-                            <span>Online</span>
-                        </span>
-                    </div>
-                </div>
-                <!-- sidebar-menu  -->
-                <div class=" sidebar-item sidebar-menu">
-                    <ul>
-                        <li class="sidebar-dropdown" style="border-top-style: solid;border-top-width: 0px;padding-top: 15px;">
-                            <a href="/panel_sec/">
-                                <i class="fa fa-tachometer-alt"></i>
-                                <span class="menu-text">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="header-menu">
-                            <span>Data</span>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="{% url 'panel_teacher:class_data' %}"><i class="fas fa-school"></i>
-                                <span class="menu-text">Data Kelas</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="{% url 'panel_teacher:course_data' %}">
-                                <i class="fas fa-book-open"></i>
-                                <span class="menu-text">Mata Pelajaran</span>
-                            </a>
-                        </li>
-                        
-                        <li class="sidebar-dropdown">
-                            <a href="{% url 'panel_teacher:quest_data_list' %}">
-                                <i class="fas fa-atom"></i>
-                                <span class="menu-text">Data Soal</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="{% url 'panel_teacher:stdn_data' %}">
-                                <i class="fas fa-user-graduate"></i>
-                                <span class="menu-text">Data Siswa</span>
-                            </a>
-                        </li>
-                       <li class="sidebar-dropdown">
-                            <a href="{% url 'panel_teacher:schedule' %}">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                                <span class="menu-text">Lihat Jadwal</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="{% url 'panel_teacher:view_res' %}">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                                <span class="menu-text">Hasil Test</span>
-                            </a>
-                        </li>
-                        <li class="header-menu">
-                            <span>Tools</span>
-                        </li>
-                       
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fas fa-users"></i>
-                                <span class="menu-text">Evaluasi</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="{% url 'panel_teacher:my_acc_admin' %}">
-                                <i class="fas fa-user-cog"></i>
-                                <span class="menu-text">Edit Akun</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- sidebar-menu  -->
-            </div>
-            <!-- sidebar-footer  -->
-            <div class="sidebar-footer">
-                <div>
-                    <a href="{% url 'login:logout' %}">
-                        <i class="fa fa-power-off"></i>
-                    </a>
-                </div>
-                <div class="pinned-footer">
-                    <a href="#">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </a>
-                </div>
-            </div>
-        </nav>
+        
     <!-- page-content  -->
     {% block maincontent %}
         
@@ -169,7 +61,7 @@
     <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
 
-    <script src="js/main.js"></script>
+    <script src="{% static 'admin/js/main.js' %}"></script>
 </body>
 
 </html>

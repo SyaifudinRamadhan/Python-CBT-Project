@@ -87,6 +87,7 @@ def class_manage (request):
 	view = f_get.get_list_class(request)
 
 	context={
+		'status':'Admin',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'list':view,
@@ -143,6 +144,7 @@ def tch_manage (request):
 	view = f_get.view_tch_data(request)
 
 	context={
+		'status':'Admin',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'list':view,
@@ -197,6 +199,7 @@ def stdn_manage (request):
 	class_list = f_get.get_list_class(request)
  	# print(view)
 	context={
+		'status':'Admin',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'list':view,
@@ -257,6 +260,7 @@ def course_manage (request):
 	view, tch_list, tmp2 = f_get.for_add_quest(request)
 
 	context={
+			'status':'Admin',
 			'main':obj_user_main,
 			'second':obj_user_second,
 			'list':view,
@@ -337,6 +341,7 @@ def quest_basic (request):
 
 
 	context = {
+		'status':'Admin',
 		'data':view,
 		'slc_tch':slc_tch,
 		'slc_crs':slc_crs,
@@ -400,6 +405,7 @@ def quest_edit (request):
 
 
 	context = {
+		'status':'Admin',
 		'index_params':index_params,
 		'numbering':index_params+1,
 		'len_data':len_data,
@@ -458,6 +464,7 @@ def quest_add (request):
 
 
 	context = {
+		'status':'Admin',
 		'index_params':index_params,
 		'numbering':index_params+1,
 		'len_data':len_data,
@@ -508,6 +515,7 @@ def schdl_manage (request):
 	schedule = f_get.getSchedule(request,'',admin = True, students=False)
 
 	context={
+		'status':'Admin',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'schedule':schedule,
@@ -538,6 +546,7 @@ def activate (request):
 		return redirect('/panel/set_test_active')
 
 	context={
+		'status':'Admin',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'schedule':schedule,
@@ -560,6 +569,7 @@ def my_acc (request):
 			return redirect('/panel/set_my_acc') 	
 
 	context={
+		'status':'Admin',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'confirm':confirm,
@@ -585,6 +595,7 @@ def result_test_view(request):
 	view = f_get.viewResultTest (request, '-', admin = True, students = False)
 
 	context={
+		'status':'Admin',
 		'main':obj_user_main,
 		'second':obj_user_second,
 		'msg':msg,
@@ -595,6 +606,26 @@ def result_test_view(request):
 	
 	return render(request, 'view_res_test.html', context)
 
+def evaluation_view(request):
+	check_logged = fn.loginCheck(request, state = 'admin')
+	if check_logged != 'None':
+		return redirect(check_logged)
+	# ------------------- Write Code Here ---------------------
+	view = f_get.view_eval_data(request)
 
+	if request.method == "POST" and request.POST.get('create') != None:
+		# Membuat evaluasi
+		ctrl.create_eval_data(request)
+		ctrl.create_eval_stdn(request)
+		return redirect('/panel/view_eval_tch')
 
+	obj_user_main, obj_user_second = f_get.getDataAdmin(request)
+	
+	context = {
+		'status':'Admin',
+		'main' : obj_user_main,
+		'second':obj_user_second,
+		'view': view
+	}
 
+	return render(request, 'view_eval.html', context)

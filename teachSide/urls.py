@@ -16,4 +16,5 @@ urlpatterns = [
 	# path('set_test_active', views.activate, name = 'schedule_set'),
 	path('set_my_acc', views.my_acc, name = 'my_acc_admin'),
 	path('view_res_test', views.result_test_view, name = 'view_res'),
+	path('view_eval', views.evaluation_view, name = 'view_eval'),
 ]

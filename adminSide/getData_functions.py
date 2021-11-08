@@ -63,19 +63,31 @@ def getSchedule (request, key, admin = False, teach = False, students = True):
 	return listData
 
 # ---- function get data untuk view table hasil ujian ----------------
-def viewResultTest (request, key, admin = False, teach = False, students = True):
+def viewResultTest (request, key, has_eval = '' ,admin = False, teach = False, students = True):
 	data = ''
 	if admin == True :
 		key = models_2.user_second.objects.get(no_induk = request.user).id
 		if request.method == "POST" and request.POST.get('search') != None :
-			data = models.result_test.objects.filter(id_admin = key).order_by('-id')
+			if has_eval == '':
+				data = models.result_test.objects.filter(id_admin = key).order_by('-id')
+			elif has_eval == 'non':
+				data = models.result_test.objects.filter(id_admin = key, state_eval = has_eval)
 		else:
-			data = models.result_test.objects.filter(id_admin = key).order_by('-id')
+			if has_eval == '':
+				data = models.result_test.objects.filter(id_admin = key).order_by('-id')
+			elif has_eval == 'non':
+				data = models.result_test.objects.filter(id_admin = key, state_eval = has_eval)
 	elif teach == True :
 		if request.method == "POST" and request.POST.get('search') != None :
-			data = models.result_test.objects.filter(id_teacher = key).order_by('-id')
+			if has_eval == '':
+				data = models.result_test.objects.filter(id_teacher = key).order_by('-id')
+			elif has_eval == 'non':
+				data = models.result_test.objects.filter(id_teacher = key, state_eval = has_eval)
 		else:
-			data = models.result_test.objects.filter(id_teacher = key).order_by('-id')
+			if has_eval == '':
+				data = models.result_test.objects.filter(id_teacher = key).order_by('-id')
+			elif has_eval == 'non':
+				data = models.result_test.objects.filter(id_teacher = key, state_eval = has_eval)
 	else :
 		if request.method == "POST" and request.POST.get('search') != None :
 			word = request.POST.get('search')
@@ -404,4 +416,44 @@ def view_stdn_data(request, pss = 'admin'):
 # 		obj = models.class_data.objects.filter(id_admin)
 # 	elif pss =='teacher':
 # 		pass
+
+
+def view_eval_data(request, view_for = 'admin'):
+	all_data = []
+
+	if view_for == 'admin' or view_for == 'teacher':
+		obj = ''
+		if view_for =='admin':
+			teachers = []
+			tchs = models_2.theachers_user.objects.filter(admin_id = 
+					request.user)
+			obj = []
+			for x in range(len(tchs)):
+				try:
+					obj.append(models.evaluation_tch.objects.get(id_teacher = 
+						tchs[x].no_induk, state = 'result'))
+				except Exception as e:
+					print(e)
+		else:
+			obj = models.evaluation_tch.objects.filter(id_teacher = request.user, state = 'result')
+			
+		for x in range(len(obj)):
+			name = models_2.user_second.objects.get(no_induk = obj[x].id_teacher).username
+			tmp = [obj[x].date, obj[x].id_teacher, name, obj[x].score, obj[x].state, obj[x].cat_1, obj[x].cat_2, obj[x].cat_3,
+			obj[x].cat_4, obj[x].cat_5, obj[x].cat_6, obj[x].cat_7, obj[x].cat_8, obj[x].cat_9, obj[x].cat_10, 
+			obj[x].cat_11, obj[x].cat_spec, obj[x].id]
+			all_data.append(tmp)
+		# print(all_data)
+			# print(obj[x].date)
+		
+	elif view_for == 'student':
+		obj = models.evaluation_stdn.objects.filter(id_students = request.user).order_by('-date')
+		for x in range(len(obj)):
+			tmp = [obj[x].date, obj[x].min_score, obj[x].max_score, obj[x].quote]
+			all_data.append(tmp)
+			
+	return all_data
+
+
+
 

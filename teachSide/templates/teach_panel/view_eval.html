@@ -1,0 +1,184 @@
+{% extends "base_admin" %}
+
+{% load static %}
+
+{% block title %}
+<h1 class="mb-3">Evaluasi Guru</h1>
+{% endblock title %}
+
+{% block card %}
+    <div class="card-header bg-success">
+        Petunjuk
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-center align-items-start">
+            <div class="col-9 align-self-center">
+                <p class="text-center align-text-middle">
+                    Halaman evaluasi adalah halaman dimana anda dapat mengetahui kemampuan dan kinerja anda sebagai guru / tenaga pengajarselama melakukan proses KBM.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock card %}
+
+
+{% block topButton %}
+   <div class="row">
+    <button class="btn btn-success" style="margin-right: 10px;" onclick="exportTableToExcel('data')">Unduh Data
+              Tabel</button>
+  </div>
+{% endblock topButton %}
+
+
+{% block search %}
+                <div class="col-auto">
+                    <input type="text" class="form-control me-1" id="Search1" placeholder="Berdasar tanggal">
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control me-1" id="Search2" placeholder="Berdasar ID Guru">
+                </div>
+{% endblock search %}
+
+            {% if msg == '' %}
+            <p class="text-danger">{{ msg }}</p>
+            {% endif %}
+      
+{% block table %}
+        <thead>
+            <tr>
+                <th scope="col">Tanggal</th>
+                <th scope="col">ID Guru</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Skor</th>
+                <th scope="col">Status</th>
+                <th scope="col">Detail</th>
+            </tr>
+        </thead>
+        <tbody id="table_data">
+            {% for v in view %}
+            <tr>
+                <td>{{ v.0 }}</td>
+                <td>{{ v.1 }}</td>
+                <td>{{ v.2 }}</td>
+                <td>{{ v.3 }}</td>
+                <td>{{ v.4 }}</td>
+                <td>
+                    <button type="submit" name="edit" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#detail_evaluation{{ v.17 }}">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <!-- Modal untuk manammpilkan detail -->
+                    <div class="modal fade" id="detail_evaluation{{ v.17 }}" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="add_quest_data_2" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="add_quest_data_2">Detail Evaluasi</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                          
+                          <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="date" class="form-label">Tanggal</label>
+                              <input type="text" class="form-control" name="date" id="date" disabled value="{{ v.0 }}">
+                            </div>
+                            <div class="mb-3">
+                              <label for="start" class="form-label">ID Guru</label>
+                              <input type="text" class="form-control" name="start" disabled id="start" value="{{ v.1 }}">
+                            </div>
+                            <div class="mb-3">
+                              <label for="end" class="form-label">Nama Guru</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.2 }}">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Kehadiran mengajar</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.5 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Ketepatan waktu mengajar</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.6 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Patuh aturan mengajar instansi</label>
+                             <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.7 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Kenyamanan teknik mengajar di kelas</label>
+                             <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.8 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Ketetpatan pencapaian kurikulum</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.9 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Keuletan guru</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.10 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Pengajaran yang mudah dipahami</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.11 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Kesabaran dalam mengajar</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.12 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Kejujuran dalam penilaian</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.13 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Loyalitas mengajar</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.14 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Kerapian penampilan</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.15 }}%">
+                            </div>
+                            <div class="mb-3">
+                              <label for="drt" class="form-label">Pencapaian hasil belajar siswa di atas KKM</label>
+                              <input type="text" class="form-control" name="end" id="end" disabled value="{{ v.16 }}%">
+                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                    <!-- +++++++++++++++++++++++++++++++ -->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% endblock table %}
+        
+{% block maincontent %}      
+
+<div class="row justify-content-between">
+    <div class="col-auto me-auto align-middle" style="margin-top: 10px;" id="inf">
+
+    </div>
+    <div>
+        <div class="col-auto">
+            <div class="btn-toolbar" id="pagination">
+                <div class="btn-group me-2">
+                    <!-- Disisi oleh JS pembuatan paginatioan button -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'script/paginate.js' %}"></script>
+<script src="{% static 'script/live_search_main.js' %}"></script>
+<script src="{% static 'script/search_test_result.js' %}"></script>
+<script src="{% static 'script/export_table_to_xls.js' %}"></script>
+{% endblock maincontent %}

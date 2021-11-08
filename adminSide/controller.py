@@ -9,6 +9,7 @@ import os
 import random
 import string
 from datetime import datetime
+from . import evaluator
 
 # del_class_on_id(obj_sec.no_induk)
 # del_course_on_id(obj_sec.no_indukobj_sec.no_induk)
@@ -124,6 +125,12 @@ def add_quest_tbl_1(request, filename, pss = 'admin', serial_quest = '-'):
 			return ''
 		except Exception as e:
 			print(e,'\n')
+			obj = models.quest_data.objects.filter(
+				id_admin = user_sec.user_second.objects.get(no_induk = str(request.user)).id,
+				serial_quest = serial_quest
+				)
+			for x in range(len(obj)):
+				obj[x].delete()
 			os.remove(filename)
 			return 'Error, data tidak ketemu'
 		
@@ -135,6 +142,9 @@ def add_quest_tbl_1(request, filename, pss = 'admin', serial_quest = '-'):
 			return ''
 		except Exception as e:
 			print(e)
+			obj = models.quest_data.objects.filter(id_teacher = str(request.user), serial_quest = serial_quest)
+			for x in range(len(obj)):
+				obj[x].delete()
 			os.remove(filename)
 			return 'Error, data tidak ketemu'
 
@@ -151,6 +161,8 @@ def delete_for_quest(request, data, file_name):
 				print(e,'\n------ data tidak ada ------\n')
 
 	# 2. Menghapus data di DB
+
+	for_del = models.quest_data.objects.get(serial_quest = file_name, id = request.GET.get('del'))
 	for_del = models.quest_data.objects.get(serial_quest = file_name)
 	for_del.delete()
 	# 3. Menghapus XLS file
@@ -711,3 +723,245 @@ def del_tch_stdn(request, del_for = 'teacher'):
 		print(e)
 		msg = 'Data gagal dihapus'
 	return msg
+
+def create_eval_data(request, use_for = 'admin'):
+	# memastikan satus dan tanggal evaluasi
+	all_eval = f_get.view_eval_data(request, view_for = use_for)
+	end_eval = ''
+	if len(all_eval) != 0:
+		end_eval = all_eval[len(all_eval)-1][0]
+	else:
+		end_eval = datetime.now().date()
+
+	m_y = end_eval
+	last_date = datetime(m_y.year, m_y.month, 1)
+	m_y = datetime.now().date()
+	this_date = datetime(m_y.year, m_y.month, 1)
+
+	targets = []
+	res_test = ''
+
+	if use_for == 'admin':
+		all_tch = user_sec.theachers_user.objects.filter(admin_id = request.user)
+		for x in range(len(all_tch)):
+			targets += models.evaluation_tch.objects.filter(id_teacher = all_tch[x].no_induk, state = 'non')
+		res_test = f_get.viewResultTest(request, request.user, has_eval='non' ,admin = True, students = False)
+	elif use_for == 'teacher':
+		targets = models.evaluation_tch.objects.filter(id_teacher = request.user, state = 'non')
+		res_test = f_get.viewResultTest(request, request.user, has_eval='non' ,teach = True, students = False)
+
+	# Ambil distance berdsarkan bulan dan uat dimensi array berdasarkan 
+	# jumlah bulan
+	print(len(all_eval))
+	if len(all_eval) == 0:
+		try:
+			last_date = datetime(targets[0].date.year, targets[0].date.month, 1)
+		except Exception as e:
+			print(e)
+		# print(last_date)
+	
+	if last_date != this_date and len(all_eval) != 0:
+		if last_date.month + 1 > 12:
+			last_date = datetime(last_date.year+1, 1, 1)
+		else:
+			last_date = datetime(last_date.year, last_date.month+1, 1)
+
+	all_eval.clear()
+
+	distance = abs(this_date - last_date).days
+	distance = round(distance / 30)
+	# print(distance)
+	fix_arr = [[]*distance]
+	for x in range(len(targets)):
+		change = models.evaluation_tch.objects.get(id = targets[x].id)
+		change.state = 'evaluated'
+		change.save()
+		for y in range(distance):
+			if last_date.month + y > 12:
+				month = (last_date.month+y) - 12
+				if targets[x].date >= datetime(last_date.year+1, month, 1).date() and targets[x].date <= datetime(last_date.year+1, month, 31).date():
+					tmp = [targets[x].id_teacher, targets[x].date, 'result', targets[x].cat_1, targets[x].cat_2, targets[x].cat_3, targets[x].cat_4, targets[x].cat_5, targets[x].cat_6, targets[x].cat_7, ctargets[x].at_8, targets[x].cat_9, targets[x].cat_10, targets[x].cat_11]
+					fix_arr[y].append(tmp)
+					print(fix_arr[y])
+			else :
+				if targets[x].date >= datetime(last_date.year, last_date.month+y, 1).date() and targets[x].date <= datetime(last_date.year, last_date.month+y, 31).date():
+					tmp = [targets[x].id_teacher, targets[x].date, 'result', targets[x].cat_1, targets[x].cat_2, targets[x].cat_3, targets[x].cat_4, targets[x].cat_5, targets[x].cat_6, targets[x].cat_7, targets[x].cat_8, targets[x].cat_9, targets[x].cat_10, targets[x].cat_11]
+					fix_arr[y].append(tmp)
+				print("UwU",targets[x].date, datetime(last_date.year, last_date.month+y, 1).date(), datetime(last_date.year, last_date.month+y, 28).date())
+
+	stdn_test = [[]*distance]
+	
+	for x in range(len(res_test)):
+		for y in range(distance):
+			if last_date.month + y > 12:
+				month = (last_date.month+y) - 12
+				if datetime.strptime(res_test[x][0], '%Y-%m-%d').date() >= datetime(last_date.year+1, month, 1).date() and datetime.strptime(res_test[x][0], '%Y-%m-%d').date() <= datetime(last_date.year+1, month, 31).date():
+					tmp = [res_test[x][1], res_test[x][2], res_test[x][3], res_test[x][8]]
+					stdn_test[y].append(tmp)
+			else :
+				if datetime.strptime(res_test[x][0], '%Y-%m-%d').date() >= datetime(last_date.year, last_date.month+y, 1).date() and datetime.strptime(res_test[x][0], '%Y-%m-%d').date() <= datetime(last_date.year, last_date.month+y, 31).date():
+					tmp = [res_test[x][1], res_test[x][2], res_test[x][3], res_test[x][8]]
+					stdn_test[y].append(tmp)
+		
+	for x in range(len(fix_arr)):
+		res_eval = evaluator.teach_evaluator(fix_arr[x], stdn_test[x])
+		# print("Hasil eval sistem : \n")
+		# print(res_eval)
+		# print(fix_arr[x])
+		# print(targets)
+		# Input data ke DB
+		for y in range(len(res_eval)):
+			add = models.evaluation_tch(
+				date = res_eval[y][1],
+				cat_1 = res_eval[y][3],
+				cat_2 = res_eval[y][4],
+				cat_3 = res_eval[y][5],
+				cat_4 = res_eval[y][6],
+				cat_5 = res_eval[y][7],
+				cat_6 = res_eval[y][8],
+				cat_7 = res_eval[y][9],
+				cat_8 = res_eval[y][10],
+				cat_9 = res_eval[y][11],
+				cat_10 = res_eval[y][12],
+				cat_11 = res_eval[y][13],
+				cat_spec = res_eval[y][14],
+				score = res_eval[y][15],
+				state = res_eval[y][2],
+				id_teacher = res_eval[y][0]
+				)
+			add.save()
+
+def create_eval_stdn(request, use_for = 'admin'):
+	all_eval = []
+	if use_for == 'admin':
+		all_tch = user_sec.theachers_user.objects.filter(admin_id = request.user)
+		for x in range(len(all_tch)):
+			obj = user_sec.students_user.objects.filter(guru_id = all_tch[x].no_induk)
+			for y in range(len(obj)):
+				try:
+					all_eval.append(models.evaluation_stdn.objects.get(id_students = obj[x].no_induk))
+				except Exception as e:
+					print(e)
+	elif use_for == 'teacher':
+		all_stdn = user_sec.students_user.objects.get(guru_id = request.user)
+		for x in range(len(all_stdn)):
+			try:
+				all_eval.append(models.evaluation_stdn.objects.get(id_students = all_stdn[x].no_induk))
+			except Exception as e:
+				print(e)
+
+	end_eval = ''
+	if len(all_eval) != 0:
+		end_eval = all_eval[len(all_eval)-1].date
+	else:
+		end_eval = datetime.now().date()
+	last_date = datetime(end_eval.year, end_eval.month, 1)
+	end_eval = datetime.now().date()
+	this_date = datetime(end_eval.year, end_eval.month, 1)
+
+	res_test = ''
+
+	if use_for == 'admin':
+		res_test = f_get.viewResultTest(request, request.user, has_eval = 'non', admin = True, students = False)
+	elif use_for == 'teacher':
+		res_test = f_get.viewResultTest(request, request.user, has_eval = 'non', teach = True, students = False)
+
+	if len(all_eval) == 0:
+		try:
+			dtime = datetime.strptime(res_test[0][0], '%Y-%m-%d')
+			last_date = datetime(dtime.year, dtime.month, 1)
+		except Exception as e:
+			print(e)
+
+	if last_date != this_date and len(all_eval) != 0:
+		if last_date.month + 1 > 12:
+			last_date = datetime(last_date.year+1, 1, 1)
+		else:
+			last_date = datetime(last_date.year, last_date.month+1, 1)
+
+	all_eval.clear()
+
+	distance = abs(this_date - last_date).days
+	distance = round(distance / 30)
+
+	stdn_test = [[]*distance]
+	
+	for x in range(len(res_test)):
+		for y in range(distance):
+			change = models.result_test.objects.get(id = res_test[x][9])
+			change.state_eval = 'evaluated'
+			change.save()
+			if last_date.month + y > 12:
+				month = (last_date.month+y) - 12
+				if datetime.strptime(res_test[x][0], '%Y-%m-%d').date() >= datetime(last_date.year+1, month, 1).date() and datetime.strptime(res_test[x][0], '%Y-%m-%d').date() <= datetime(last_date.year+1, month, 31).date():
+					tmp = [res_test[x][1], res_test[x][2], res_test[x][3], res_test[x][8], res_test[x][0]]
+					stdn_test[y].append(tmp)
+			else :
+				if datetime.strptime(res_test[x][0], '%Y-%m-%d').date() >= datetime(last_date.year, last_date.month+y, 1).date() and datetime.strptime(res_test[x][0], '%Y-%m-%d').date() <= datetime(last_date.year, last_date.month+y, 31).date():
+					tmp = [res_test[x][1], res_test[x][2], res_test[x][3], res_test[x][8], res_test[x][0]]
+					stdn_test[y].append(tmp)
+	# print(stdn_test[0])
+	for x in range(len(stdn_test)):
+
+		res_eval = evaluator.stdn_evaluator(stdn_test[x])
+
+		for y in range(len(res_eval)):
+
+			quote = ''
+			if res_eval[y][1] > res_eval[y][2]:
+				quote = 'Pertahankan dan tingkatkan pencapaianmu'
+			else:
+				quote = 'Belajarlah lebih rajin lagi'
+
+			add = models.evaluation_stdn(
+				date = res_eval[y][3],
+				quote = quote,
+				min_score = res_eval[y][2],
+				max_score = res_eval[y][1],
+				id_students = res_eval[y][0]
+				)
+			add.save()
+
+def create_survey(request, ID_Result_Test):
+	obj = models.result_test.objects.get(id = ID_Result_Test)
+	obj.survey = 'filled'
+	obj.save()
+
+	add = models.evaluation_tch(
+		date = obj.date,
+		cat_1 = request.POST.get('cat1'),
+		cat_2 = request.POST.get('cat2'),
+		cat_3 = request.POST.get('cat3'),
+		cat_4 = request.POST.get('cat4'),
+		cat_5 = request.POST.get('cat5'),
+		cat_6 = request.POST.get('cat6'),
+		cat_7 = request.POST.get('cat7'),
+		cat_8 = request.POST.get('cat8'),
+		cat_9 = request.POST.get('cat9'),
+		cat_10 = request.POST.get('cat10'),
+		cat_11 = request.POST.get('cat11'),
+		cat_spec = 0,
+		score = 0,
+		state = 'non',
+		id_teacher = obj.id_teacher
+		)
+
+	add.save()
+
+
+def control_survey(request):
+	res_test = models.result_test.objects.filter(id_students = request.user, survey = 'non')
+
+	if len(res_test) == 0:
+		if request.GET.get('single') == None:
+			return '/view_result_test?single=1'
+		else:
+			return '-'
+	else:
+		if request.GET.get('code') == None:
+			return '/survey?code='+str(res_test[0].id)
+		else:
+			return '-'
+
+
+

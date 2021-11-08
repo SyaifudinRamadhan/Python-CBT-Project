@@ -1,0 +1,374 @@
+{% extends "base_test_page.html" %}
+
+{% load static %}
+
+{% block maincontent %}
+<form method="post">
+	{% csrf_token %}
+	<div style="width:80%">
+		<div class="text-center">
+			<label class="text-center fs-5">Survey Kompetensi Guru {{ tch_name }}</label>
+		</div>
+
+		<hr>
+
+		<div class="card">
+		  <div class="card-header fs-5">
+		    Kedisiplinan Guru
+		  </div>
+		  <div class="card-body">
+		    <blockquote class="blockquote mb-0">
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label">Kehadiran mengajar</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat1" id="1" value="1">
+					  <label class="form-check-label" for="1">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat1" id="2" value="2">
+					  <label class="form-check-label" for="2">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat1" id="3" value="3">
+					  <label class="form-check-label" for="3">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat1" id="4" value="4">
+					  <label class="form-check-label" for="4">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat1" id="5" value="5">
+					  <label class="form-check-label" for="5">5</label>
+					</div>
+				</div>
+		      </div>
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label">Ketepatan waktu mengajar</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat2" id="6" value="1">
+					  <label class="form-check-label" for="6">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat2" id="7" value="2">
+					  <label class="form-check-label" for="7">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat2" id="8" value="3">
+					  <label class="form-check-label" for="8">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat2" id="9" value="4">
+					  <label class="form-check-label" for="9">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat2" id="10" value="5">
+					  <label class="form-check-label" for="10">5</label>
+					</div>
+				</div>	
+		      </div>
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label" >Mematuhi aturan mengajar instansi</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat3" id="11" value="1">
+					  <label class="form-check-label" for="11">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat3" id="12" value="2">
+					  <label class="form-check-label" for="12">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat3" id="13" value="3">
+					  <label class="form-check-label" for="13">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat3" id="14" value="4">
+					  <label class="form-check-label" for="14">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat3" id="15" value="5">
+					  <label class="form-check-label" for="15">5</label>
+					</div>
+				</div>
+		      </div>
+		    </blockquote>
+		  </div>
+		</div>
+
+		<hr>
+
+		<div class="card">
+		  <div class="card-header fs-5">
+		    Keterampilan Guru
+		  </div>
+		  <div class="card-body">
+		    <blockquote class="blockquote mb-0">
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label" >Kenyamanan teknik mengajar di kelas</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat4" id="16" value="1">
+					  <label class="form-check-label" for="16">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat4" id="17" value="2">
+					  <label class="form-check-label" for="17">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat4" id="18" value="3">
+					  <label class="form-check-label" for="18">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat4" id="19" value="4">
+					  <label class="form-check-label" for="19">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat4" id="20" value="5">
+					  <label class="form-check-label" for="20">5</label>
+					</div>
+				</div>
+		      </div>
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label" >Ketepatan kurikulum yang dicapai dalam metode pembelajaran</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat5" id="21" value="1">
+					  <label class="form-check-label" for="21">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat5" id="22" value="2">
+					  <label class="form-check-label" for="22">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat5" id="23" value="3">
+					  <label class="form-check-label" for="23">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat5" id="24" value="4">
+					  <label class="form-check-label" for="24">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat5" id="25" value="5">
+					  <label class="form-check-label" for="25">5</label>
+					</div>
+				</div>	
+		      </div>
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label" >Ulet dalam memberikan materi jika siswanya kurang memahami</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat6" id="26" value="1">
+					  <label class="form-check-label" for="26">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat6" id="27" value="2">
+					  <label class="form-check-label" for="27">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat6" id="28" value="3">
+					  <label class="form-check-label" for="28">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat6" id="29" value="4">
+					  <label class="form-check-label" for="29">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat6" id="30" value="5">
+					  <label class="form-check-label" for="30">5</label>
+					</div>
+				</div>
+		      </div>
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label">Kualitas mengajar yang mudah dipahami dan pembelajaran yang menarik</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat7" id="31" value="1">
+					  <label class="form-check-label" for="31">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat7" id="32" value="2">
+					  <label class="form-check-label" for="32">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat7" id="33" value="3">
+					  <label class="form-check-label" for="33">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat7" id="34" value="4">
+					  <label class="form-check-label" for="34">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat7" id="35" value="5">
+					  <label class="form-check-label" for="35">5</label>
+					</div>
+				</div>
+		      </div>
+		    </blockquote>
+		  </div>
+		</div>
+
+		<hr>
+
+		<div class="card">
+		  <div class="card-header fs-5">
+		    Kepribadian Guru
+		  </div>
+		  <div class="card-body">
+		    <blockquote class="blockquote mb-0">
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label">Kesabaran dalam mengajar siswa siswinya</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat8" id="36" value="1">
+					  <label class="form-check-label" for="36">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat8" id="37" value="2">
+					  <label class="form-check-label" for="37">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat8" id="38" value="3">
+					  <label class="form-check-label" for="38">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat8" id="39" value="4">
+					  <label class="form-check-label" for="39">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat8" id="40" value="5">
+					  <label class="form-check-label" for="40">5</label>
+					</div>
+				</div>
+		      </div>
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label">Penilaian siswa yang tepat, adil, dan terbuka</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat9" id="41" value="1">
+					  <label class="form-check-label" for="41">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat9" id="42" value="2">
+					  <label class="form-check-label" for="42">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat9" id="43" value="3">
+					  <label class="form-check-label" for="43">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat9" id="44" value="4">
+					  <label class="form-check-label" for="44">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat9" id="45" value="5">
+					  <label class="form-check-label" for="45">5</label>
+					</div>
+				</div>	
+		      </div>
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label">Loyalitas terhadap profesinya sebagai guru / pengajar</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat10" id="46" value="1">
+					  <label class="form-check-label" for="46">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat10" id="47" value="2">
+					  <label class="form-check-label" for="47">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat10" id="48" value="3">
+					  <label class="form-check-label" for="48">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat10" id="49" value="4">
+					  <label class="form-check-label" for="49">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat10" id="50" value="5">
+					  <label class="form-check-label" for="50">5</label>
+					</div>
+				</div>
+		      </div>
+		      <div class="row">
+		      	<div class="col">
+			      	<div class="form-check form-check-inline">
+					  <label class="form-check-label">Penampilan yang rapi dalam mengajar</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat11" id="51" value="1">
+					  <label class="form-check-label" for="51">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat11" id="52" value="2">
+					  <label class="form-check-label" for="52">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat11" id="53" value="3">
+					  <label class="form-check-label" for="53">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat11" id="54" value="4">
+					  <label class="form-check-label" for="54">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="cat11" id="55" value="5">
+					  <label class="form-check-label" for="55">5</label>
+					</div>
+				</div>
+		      </div>
+		    </blockquote>
+		  </div>
+		</div>
+
+		<div class="mt-3">
+			<button class="btn btn-primary" style="margin-left:40%;" type="submit" name="submit">Submit</button>
+		</div>
+
+	</div>
+</form>
+{% endblock maincontent %}

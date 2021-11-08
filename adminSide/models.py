@@ -56,11 +56,47 @@ class result_test (models.Model):
 	result = models.FloatField()
 	state_test = models.CharField(max_length = 10, blank = True)
 	token = models.CharField(max_length = 10, blank = True)
+	survey = models.CharField(max_length = 10)
+	state_eval = models.CharField(max_length = 10)
 	# FK
 	id_quest = models.IntegerField()
 	id_students = models.CharField(max_length = 20)
 	id_admin = models.IntegerField()
 	id_teacher = models.CharField(max_length = 20)
+
+	def __str__(self):
+		return str(self.date)
+
+class evaluation_tch (models.Model):
+	date = models.DateField()
+	cat_1 = models.IntegerField()
+	cat_2 = models.IntegerField()
+	cat_3 = models.IntegerField()
+	cat_4 = models.IntegerField()
+	cat_5 = models.IntegerField()
+	cat_6 = models.IntegerField()
+	cat_7 = models.IntegerField()
+	cat_8 = models.IntegerField()
+	cat_9 = models.IntegerField()
+	cat_10 = models.IntegerField()
+	cat_11 = models.IntegerField()
+	cat_spec = models.FloatField(null=True, blank=True)
+	score = models.FloatField(null=True, blank=True)
+	# Status ada 3 macam => evaluated, non, result
+	state = models.CharField(max_length = 15)
+	# FK
+	id_teacher = models.CharField(max_length = 20)
+
+	def __str__(self):
+		return str(self.date)
+
+class evaluation_stdn (models.Model):
+	date = models.DateField()
+	quote = models.CharField(max_length = 100)
+	min_score = models.FloatField()
+	max_score = models.FloatField()
+	# FK
+	id_students = models.CharField(max_length = 20)
 
 	def __str__(self):
 		return str(self.date)
