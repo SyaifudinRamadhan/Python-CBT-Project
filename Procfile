@@ -1,1 +1,1 @@
-web: gunicorn cbtproject.wsgi
+web: gunicorn cbt_project.wsgi
