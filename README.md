@@ -3,12 +3,12 @@ Aplikasi ini dibangun dengan framework Django dan Bootstrap. Dengan bahasa pytho
 
 ## Sekilas Tampilan Aplikasi
 
-![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt1.jpeg)
-![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt2.jpeg)
-![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt3.jpeg)
-![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt4.jpeg)
-![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt5.jpeg)
-![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt6.jpeg)
+![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt1.jpg)
+![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt2.jpg)
+![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt3.jpg)
+![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt4.jpg)
+![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt5.jpg)
+![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt6.jpg)
 
 ## Catatan untuk memasang dan menjalankan program pada Editor masing masing :
 1. Install SDK FLutter 2.8.1 Stable
