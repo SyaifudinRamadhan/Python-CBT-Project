@@ -9,10 +9,3 @@ Aplikasi ini dibangun dengan framework Django dan Bootstrap. Dengan bahasa pytho
 ![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt4.jpg)
 ![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt5.jpg)
 ![acc](https://raw.githubusercontent.com/SyaifudinRamadhan/cbt_project/main/.github/images/cbt6.jpg)
-
-## Catatan untuk memasang dan menjalankan program pada Editor masing masing :
-1. Install SDK FLutter 2.8.1 Stable
-2. Install Plugin flutter dan dart pada editor (Android studio/ VS Code/ Intellij IDEA dll yang support)
-3. Import project ToDo List App
-4. Cari catatan error, jika ditemukan install dependencies yanng dibutuhkan dengan perintah "flutter add pub [dependency name]"
-5. Jika selesai menjalanakan perintah diatas, jalankan perintah "flutter pub get"
